@@ -20,10 +20,10 @@ const RadialGradient = () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-
+  const position  = "fixed";
   const gradientStyle = {
     backgroundImage: `radial-gradient(at ${mousePosition.x}% ${mousePosition.y}%, #808080, #000000)`,
-    position: 'fixed' as 'fixed', // Ensure correct typing
+    position: position as "fixed", // Ensure correct typing
     top: 0,
     left: 0,
     width: '100%',

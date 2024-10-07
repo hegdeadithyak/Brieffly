@@ -1,9 +1,9 @@
 'use client'
-import Image from 'next/image';
+// import Image from 'next/image';
 import styles from './style.module.scss';
 
 
-const Card = ({title, description, src, url, color, i}) => {
+const Card = ({title, description, url, color, i}) => {
 
   return (
     <div className={styles.cardContainer}>
@@ -24,13 +24,7 @@ const Card = ({title, description, src, url, color, i}) => {
           </div>
 
           <div className={styles.imageContainer}>
-            <div className={styles.inner}>
-              <Image
-                fill
-                src={`/images/${src}`}
-                alt="image" 
-              />
-            </div>
+            
           </div>
         </div>
       </div>
