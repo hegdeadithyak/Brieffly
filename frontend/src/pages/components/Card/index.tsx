@@ -2,8 +2,15 @@
 // import Image from 'next/image';
 import styles from './style.module.scss';
 
+interface cardprops{
+  title: string;
+  description: string;
+  url: string;
+  color: string;
+  i: number;
+}
 
-const Card = ({title, description, url, color, i}) => {
+const Card = ({title, description, url, color, i} : cardprops) => {
 
   return (
     <div className={styles.cardContainer}>
