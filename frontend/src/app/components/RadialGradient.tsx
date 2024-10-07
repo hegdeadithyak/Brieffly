@@ -22,7 +22,7 @@ const RadialGradient = () => {
   }, []);
 
   const gradientStyle = {
-    backgroundImage: `radial-gradient(at ${mousePosition.x}% ${mousePosition.y}%, #0000FF, #000000)`,
+    backgroundImage: `radial-gradient(at ${mousePosition.x}% ${mousePosition.y}%, #808080, #000000)`,
     position: 'fixed' as 'fixed', // Ensure correct typing
     top: 0,
     left: 0,
