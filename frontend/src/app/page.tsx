@@ -1,7 +1,7 @@
 'use client';
 import styles from './page.module.css';  // Import styles for the current page
 import Card from './components/Card';     // Importing the Card component
-import RadialGradient from 'components/RadialGradient'; // Importing RadialGradient component
+import RadialGradient from './components/RadialGradient'; // Importing RadialGradient component
 import { projects } from '../data'; 
 export default function Home() {
   
