@@ -37,7 +37,7 @@ export default function BriefflyLandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Link href="/signup">
+                <Link href="/signin">
                   <Button>Get Started</Button>
                 </Link>
                 <Button variant="outline">Learn More</Button>
