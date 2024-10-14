@@ -7,7 +7,7 @@ const account = new Account(client);
 const databases = new Databases(client);
 
 client
-    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT) 
-    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
+    .setEndpoint("http://localhost/v1") 
+    .setProject("Brieffly");
 
 export { client, account, databases };
