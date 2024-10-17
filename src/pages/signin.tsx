@@ -1,8 +1,10 @@
 "use client";
+import "src/app/globals.css";
 import React from 'react';
 import { signIn } from 'next-auth/react';
 import { GoalIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
 
 const SignInPage = () => {
   return (
