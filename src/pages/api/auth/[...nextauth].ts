@@ -3,6 +3,8 @@ import NextAuth from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
+// Load environment variables from .env file
+
 export default NextAuth({
   providers: [
     GitHubProvider({
@@ -19,12 +21,12 @@ export default NextAuth({
     error: '/auth/error',
   },
   callbacks: {
-    async signIn(user, account, profile) {
+    async signIn({ user, account, profile }) {
       console.log(user);
       return true;
     },
     async redirect({ url, baseUrl }) {
-      return 'https://www.youtube.com';
+      return 'http://localhost:3000/search';
     },
     async session({ session, user }) {
       return session;
