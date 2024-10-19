@@ -1,37 +1,39 @@
-import { useEffect, useState, useRef } from "react";
-import axios from "axios";
-import Card from "./card";
-import { Loader2 } from "lucide-react";
-import "src/app/globals.css";
+"use client"
 
-
-interface Option {
-  A: string;
-  B: string;
-  C: string;
-  D: string;
-}
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { motion, AnimatePresence } from "framer-motion"
+import { Loader2, ChevronLeft, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Card from "./card"
+import Link from "next/link"
+import "src/app/globals.css"
 
 interface Question {
-  level: string;
-  title: string;
-  options: string[];
-  answer: string;
+  level: string
+  title: string
+  options: string[]
+  answer: string
 }
 
-const Home = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [visibleCards, setVisibleCards] = useState<number>(1);
-  const containerRef = useRef<HTMLDivElement>(null);
+export default function Home() {
+  const [questions, setQuestions] = useState<Question[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [currentCardIndex, setCurrentCardIndex] = useState<number>(0)
+  const [chapterName, setChapterName] = useState<string>("")
 
   useEffect(() => {
     const fetchQuestions = async () => {
+      const urlParams = new URLSearchParams(window.location.search)
+      const chaptername  = urlParams.get('subject') || "demo"
+
+      console.log(chaptername)
+      setChapterName(urlParams.get('subject') || "demo")
       try {
         const response = await axios.post("/api/formulas", {
-          chapterName: "Integrations",
-        });
+          chapterName: chaptername,
+        })
         if (response.data && Array.isArray(response.data.formulas)) {
           const formattedQuestions = response.data.formulas.map(
             (item: any) => ({
@@ -40,108 +42,118 @@ const Home = () => {
               options: item.Options,
               answer: item.answer,
             })
-          );
-          setQuestions(formattedQuestions);
+          )
+          setQuestions(formattedQuestions)
         } else {
-          setError("Invalid data format received from API");
+          setError("Invalid data format received from API")
         }
       } catch (err: any) {
         setError(
           err.response?.data?.message || err.message || "API request failed"
-        );
+        )
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000) // Refresh after 3 seconds
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchQuestions();
-  }, []);
+    fetchQuestions()
+  }, [])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (containerRef.current) {
-        const container = containerRef.current;
-        const scrollPosition = window.scrollY + window.innerHeight;
-        const containerBottom = container.offsetTop + container.offsetHeight;
-        
-        const scrollPercentage = (scrollPosition / containerBottom) * 100;
-        const newVisibleCards = Math.ceil((scrollPercentage / 100) * questions.length);
-        
-        setVisibleCards(Math.min(newVisibleCards, questions.length));
-      }
-    };
+  const handleNext = () => {
+    setCurrentCardIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1))
+  }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [questions.length]);
+  const handlePrev = () => {
+    setCurrentCardIndex((prevIndex) => Math.max(prevIndex - 1, 0))
+  }
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-blue-500 mx-auto" />
-          <p className="mt-4 text-gray-600 font-medium">Loading questions...</p>
+          <Loader2 className="w-12 h-12 animate-spin text-blue-400 mx-auto" />
+          <p className="mt-4 text-gray-300 font-medium">Loading questions...</p>
         </div>
       </div>
-    );
+    )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="bg-red-50 p-6 rounded-lg border border-red-200 max-w-md">
-          <h3 className="text-red-800 font-semibold mb-2">Error Loading Questions</h3>
-          <p className="text-red-600">{error}</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <div className="bg-red-900 p-6 rounded-lg border border-red-700 max-w-md">
+          <h3 className="text-red-200 font-semibold mb-2">Error Loading Questions</h3>
+          <p className="text-red-300">{error}</p>
         </div>
       </div>
-    );
+    )
   }
 
   return (
-    <div 
-      ref={containerRef}
-      className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 px-4 sm:px-6 lg:px-8"
-    >
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-8">
         <header className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Organic Chemistry Quiz
+          <h1 className="text-4xl font-bold text-white mb-2">
+            {chapterName} Quiz
           </h1>
-          <p className="text-gray-600">
-            Scroll down to reveal more questions
+          <p className="text-gray-400">
+            Navigate through questions using the buttons below
           </p>
         </header>
 
         {questions.length > 0 ? (
-          questions.slice(0, visibleCards).map((question, index) => (
-            <div
-              key={index}
-              className="opacity-0 animate-fade-in"
-              style={{
-                animation: `fadeIn 0.5s ease-out ${index * 0.2}s forwards`,
-              }}
-            >
-              <Card question={question} />
+          <div className="flex flex-col items-center relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentCardIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="w-full"
+              >
+                <Card question={questions[currentCardIndex]} />
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="mt-6 flex space-x-4">
+              <Button
+                onClick={handlePrev}
+                disabled={currentCardIndex === 0}
+                variant="outline"
+                className="text-white border-white hover:bg-gray-700"
+              >
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                Prev
+              </Button>
+              <Button
+                onClick={handleNext}
+                disabled={currentCardIndex === questions.length - 1}
+                variant="outline"
+                className="text-white border-white hover:bg-gray-700"
+              >
+                Next
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
-          ))
+          </div>
         ) : (
-          <div className="text-center py-12 bg-white rounded-lg shadow-sm">
-            <p className="text-gray-600">No questions available</p>
+          <div className="text-center py-12 bg-gray-800 rounded-lg shadow-lg">
+            <p className="text-gray-300">No questions available</p>
           </div>
         )}
 
-        {visibleCards < questions.length && (
-          <div className="text-center py-8">
-            <div className="animate-bounce inline-block">
-              <div className="w-8 h-8 border-t-4 border-blue-500 rounded-full mx-auto"></div>
-            </div>
-            <p className="text-sm text-gray-500 mt-2">Scroll for more questions</p>
-          </div>
-        )}
+        <div className="text-center mt-8">
+          <Link href="/" passHref>
+            <Button variant="ghost" className="text-blue-400 hover:text-blue-300">
+              Back to Home
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
-  );
-};
-
-export default Home;
-
+  )
+}

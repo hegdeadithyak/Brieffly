@@ -1,160 +1,131 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { BookOpen, Brain, Clock, Rocket } from "lucide-react";
-import Link from "next/link";
+"use client"
 
-export default function BriefflyLandingPage() {
+import { motion } from "framer-motion"
+import { ArrowRight, LogIn } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
+export default function Home() {
+  const isSignedIn = false // This should be replaced with actual auth state
+
+  const handlegetstarted = () => {
+    window.location.href = "/chapters";
+  }
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link className="flex items-center justify-center" href="#">
-          <BookOpen className="h-6 w-6 mr-2" />
-          <span className="font-bold text-lg">brieffly</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#features">
-            Features
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col relative overflow-hidden">
+      <nav className="w-full p-4 relative z-10 bg-gray-900">
+        <motion.div
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="container mx-auto flex justify-between items-center"
+        >
+          <div className="flex space-x-4">
+            <NavLink href="/about">About Us</NavLink>
+            <NavLink href="/contact">Contact</NavLink>
+          </div>
+          <Link href={isSignedIn ? "/chapters" : "/signin"} passHref>
+            <Button variant="outline" className="text-white border-white hover:bg-gray-700">
+              {isSignedIn ? "My Chapters" : "Sign In"}
+              <LogIn className="ml-2 h-4 w-4" />
+            </Button>
           </Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#how-it-works">
-            How It Works
-          </Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="card">
-            <Button>Start for free</Button>
-          </Link>
-        </nav>
-      </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Master Complex Concepts in 60 Words or Less
-                </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Brieffly helps students revise complex formulas and theories quickly. Perfect for competitive exams and
-                  curious minds eager to learn.
-                </p>
-              </div>
-              <div className="space-x-4">
-                <Link href="/signin">
-                  <Button>Get Started</Button>
-                </Link>
-                <Button variant="outline">Learn More</Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        </motion.div>
+      </nav>
 
-        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">
-              Why Choose Brieffly?
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center text-center">
-                <Clock className="h-12 w-12 mb-4 text-primary" />
-                <h3 className="text-xl font-bold mb-2">Quick Learning</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Condense complex topics into bite-sized, 60-word explanations for rapid understanding.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <Brain className="h-12 w-12 mb-4 text-primary" />
-                <h3 className="text-xl font-bold mb-2">Enhanced Retention</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Concise explanations improve memory retention, making it easier to recall information during exams.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <Rocket className="h-12 w-12 mb-4 text-primary" />
-                <h3 className="text-xl font-bold mb-2">Exam Readiness</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Tailored for competitive exams, helping students quickly review and reinforce key concepts.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+      <main className="flex-grow flex items-center justify-center relative z-10">
+        <div className="text-center space-y-8 px-4">
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-4xl md:text-6xl font-extrabold text-white"
+          >
+            Brieffly: where formulas go on a diet!
+          </motion.h1>
 
-        <section id="how-it-works" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">
-              How Brieffly Works
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold mb-4">
-                  1
-                </div>
-                <h3 className="text-xl font-bold mb-2">Select a Topic</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Choose from a wide range of subjects and specific concepts you want to learn or revise.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold mb-4">
-                  2
-                </div>
-                <h3 className="text-xl font-bold mb-2">Read Concise Explanations</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Get clear, concise explanations of complex formulas and theories in 60 words or less.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold mb-4">
-                  3
-                </div>
-                <h3 className="text-xl font-bold mb-2">Review and Practice</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Use built-in review tools and practice questions to reinforce your understanding.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+          <motion.p
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="text-lg md:text-2xl text-gray-300"
+          >
+            Get genius-level smarts in snack-sized cards—because who has time for long notes?
+          </motion.p>
 
-        {/* Add the CourseSection here */}
-        {/* <CourseSection /> */}
-
-        <section id="get-started" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  Start Learning with Brieffly Today
-                </h2>
-                <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Join thousands of students who are mastering complex concepts quickly and efficiently.
-                </p>
-              </div>
-              <div className="w-full max-w-sm space-y-2">
-                <form className="flex space-x-2">
-                  <Input className="max-w-lg flex-1" placeholder="Enter your email" type="email" />
-                  <Button type="submit">Sign Up</Button>
-                </form>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  By signing up, you agree to our{" "}
-                  <Link className="underline underline-offset-2" href="#">
-                    Terms & Conditions
-                  </Link>
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.4, type: "spring", stiffness: 150 }}
+          >
+            <Button
+              variant="default"
+              size="lg"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+              onClick={handlegetstarted}
+            >
+              <span>Get Started</span>
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </motion.div>
+        </div>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-gray-500 dark:text-gray-400">© 2024 Brieffly. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Terms of Service
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Privacy
-          </Link>
-        </nav>
-      </footer>
+
+      <BackgroundAnimation />
     </div>
-  );
+  )
+}
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <motion.a
+      href={href}
+      className="text-gray-300 hover:text-white transition-colors duration-300 font-semibold text-lg"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {children}
+    </motion.a>
+  )
+}
+
+function BackgroundAnimation() {
+  return (
+    <div className="absolute inset-0 z-0">
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"
+        animate={{
+          background: [
+            "linear-gradient(to bottom right, #1a202c, #2d3748, #000000)",
+            "linear-gradient(to bottom right, #2d3748, #1a202c, #000000)",
+            "linear-gradient(to bottom right, #1a202c, #2d3748, #000000)",
+          ],
+        }}
+        transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
+      />
+      {[...Array(20)].map((_, index) => (
+        <motion.div
+          key={index}
+          className="absolute rounded-full bg-blue-500 opacity-10"
+          style={{
+            width: Math.random() * 100 + 20,
+            height: Math.random() * 100 + 20,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.1, 0.3, 0.1],
+            x: [0, Math.random() * 100 - 50],
+            y: [0, Math.random() * 100 - 50],
+          }}
+          transition={{
+            duration: Math.random() * 10 + 10,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+        />
+      ))}
+    </div>
+  )
 }
