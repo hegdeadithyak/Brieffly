@@ -1,5 +1,5 @@
 node_modules
 src/.env
-.env.local
-.env.local
+src/.env.local
 .next
+.env.local
