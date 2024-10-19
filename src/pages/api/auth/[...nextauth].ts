@@ -26,7 +26,7 @@ export default NextAuth({
       return true;
     },
     async redirect({ url, baseUrl }) {
-      return 'http://localhost:3000/search';
+      return 'http://brieffly-ten.vercel.app/search';
     },
     async session({ session, user }) {
       return session;
