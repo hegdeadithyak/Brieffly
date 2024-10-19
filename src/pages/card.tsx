@@ -16,6 +16,7 @@ interface QuestionProps {
   };
 }
 
+
 const Card: React.FC<QuestionProps> = ({ question }) => {
   const { level, title, options, answer } = question;
 

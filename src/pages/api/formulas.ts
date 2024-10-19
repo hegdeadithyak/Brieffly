@@ -58,39 +58,32 @@ function extractAndJsonify(inputString: string) {
         const extractedString = inputString.slice(start, end + 1);
         console.log("Extracted String:", extractedString);
 
-        // Check if the extracted string is a valid JSON array
         try {
-            // Before parsing, replace invalid JSON structures (like "A", "B", "C" inside Options) with arrays
             const formattedString = extractedString
-                .replace(/"Options":\s*{([^}]*)}/g, (match, p1) => {
-                    // Convert the object-like Options field into a valid array of strings
+                .replace(/"Options":\s*{([^}]*)}/g, (_, p1) => {
                     const optionsArray = p1
                         .split(',')
-                        .map((option: string) => option.trim().replace(/.*?:\s*/, '').trim());
+                        .map((option: string) => `"${option.trim().replace(/.*?:\s*/, '').trim()}"`);
                     return `"Options": [${optionsArray.join(', ')}]`;
                 });
 
-            // Parse the formatted string into JSON format
             const jsonData = JSON.parse(formattedString);
 
-            // Validate JSON data structure if needed
             if (!Array.isArray(jsonData)) {
                 throw new Error("Parsed data is not an array");
             }
 
-            // Validate each item in the array
             jsonData.forEach((item: any, index: number) => {
                 if (!item.level || !item.title || !item.Options || !item.answer) {
                     throw new Error(`Item at index ${index} is missing required fields`);
                 }
             });
-
             return jsonData;
         } catch (error: any) {
             console.error("JSON Parsing Error:", error.message);
-            return { error: `Error decoding JSON: ${error.message}` }; // Return error as JSON
+            return { error: `Error decoding JSON: ${error.message}` };
         }
     } else {
-        return { error: "Brackets not found" }; // Return error as JSON
+        return { error: "Brackets not found" };
     }
 }
