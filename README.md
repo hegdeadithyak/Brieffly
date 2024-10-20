@@ -1,63 +1,92 @@
 # Brieffly
 
-Brieffly is an innovative platform designed to summarize complex formulas and concepts into concise, easy-to-understand cards. The app is built to help students quickly revise formulas and key concepts, especially for competitive exams like IIT JEE, by generating summaries in less than 60 words per formula.
----
+**Brieffly** is a dynamic platform designed to help students memorize and test their understanding of complex formulas and concepts. Instead of simply summarizing formulas, Brieffly turns learning into an interactive experience by providing small, customizable quizzes that challenge users to recall and write down formulas accurately. It is built specifically for students preparing for competitive exams like IIT JEE, offering personalized and engaging tests that aid in effective memorization.
+
 ## Overview
-![briefflyoverview](https://github.com/user-attachments/assets/b60c53fd-6a0b-45b6-8105-acb4b9ea4e38)
-![backendbrieffly](https://github.com/user-attachments/assets/20475e6b-f208-44e4-b8f2-b7c66db04bb9)
----
-## Features
 
-- **Frontend**: The user interface, which allows users to interact with the platform, request formulas, and view generated cards.
-- **Backend**: Handles the processing of requests from the frontend, interacts with APIs and databases, and returns the necessary data to the frontend.
-- **Gemini API Integration**: The Gemini API is used to generate and return formula summaries based on the chapter requests sent by the client.
-- **Appwrite Database**: Manages and stores user data, including formula requests, ensuring that personalized data can be fetched and displayed efficiently.
-- **Automatic DB Clearance**: If the database is inactive for 60 minutes, it clears itself to save space and ensures data regeneration when needed.
+**Brieffly** combines memorization techniques with quizzes to enhance learning, focusing on key formulas and concepts. It prompts users to define concepts, write down formulas, and take tests for better retention, improving their revision and test readiness.
 
-## System Flow
+### Features
 
-1. **Client Interaction**: 
-   - The client sends a request for a specific chapter.
-   - The backend processes this request and interacts with the Gemini API.
-   
-2. **Formula Generation**:
-   - The first few cards are generated quickly and sent to the client.
-   - The Gemini API gradually increases its speed for subsequent requests.
-   
-3. **Database Storage**:
-   - If the requested cards already exist in the database, they are retrieved from there and sent back to the client.
-   - If the DB remains idle for 60 minutes, it is automatically cleared. Once cleared, the content will regenerate if requested again.
+#### **Frontend**:
+- A user-friendly interface where users can take quizzes, test their memory, and check their understanding of formulas.
+- A quiz feature where users are tested to recall and fill in formulas.
+- Personalized testing experience based on the user’s progress and formula history.
+  
+#### **Backend**:
+- Processes requests from the frontend, interacts with the Gemini API for generating test content, and interacts with Appwrite DB to track user progress and responses.
+- Handles formula generation, test creation, and user-specific performance tracking.
+
+#### **Gemini API Integration**:
+- Used to dynamically generate formula-based quizzes, testing users on their ability to define and recall formulas accurately.
+  
+#### **Appwrite Database**:
+- Stores user-related data, including test progress, past formula requests, and quiz history.
+- Tracks user performance to customize future tests based on their strengths and weaknesses.
+
+#### **Automatic DB Clearance**:
+- Clears inactive user data after 60 minutes of inactivity to maintain database efficiency. Users can regenerate data and resume their quizzes at any time.
+
+### System Flow
+
+#### **Client Interaction**:
+- Users start by selecting chapters or topics for their quizzes.
+- The backend processes the request and uses the Gemini API to generate quiz questions focused on concept definitions and formula recall.
+  
+#### **Quiz Generation**:
+- Users are presented with interactive quizzes where they are prompted to either define concepts or write down formulas from memory.
+- Quiz difficulty adjusts dynamically based on the user’s progress.
+  
+#### **Database Storage**:
+- User performance, including their scores, correct answers, and mistakes, are tracked in the Appwrite database.
+- When the DB remains idle for 60 minutes, it is automatically cleared to optimize storage, but users can regenerate content and resume testing at any time.
 
 ## API Overview
 
-- **Gemini API**: Handles formula generation and card creation based on client chapter requests.
-- **Appwrite DB**: Stores user-related data and tracks formula requests to improve response times for repeat requests.
+#### **Gemini API**:
+- Powers formula quiz generation, creating unique and challenging questions for users based on their topic selection.
+
+#### **Appwrite DB**:
+- Manages user-specific data, storing quiz results, formula recall scores, and user progress to provide a personalized learning experience.
 
 ## Development Setup
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/hegdeadithyak/Brieffly.git
-    ```
+Clone the repository:
 
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
+```bash
+git clone https://github.com/hegdeadithyak/Brieffly.git
+```
 
-3. Start the development server:
-    ```bash
-    npm start
-    ```
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
 
 ## Deployment
 
-Brieffly is designed to work seamlessly on cloud platforms and can be deployed using services like **Vercel**.
+**Brieffly** is designed for easy cloud deployment and is currently deployed using services like Vercel for seamless scalability and performance.
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit issues or pull requests on our GitHub repository. Let’s work together to improve the learning experience!
+Contributions are welcome! Whether it’s feature suggestions, bug reports, or code contributions, feel free to submit issues or pull requests on our GitHub repository. Let’s work together to enhance the memorization experience for students!
 
 ## License
 
-Brieffly is open-source and available under the MIT License.
+**Brieffly** is open-source and available under the MIT License.
+
+
+GitHub Repo: [Brieffly](https://github.com/hegdeadithyak/Brieffly)
+
+---
+
+## Contributors
+
+- **Adithya Hegde Kota** ([@hegdeadithyak](https://github.com/hegdeadithyak))
+- **Honey Gyani** ([@honeygyani](https://github.com/honeygyani))
