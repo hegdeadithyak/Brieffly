@@ -1,7 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
-  apiKey: "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", // Store your API key securely in an environment variable
+  apiKey: "", // Store your API key securely in an environment variable
 });
 
 

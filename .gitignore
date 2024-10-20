@@ -1,2 +1,5 @@
 node_modules
 src/.env
+src/.env.local
+.next
+.env.local

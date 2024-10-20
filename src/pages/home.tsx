@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "./card";
+import "src/app/globals.css";
 
 interface Option {
   A: string;
@@ -25,13 +26,14 @@ const Home = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.post("/api/formulas", {
-          chapterName: "Integration",
+          chapterName: "Organic Chemistry",
         });
-        if (Array.isArray(response.data)) {
-          const formattedQuestions = response.data.map((item: any) => ({
+        console.log("API Response:", response.data);
+        if (response.data && Array.isArray(response.data.formulas)) {
+          const formattedQuestions = response.data.formulas.map((item: any) => ({
             level: item.level,
             title: item.title,
-            options: item.Options, // Ensure the correct case for 'Options'
+            options: item.Options,
             answer: item.answer,
           }));
           setQuestions(formattedQuestions);
@@ -48,17 +50,19 @@ const Home = () => {
     fetchQuestions();
   }, []);
 
-  // Handle loading state
   if (loading) return <p>Loading...</p>;
 
-  // Handle error state
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      {questions.map((question, index) => (
-        <Card key={index} question={question} />
-      ))}
+      {questions.length > 0 ? (
+        questions.map((question, index) => (
+          <Card key={index} question={question} />
+        ))
+      ) : (
+        <p>No questions available</p>
+      )}
     </div>
   );
 };
