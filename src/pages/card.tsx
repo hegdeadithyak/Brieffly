@@ -1,5 +1,10 @@
+// components/Card.tsx
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Check, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
+
+interface Option {
+  option: string;
+}
 
 interface Question {
   level: string;
@@ -14,7 +19,6 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ question }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [showAnswer, setShowAnswer] = useState(false);
 
   const getLevelColor = (level: string) => {
     switch (level.toLowerCase()) {
@@ -37,17 +41,19 @@ const Card: React.FC<CardProps> = ({ question }) => {
     return selectedAnswer === option && option !== question.answer;
   };
 
+  if (!question) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="max-w-xl bg-white rounded-xl shadow-lg p-6 space-y-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
-      {/* Header */}
       <div className="flex justify-between items-start">
-        <h3 className="text-xl font-bold text-gray-800">{question.title}</h3>
-        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getLevelColor(question.level)}`}>
+        <h3 className="text-xl font-bold text-gray-800">{question.title || "N/A"}</h3>
+        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getLevelColor(question.level || "Easy")}`}>
           {question.level}
         </span>
       </div>
 
-      {/* Options */}
       <div className="space-y-2 mt-4">
         {question.options.map((option, index) => (
           <button
@@ -66,29 +72,6 @@ const Card: React.FC<CardProps> = ({ question }) => {
             {isIncorrect(option) && <X className="w-5 h-5 text-red-600" />}
           </button>
         ))}
-      </div>
-
-      {/* Show Answer Button */}
-      <div className="pt-4 border-t border-gray-200">
-        <button
-          onClick={() => setShowAnswer(!showAnswer)}
-          className="flex items-center justify-between w-full text-sm text-gray-600 hover:text-gray-800 transition-colors"
-        >
-          <span>Show Answer</span>
-          {showAnswer ? (
-            <ChevronUp className="w-4 h-4" />
-          ) : (
-            <ChevronDown className="w-4 h-4" />
-          )}
-        </button>
-        {showAnswer && (
-          <div className="mt-2 p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-800">
-              <span className="font-medium">Correct Answer:</span>{' '}
-              {question.answer}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
