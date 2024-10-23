@@ -46,6 +46,9 @@ export default function Home() {
           setQuestions(formattedQuestions)
         } else {
           setError("Invalid data format received from API")
+          setTimeout(() => {
+            window.location.reload()
+          }, 3000) 
         }
       } catch (err: any) {
         setError(
