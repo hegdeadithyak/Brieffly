@@ -36,7 +36,7 @@ export default async function handler(req:any, res:any) {
     if (req.method === 'POST') {
         const { chapterName } = req.body;
 
-        console.log('Chapter Name:', chapterName);
+        // console.log('Chapter Name:', chapterName);
 
         try {
             const formulas = await run(chapterName);
@@ -56,7 +56,7 @@ function extractAndJsonify(inputString: string) {
     const end = inputString.lastIndexOf(']');
     if (start !== -1 && end !== -1) {
         const extractedString = inputString.slice(start, end + 1);
-        console.log("Extracted String:", extractedString);
+        // console.log("Extracted String:", extractedString);
 
         try {
             const formattedString = extractedString
