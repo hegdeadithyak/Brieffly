@@ -5,12 +5,15 @@ import { ArrowRight, LogIn } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
+
+
 export default function Home() {
   const isSignedIn = false // This should be replaced with actual auth state
 
   const handlegetstarted = () => {
     window.location.href = "/chapters";
   }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col relative overflow-hidden">
       <nav className="w-full p-4 relative z-10 bg-gray-900">
@@ -35,33 +38,38 @@ export default function Home() {
 
       <main className="flex-grow flex items-center justify-center relative z-10">
         <div className="text-center space-y-8 px-4">
+          
+          {/* Animated Heading with Typical effect */}
           <motion.h1
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut", type: "spring", stiffness: 120 }}
             className="text-4xl md:text-6xl font-extrabold text-white"
           >
-            Brieffly: where formulas go on a diet!
+            Brieffly: where formulas go on a diet!{" "}
+           
           </motion.h1>
 
+          {/* Animated Subheading */}
           <motion.p
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="text-lg md:text-2xl text-gray-300"
           >
             Get genius-level smarts in snack-sized cards—because who has time for long notes?
           </motion.p>
 
+          {/* Animated Button */}
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.4, type: "spring", stiffness: 150 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
           >
             <Button
               variant="default"
               size="lg"
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-transform transform hover:scale-105"
               onClick={handlegetstarted}
             >
               <span>Get Started</span>
