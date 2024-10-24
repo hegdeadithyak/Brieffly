@@ -1,5 +1,6 @@
 // src/app/contact/page.tsx (for Next.js 13 with App Router)
 import { motion } from "framer-motion";
+import "src/app/globals.css";
 
 export default function Contact() {
   return (
