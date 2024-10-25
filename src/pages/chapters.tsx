@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Book, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { BackgroundGradient } from "src/components/ui/background_gradient"
 import "src/app/globals.css"
 
 const chapters = [
@@ -46,27 +47,29 @@ export default function ChaptersPage() {
   )
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; progress: number, path: string } }) {
+function ChapterCard({ chapter }: { chapter: { id: number; title: string; progress: number; path: string } }) {
   return (
-    <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-all duration-300 border border-gray-700">
-      <div className="flex items-center mb-4">
-        <Book className="text-blue-400 mr-2" />
-        <h2 className="text-xl font-semibold text-white">{chapter.title}</h2>
-      </div>
-      <div className="w-full bg-gray-600 rounded-full h-2.5 mb-4">
-        <div
-          className="bg-blue-500 h-2.5 rounded-full"
-          style={{ width: `${chapter.progress}%` }}
-        ></div>
-      </div>
-      <div className="flex justify-between items-center">
-        <span className="text-sm text-gray-400">{chapter.progress}% Complete</span>
-        <Link href={chapter.path}>
-          <Button variant="ghost" className="text-white hover:text-blue-400">
-            Continue
-          </Button>
-        </Link>
-      </div>
+    <div className="rounded-[22px] max-w-sm p-4 sm:p-10">
+      <BackgroundGradient className="bg-white dark:bg-zinc-900">
+        <div className="flex items-center mb-4">
+          <Book className="text-blue-400 mr-2" />
+          <h2 className="text-xl font-semibold text-black dark:text-white">{chapter.title}</h2>
+        </div>
+        <div className="w-full bg-gray-600 rounded-full h-2.5 mb-4">
+          <div
+            className="bg-blue-500 h-2.5 rounded-full"
+            style={{ width: `${chapter.progress}%` }}
+          ></div>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-sm text-gray-400">{chapter.progress}% Complete</span>
+          <Link href={chapter.path}>
+            <button className="rounded-full pl-4 pr-1 py-1 text-white flex items-center space-x-1 bg-black text-xs font-bold dark:bg-zinc-800">
+              <span>Continue</span>
+            </button>
+          </Link>
+        </div>
+      </BackgroundGradient>
     </div>
   )
 }
