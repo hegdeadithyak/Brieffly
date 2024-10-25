@@ -1,13 +1,19 @@
-// src/appwrite.js
+import { Client, Account, OAuthProvider } from "appwrite";
 
-import { Client, Account, Databases } from 'appwrite';
+// Initialize the Appwrite client
+const client = new Client()
+  .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+  .setProject('670b8c280000919250b8'); // Replace with your project ID
 
-const client = new Client();
-const account = new Account(client);
-const databases = new Databases(client);
+// Initialize the Account instance
+export const account = new Account(client);
 
-client
-    .setEndpoint("http://localhost/v1") 
-    .setProject("Brieffly");
-
-export { client, account, databases };
+// Function to create an OAuth2 session
+export const createGoogleOAuthSession = () => {
+  return account.createOAuth2Session(
+    OAuthProvider.Google, // OAuth provider
+    'https://brieffly-ten.vercel.app/chapters', // Redirect on success
+    'https://brieffly-ten.vercel.app/signin', // Redirect on failure
+    ['repo', 'user'] // Scopes (optional)
+  );
+};
