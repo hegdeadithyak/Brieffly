@@ -9,6 +9,9 @@
     border: 1px solid #000; /* Example definition */
   }
 }
+/* In your global CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 
 :root {
   --cards: 4;
