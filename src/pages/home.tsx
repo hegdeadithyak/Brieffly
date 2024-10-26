@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import axios from "axios"
-import { motion, AnimatePresence } from "framer-motion"
-import { Loader2, ChevronLeft, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Card from "./card"
-import Link from "next/link"
-import { Meteors } from "@/components/ui/meteors"
-import "src/app/globals.css"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
+import { Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Card from "./card";
+import Link from "next/link";
+import { Meteors } from "@/components/ui/meteors";
+import "src/app/globals.css";
 
 interface Question {
   level: string
