@@ -1,12 +1,44 @@
 "use client"
+
 import { motion } from "framer-motion"
 import { Book, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
-// import { BackgroundGradient } from "@/components/ui/background_gradient"
 import "src/app/globals.css"
+import { useState } from "react"
 
+function GridBackgroundDemo() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    });
+  };
+
+  return (
+    <div 
+      onMouseMove={handleMouseMove}
+      className="fixed inset-0 z-0 pointer-events-none"
+    >
+      <div className="absolute inset-0 bg-black bg-grid-white/[0.2] opacity-50" />
+      <div className="absolute inset-0 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+      <motion.div
+        animate={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.06), transparent 40%)`,
+        }}
+        transition={{ type: "spring", bounce: 0, duration: 0.2 }}
+        className="absolute inset-0"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/0" />
+    </div>
+  );
+}
 
 const chapters = [
   // Class 11
@@ -45,76 +77,79 @@ const chapters = [
 
 export default function Component() {
   const words = [
-    { text: "IIT JEE Mathematics", className: "bg-clip-text text-transparent text-white from-neutral-200 to-neutral-500" },
-    { text: "Chapters", className: "bg-clip-text text-white from-neutral-200 to-neutral-500" },
+    { text: "IIT JEE Mathematics", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
+    { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b bg-black font-inter">
-      <nav className="w-full p-4 bg-black/50 backdrop-blur-sm">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-white">
-            Brieffly
-          </Link>
-          <Button variant="outline" className="border-white text-white hover:bg-white/20">
-            Back to Home
-          </Button>
-        </div>
-      </nav>
-
-      <main className="container mx-auto px-4 py-8">
-        <div className="flex flex-col items-center mb-12">
-          <TypewriterEffectSmooth words={words} />
-        </div>
-
-        {[11, 12].map((classNum) => (
-          <div key={classNum} className="mb-12">
-            <h2 className="text-3xl font-bold mb-6 text-white">Class {classNum}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {chapters
-                .filter((chapter) => chapter.class === classNum)
-                .map((chapter, index) => (
-                  <motion.div
-                    key={chapter.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <ChapterCard chapter={chapter} />
-                  </motion.div>
-                ))}
-            </div>
+    <div className="relative min-h-screen bg-black font-inter overflow-hidden">
+      <GridBackgroundDemo />
+      <div className="relative z-10">
+        <nav className="w-full p-4 bg-black/50 backdrop-blur-sm">
+          <div className="container mx-auto flex justify-between items-center">
+            <Link href="/" className="text-2xl font-bold text-white">
+              Brieffly
+            </Link>
+            <Button variant="outline" className="border-white text-white hover:bg-white/20">
+              Back to Home
+            </Button>
           </div>
-        ))}
-      </main>
+        </nav>
+        <main className="container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center mb-12">
+            <TypewriterEffectSmooth words={words} />
+          </div>
+
+          {[11, 12].map((classNum) => (
+            <div key={classNum} className="mb-12">
+              <h2 className="text-3xl font-bold mb-6 text-xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Class {classNum}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {chapters
+                  .filter((chapter) => chapter.class === classNum)
+                  .map((chapter, index) => (
+                    <motion.div
+                      key={chapter.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <ChapterCard chapter={chapter} />
+                    </motion.div>
+                  ))}
+              </div>
+            </div>
+          ))}
+        </main>
+      </div>
     </div>
   )
 }
 
 function ChapterCard({ chapter }: { chapter: { id: number; title: string; class: number } }) {
   return (
-    <div className="relative p-[2px] rounded-xl overflow-hidden group">
-      <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-xl animate-gradient"></div>
-      <div className="relative bg-black rounded-xl p-6 h-full transition-all duration-300">
-        <div className="flex flex-col h-full">
-          <div className="flex items-center mb-4">
-            <Book className="text-gray-800 mr-3 h-5 w-5" />
-            <h3 className="text-lg font-semibold text-white line-clamp-2">{chapter.title}</h3>
-          </div>
-          <div className="mt-auto flex justify-between items-center pt-4">
-            <span className="text-sm text-black">Class {chapter.class}</span>
-            <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref>
-              <Button
-                variant="ghost"
-                className="text-slate-300 hover:text-gray-900 hover:bg-black transition-colors duration-300"
-              >
-                Start
-                <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Card className="bg-black/50 border-gray-800 hover:bg-black/70 transition-colors duration-300">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500 font-inter flex items-center">
+          <Book className="mr-2 h-5 w-5" color="white" />
+          {chapter.title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Badge variant="secondary" className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200">
+          Class {chapter.class}
+        </Badge>
+      </CardContent>
+      <CardFooter className="pt-3 text-white">
+        <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref className="w-full">
+          <Button
+            variant="secondary"
+            className="w-full bg-primary/10 hover:bg-primary/20 text-primary-foreground"
+          >
+            Start
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
+      </CardFooter>
+    </Card>
   )
 }
