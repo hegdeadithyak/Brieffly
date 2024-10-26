@@ -1,75 +1,75 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Card from "./card";
-import Link from "next/link";
-import { Meteors } from "src/components/ui/meteors";
-import "src/app/globals.css";
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { motion, AnimatePresence } from "framer-motion"
+import { Loader2, ChevronLeft, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Card from "./card"
+import Link from "next/link"
+import { Meteors } from "@/components/ui/meteors"
+import "src/app/globals.css"
 
 interface Question {
-  level: string;
-  title: string;
-  options: string[];
-  answer: string;
+  level: string
+  title: string
+  options: string[]
+  answer: string
 }
 
 export default function Home() {
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
-  const [chapterName, setChapterName] = useState<string>("");
+  const [questions, setQuestions] = useState<Question[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [currentCardIndex, setCurrentCardIndex] = useState<number>(0)
+  const [chapterName, setChapterName] = useState<string>("")
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const chaptername = urlParams.get("subject") || "demo";
+      const urlParams = new URLSearchParams(window.location.search)
+      const chaptername = urlParams.get("subject") || "demo"
 
-      setChapterName(chaptername);
+      setChapterName(chaptername)
       try {
         const response = await axios.post("/api/formulas", {
           chapterName: chaptername,
-        });
+        })
         if (response.data && Array.isArray(response.data.formulas)) {
           const formattedQuestions = response.data.formulas.map((item: any) => ({
             level: item.level,
             title: item.title,
             options: item.Options,
             answer: item.answer,
-          }));
-          setQuestions(formattedQuestions);
+          }))
+          setQuestions(formattedQuestions)
         } else {
-          setError("Invalid data format received from API");
+          setError("Invalid data format received from API")
           setTimeout(() => {
-            window.location.reload();
-          }, 3000);
+            window.location.reload()
+          }, 3000)
         }
       } catch (err: any) {
         setError(
           err.response?.data?.message || err.message || "API request failed"
-        );
+        )
         setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+          window.location.reload()
+        }, 3000)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchQuestions();
-  }, []);
+    fetchQuestions()
+  }, [])
 
   const handleNext = () => {
-    setCurrentCardIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1));
-  };
+    setCurrentCardIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1))
+  }
 
   const handlePrev = () => {
-    setCurrentCardIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-  };
+    setCurrentCardIndex((prevIndex) => Math.max(prevIndex - 1, 0))
+  }
 
   if (loading) {
     return (
@@ -79,7 +79,7 @@ export default function Home() {
           <p className="mt-4 text-gray-300 font-medium">Loading questions...</p>
         </div>
       </div>
-    );
+    )
   }
 
   if (error) {
@@ -90,13 +90,14 @@ export default function Home() {
           <p className="text-red-300">{error}</p>
         </div>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 relative">
-      {/* Meteors background effect */}
-      <Meteors number={20} />
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <div className="absolute inset-0 w-full h-full">
+        <Meteors number={200} />
+      </div>
 
       <div className="max-w-5xl w-full space-y-8 mx-auto relative z-10">
         <header className="text-center mb-12">
@@ -161,5 +162,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  );
+  )
 }
