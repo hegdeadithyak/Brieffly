@@ -9,8 +9,14 @@ import Link from "next/link"
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
 import "src/app/globals.css"
 import { useState } from "react"
-import { GridBackgroundDemo } from "@/app/page"
 
+function GridBackgroundDemo() {
+  return (
+    <div className="fixed inset-0 z-0">
+      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
+    </div>
+  );
+}
 
 const chapters = [
   // Class 11

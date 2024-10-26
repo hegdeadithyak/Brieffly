@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { Analytics } from "@vercel/analytics/react"
 // import {LampDemo} from "@/components/ui/lamp";
 
-export function GridBackgroundDemo() {
+function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   //@ts-ignore
   const handleMouseMove = (event) => {
