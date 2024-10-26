@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {Navbar} from "@/components/ui/navbar-menu";
 import React, { useState } from "react";
+import { Analytics } from "@vercel/analytics/react"
 // import {LampDemo} from "@/components/ui/lamp";
 
 function GridBackgroundDemo() {
