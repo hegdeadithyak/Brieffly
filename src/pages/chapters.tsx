@@ -49,11 +49,11 @@ export default function ChaptersPage() {
 
 function ChapterCard({ chapter }: { chapter: { id: number; title: string; progress: number; path: string } }) {
   return (
-    <div className="rounded-[22px] max-w-sm p-4 sm:p-10">
-      <BackgroundGradient className="bg-white dark:bg-zinc-900">
+    <div className="rounded-[22px] max-w-sm p-5 sm:p-5 min-h-[200px]"> {/* Set a minimum height */}
+      <BackgroundGradient className="bg-black dark:bg-zinc-900 h-full"> {/* Ensures gradient covers full height */}
         <div className="flex items-center mb-4">
           <Book className="text-blue-400 mr-2" />
-          <h2 className="text-xl font-semibold text-black dark:text-white">{chapter.title}</h2>
+          <h2 className="text-xl font-semibold text-white dark:text-white">{chapter.title}</h2>
         </div>
         <div className="w-full bg-gray-600 rounded-full h-2.5 mb-4">
           <div
@@ -71,5 +71,5 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; progre
         </div>
       </BackgroundGradient>
     </div>
-  )
+  );
 }

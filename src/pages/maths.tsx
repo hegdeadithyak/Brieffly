@@ -1,10 +1,12 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Book, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import "src/app/globals.css"
+import { motion } from "framer-motion";
+import { Book, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import "src/app/globals.css";
+import { BackgroundGradient } from "src/components/ui/background_gradient";
+import { TypewriterEffectSmooth } from "src/components/ui/typewriter-effect";
 
 const chapters = [
   // Class 11
@@ -37,9 +39,14 @@ const chapters = [
   { id: 26, title: "Three-dimensional Geometry", class: 12 },
   { id: 27, title: "Linear Programming", class: 12 },
   { id: 28, title: "Probability", class: 12 },
-]
+];
 
 export default function MathChaptersPage() {
+  const words = [
+    { text: "IIT JEE Mathematics", className: "text-white" },
+    { text: "Chapters", className: "text-white" },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       <nav className="w-full p-4 bg-gray-900">
@@ -52,8 +59,10 @@ export default function MathChaptersPage() {
       </nav>
 
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-white mb-8">IIT JEE Mathematics Chapters</h1>
-        
+        <div className="flex flex-col items-center mb-8">
+          <TypewriterEffectSmooth words={words} />
+        </div>
+
         <div className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">Class 11</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -87,25 +96,27 @@ export default function MathChaptersPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
 function ChapterCard({ chapter }: { chapter: { id: number; title: string; class: number } }) {
   return (
     <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-all duration-300 border border-gray-700">
-      <div className="flex items-center mb-4">
-        <Book className="text-blue-400 mr-2" />
-        <h3 className="text-xl font-semibold text-white">{chapter.title}</h3>
-      </div>
-      <div className="flex justify-between items-center">
-        <span className="text-sm text-gray-400">Class {chapter.class}</span>
-        <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref>
-          <Button variant="ghost" className="text-white hover:text-blue-400">
-            Start
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-      </div>
+      <BackgroundGradient className="bg-black dark:bg-zinc-900 h-full">
+        <div className="flex items-center mb-4">
+          <Book className="text-blue-400 mr-2" />
+          <h3 className="text-xl font-semibold text-white">{chapter.title}</h3>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-sm text-gray-400">Class {chapter.class}</span>
+          <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref>
+            <Button variant="ghost" className="text-white hover:text-blue-400">
+              Start
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </BackgroundGradient>
     </div>
-  )
+  );
 }

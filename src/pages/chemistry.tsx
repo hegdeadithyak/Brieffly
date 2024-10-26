@@ -4,7 +4,10 @@ import { motion } from "framer-motion"
 import { FlaskConical, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { BackgroundGradient } from "src/components/ui/background_gradient"
 import "src/app/globals.css"
+import { TypewriterEffectSmooth } from "src/components/ui/typewriter-effect";
+
 const chapters = [
   // Class 11
   { id: 1, title: "Some Basic Concepts of Chemistry", class: 11 },
@@ -43,6 +46,7 @@ const chapters = [
 export default function ChemistryChaptersPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+
       <nav className="w-full p-4 bg-gray-900">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold text-white">Brieffly</Link>
@@ -53,10 +57,10 @@ export default function ChemistryChaptersPage() {
       </nav>
 
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-white mb-8">IIT JEE Chemistry Chapters</h1>
+        <h1 className="text-4xl font-bold text-white mb-8 text-center">IIT JEE Chemistry Chapters</h1>
         
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">Class 11</h2>
+          <h2 className="text-2xl font-semibold text-white mb-4 ">Class 11</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {chapters.filter(chapter => chapter.class === 11).map((chapter, index) => (
               <motion.div
@@ -93,7 +97,8 @@ export default function ChemistryChaptersPage() {
 
 function ChapterCard({ chapter }: { chapter: { id: number; title: string; class: number } }) {
   return (
-    <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-all duration-300 border border-gray-700">
+    <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-all duration-300 border border-gray-700 min-h-[200px]">
+      <BackgroundGradient className="bg-black dark:bg-zinc-900 h-full">
       <div className="flex items-center mb-4">
         <FlaskConical className="text-blue-400 mr-2" />
         <h3 className="text-xl font-semibold text-white">{chapter.title}</h3>
@@ -107,6 +112,7 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
           </Button>
         </Link>
       </div>
+      </BackgroundGradient>
     </div>
   )
 }

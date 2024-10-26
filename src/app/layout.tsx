@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Breiffly",
+  title: "Brieffly",
   description: "Built with Love 💝",
 };
 
