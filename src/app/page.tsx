@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { Analytics } from "@vercel/analytics/react"
 // import {LampDemo} from "@/components/ui/lamp";
 
-function GridBackgroundDemo() {
+export function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   //@ts-ignore
   const handleMouseMove = (event) => {
@@ -26,23 +26,9 @@ function GridBackgroundDemo() {
       onMouseMove={handleMouseMove}
       className="absolute inset-0 z-0"
     >
-      {/* Base grid background */}
-      <div className="absolute inset-0 bg-black bg-grid-white/[0.2]" />
-      
-      {/* Radial gradient overlay */}
-      <div className="absolute pointer-events-none inset-0 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
-      
-      {/* Hover glow effect */}
-      <motion.div
-        animate={{
-          background: `radial-gradient(300px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.1), transparent 50%)`,
-        }}
-        transition={{ type: "spring", bounce: 0, duration: 0.1 }}
-        className="absolute inset-0 pointer-events-none"
-      />
-      
-      {/* Extra gradient for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+      <div className="fixed inset-0 z-0">
+      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
+    </div>
     </div>
   );
 }

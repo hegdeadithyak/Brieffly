@@ -9,36 +9,8 @@ import Link from "next/link"
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
 import "src/app/globals.css"
 import { useState } from "react"
+import { GridBackgroundDemo } from "@/app/page"
 
-function GridBackgroundDemo() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
-  };
-
-  return (
-    <div 
-      onMouseMove={handleMouseMove}
-      className="fixed inset-0 z-0 pointer-events-none"
-    >
-      <div className="absolute inset-0 bg-black bg-grid-white/[0.2] opacity-50" />
-      <div className="absolute inset-0 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
-      <motion.div
-        animate={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.06), transparent 40%)`,
-        }}
-        transition={{ type: "spring", bounce: 0, duration: 0.2 }}
-        className="absolute inset-0"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/0" />
-    </div>
-  );
-}
 
 const chapters = [
   { id: 1, title: "Sets and Functions", class: 11 },

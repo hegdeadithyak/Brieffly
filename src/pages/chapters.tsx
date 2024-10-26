@@ -18,7 +18,7 @@ const chapters = [
 function GridDotBackground() {
   return (
     <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:16px_16px]" />
+      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
     </div>
   );
 }
