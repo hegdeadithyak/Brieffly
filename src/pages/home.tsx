@@ -96,67 +96,69 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto space-y-8">
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-2">
-            {chapterName} Quiz
-          </h1>
-          <p className="text-gray-400">
-            Navigate through questions using the buttons below
-          </p>
-        </header>
-
-        {questions.length > 0 ? (
-          <div className="flex flex-col items-center relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentCardIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="w-full"
-              >
-                <Card question={questions[currentCardIndex]} />
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="mt-6 flex space-x-4">
-              <Button
-                onClick={handlePrev}
-                disabled={currentCardIndex === 0}
-                variant="outline"
-                className="text-white border-white hover:bg-gray-700"
-              >
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                Prev
-              </Button>
-              <Button
-                onClick={handleNext}
-                disabled={currentCardIndex === questions.length - 1}
-                variant="outline"
-                className="text-white border-white hover:bg-gray-700"
-              >
-                Next
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div className="text-center py-12 bg-gray-800 rounded-lg shadow-lg">
-            <p className="text-gray-300">No questions available</p>
-          </div>
-        )}
-
-        <div className="text-center mt-8">
-          <Link href="/" passHref>
-            <Button variant="ghost" className="text-blue-400 hover:text-blue-300">
-              Back to Home
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-5xl w-full space-y-8 mx-auto">
+      <header className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-white mb-2">
+          {chapterName} Quiz
+        </h1>
+        <p className="text-gray-400">
+          Navigate through questions using the buttons below
+        </p>
+      </header>
+    
+      {questions.length > 0 ? (
+        <div className="flex flex-col items-center relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentCardIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="w-full"
+            >
+              <div className="items-center justify-items-center">
+              <Card  question={questions[currentCardIndex]} />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+  
+          <div className="mt-6 flex space-x-4">
+            <Button
+              onClick={handlePrev}
+              disabled={currentCardIndex === 0}
+              variant="outline"
+              className="text-white border-white hover:bg-gray-700"
+            >
+              <ChevronLeft className="mr-2 h-4 w-4" />
+              Prev
             </Button>
-          </Link>
+            <Button
+              onClick={handleNext}
+              disabled={currentCardIndex === questions.length - 1}
+              variant="outline"
+              className="text-white border-white hover:bg-gray-700"
+            >
+              Next
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
         </div>
+      ) : (
+        <div className="text-center py-12 bg-gray-800 rounded-lg shadow-lg">
+          <p className="text-gray-300">No questions available</p>
+        </div>
+      )}
+  
+      <div className="text-center mt-8">
+        <Link href="/" passHref>
+          <Button variant="ghost" className="text-blue-400 hover:text-blue-300">
+            Back to Home
+          </Button>
+        </Link>
       </div>
     </div>
+  </div>
   )
 }

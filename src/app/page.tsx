@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { SparklesCore } from "@/components/ui/sparkles";
 import Link from "next/link";
 
+
 export default function Home() {
   const isSignedIn = false; // This should be replaced with actual auth state
 
@@ -29,7 +30,7 @@ export default function Home() {
           </div>
           <Link href={isSignedIn ? "/chapters" : "/signin"} passHref>
             <Button
-              borderRadius="1.75rem"
+        
               className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 hover:bg-gray-700 transition-colors duration-300"
             >
               {isSignedIn ? "My Chapters" : "Sign In"}
