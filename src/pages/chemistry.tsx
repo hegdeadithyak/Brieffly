@@ -77,7 +77,7 @@ const chapters = [
 
 export default function Component() {
   const words = [
-    { text: "IIT JEE Mathematics", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
+    { text: "IIT JEE Chemistry", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
     { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
   ]
 
