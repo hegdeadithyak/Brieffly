@@ -36,10 +36,12 @@ const Card: React.FC<CardProps> = ({ question }) => {
   };
 
   const isCorrect = (option: string) => {
+    // console.log(option.trim().toLowerCase()[0], question.answer.trim().toLowerCase());
     return option.trim().toLowerCase()[0] === question.answer.trim().toLowerCase();
   };
 
   const isIncorrect = (option: string) => {
+    // console.log(option.trim().toLowerCase()[0], question.answer.trim().toLowerCase());
     return selectedAnswer === option && !isCorrect(option);
   };
 
