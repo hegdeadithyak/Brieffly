@@ -56,3 +56,25 @@
 .animate-fade-in {
   opacity: 0;
 }
+
+/* Add this to your global CSS file */
+.aceternity-grid-background {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.7;
+  position: relative;
+}
+
+.aceternity-grid-background:hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+  pointer-events: none;
+}
