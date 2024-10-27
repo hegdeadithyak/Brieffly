@@ -8,11 +8,10 @@ import "src/app/globals.css"
 import { useState, useEffect } from "react"
 
 const chapters = [
-  { id: 1, title: "Introduction to Briefly", progress: 0, path: "/introduction" },
   { id: 2, title: "Mathematics", progress: 25, path: "/maths" },
   { id: 3, title: "Physics", progress: 50, path: "/physics" },
   { id: 4, title: "Chemistry", progress: 75, path: "/chemistry" },
-  { id: 5, title: "Biology", progress: 100, path: "/biology" },
+  
 ]
 
 function GridDotBackground() {
@@ -27,7 +26,7 @@ export default function ChaptersPage() {
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
       <GridDotBackground />
-      <nav className="relative w-full p-4 from-black to-white backdrop-blur-sm sticky top-0 z-10">
+      <nav className="relative w-full p-4 from-black to-white backdrop-blur-sm top-0 z-10">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
             Brieffly

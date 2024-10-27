@@ -18,13 +18,14 @@ function GridBackgroundDemo() {
   );
 }
 
+// Updated NEET Physics Chapters
 const chapters = [
   // Class 11
   { id: 1, title: "Physical World and Measurement", class: 11 },
   { id: 2, title: "Kinematics", class: 11 },
   { id: 3, title: "Laws of Motion", class: 11 },
   { id: 4, title: "Work, Energy and Power", class: 11 },
-  { id: 5, title: "Motion of System of Particles and Rigid Body", class: 11 },
+  { id: 5, title: "System of Particles and Rotational Motion", class: 11 },
   { id: 6, title: "Gravitation", class: 11 },
   { id: 7, title: "Properties of Bulk Matter", class: 11 },
   { id: 8, title: "Thermodynamics", class: 11 },
@@ -37,7 +38,7 @@ const chapters = [
   { id: 14, title: "Electromagnetic Induction and Alternating Currents", class: 12 },
   { id: 15, title: "Electromagnetic Waves", class: 12 },
   { id: 16, title: "Optics", class: 12 },
-  { id: 17, title: "Dual Nature of Matter and Radiation", class: 12 },
+  { id: 17, title: "Dual Nature of Radiation and Matter", class: 12 },
   { id: 18, title: "Atoms and Nuclei", class: 12 },
   { id: 19, title: "Electronic Devices", class: 12 },
   { id: 20, title: "Communication Systems", class: 12 },
@@ -45,7 +46,7 @@ const chapters = [
 
 export default function Component() {
   const words = [
-    { text: "IIT JEE Physics", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
+    { text: "NEET Physics", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
     { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
   ]
 
@@ -70,7 +71,7 @@ export default function Component() {
 
           {[11, 12].map((classNum) => (
             <div key={classNum} className="mb-12">
-              <h2 className="text-3xl font-inter mb-6  sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Class {classNum}</h2>
+              <h2 className="text-3xl font-inter mb-6 sm:text-4xl  bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Class {classNum}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {chapters
                   .filter((chapter) => chapter.class === classNum)
@@ -83,7 +84,7 @@ export default function Component() {
                     >
                       <ChapterCard chapter={chapter} />
                     </motion.div>
-                  ))}
+                  ))}              
               </div>
             </div>
           ))}
