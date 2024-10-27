@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import {useState} from "react";
+import { cn } from "@/lib/utils";
 
 const transition = {
   type: "spring",
@@ -26,10 +26,10 @@ export const MenuItem = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <div onMouseEnter={() => setActive(item)} className="relative ">
+    <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+        className="cursor-pointer text-white hover:opacity-[0.9]"
       >
         {item}
       </motion.p>
@@ -43,13 +43,10 @@ export const MenuItem = ({
             <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
               <motion.div
                 transition={transition}
-                layoutId="active" // layoutId ensures smooth animation
-                className="bg-black dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
+                layoutId="active"
+                className="bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-white/[0.2] shadow-xl"
               >
-                <motion.div
-                  layout // layout ensures smooth animation
-                  className="w-max h-full p-4"
-                >
+                <motion.div layout className="w-max h-full p-4">
                   {children}
                 </motion.div>
               </motion.div>
@@ -70,8 +67,8 @@ export const Menu = ({
 }) => {
   return (
     <nav
-      onMouseLeave={() => setActive(null)} // resets the state
-      className="relative rounded-full border border-transparent dark:bg-black dark:border-white/[0.2] bg-white shadow-input flex justify-center space-x-4 px-8 py-6 "
+      onMouseLeave={() => setActive(null)}
+      className="relative rounded-full border border-transparent bg-gray-800 shadow-input flex justify-center items-center space-x-6 px-8 py-6"
     >
       {children}
     </nav>
@@ -99,12 +96,8 @@ export const ProductItem = ({
         className="flex-shrink-0 rounded-md shadow-2xl"
       />
       <div>
-        <h4 className="text-xl font-bold mb-1 text-black dark:text-white">
-          {title}
-        </h4>
-        <p className="text-neutral-700 text-sm max-w-[10rem] dark:text-neutral-300">
-          {description}
-        </p>
+        <h4 className="text-xl font-bold mb-1 text-white">{title}</h4>
+        <p className="text-neutral-300 text-sm max-w-[10rem]">{description}</p>
       </div>
     </Link>
   );
@@ -112,43 +105,32 @@ export const ProductItem = ({
 
 export const HoveredLink = ({ children, ...rest }: any) => {
   return (
-    <Link
-      {...rest}
-      className="text-black dark:text-slate-100 hover:text-slate-600 "
-    >
+    <Link {...rest} className="text-white hover:text-gray-400 transition">
       {children}
     </Link>
   );
 };
 
-import { cn } from "@/lib/utils";
- 
 export function NavbarDemo() {
   return (
-    <div className="relative w-full flex items-center justify-center">
+    <div className="relative w-full flex items-center justify-center bg-gray-900 py-10">
       <Navbar className="top-2" />
-      <p className="text-white dark:text-white">
-        The Navbar will show on top of the page
-      </p>
-    </div>
-  );
-}
- 
-export function Navbar({ className }: { className?: string }) {
-  const [active, setActive] = useState<string | null>(null);
-  return (
-    <div
-      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
-    >
-      <Menu setActive={setActive}>
-        
-        {/* <MenuItem setActive={setActive} active={active} item="Products">
-           
-        </MenuItem> */}
-        <HoveredLink href="/about">About us</HoveredLink>
-        <HoveredLink href="/contact">Contact us</HoveredLink>
-      </Menu>
+      <p className="text-white mt-4">The Navbar will show on top of the page</p>
     </div>
   );
 }
 
+export function Navbar({ className }: { className?: string }) {
+  const [active, setActive] = useState<string | null>(null);
+  return (
+    <div className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}>
+      <Menu setActive={setActive}>
+        <HoveredLink href="/about">About us</HoveredLink>
+        <HoveredLink href="/contact">Contact us</HoveredLink>
+        <HoveredLink href="/signin">Signup</HoveredLink>
+        {/* Added Sign Up Button */}
+        
+      </Menu>
+    </div>
+  );
+}
