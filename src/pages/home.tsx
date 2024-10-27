@@ -41,6 +41,7 @@ export default function Home() {
             options: item.Options,
             answer: item.answer,
           }))
+          console.log(formattedQuestions)
           setQuestions(formattedQuestions)
         } else {
           setError("Invalid data format received from API")
