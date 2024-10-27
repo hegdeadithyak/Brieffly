@@ -1,65 +1,132 @@
-"use client"; // Indicate that this component uses client-side rendering
+'use client'
 
-import { motion } from "framer-motion";
-import "src/app/globals.css";
-import { HeroHighlight, Highlight } from "src/components/ui/highlight1";
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { motion } from 'framer-motion'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import "src/app/globals.css"
 
-export default function Contact() {
+// Grid background component
+function GridDotBackground() {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-center space-y-4"
-      >
-        <HeroHighlightDemo /> {/* Add the HeroHighlightDemo component here */}
-        <h1 className="text-4xl font-bold text-white mb-6">Follow Us</h1>
-        <div className="flex justify-center space-x-8">
-          {/* Replace 'src' with your actual icon image paths */}
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-            <img src="src/components/ui/icons/github.png" alt="GitHub" className="h-10 w-10" />
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-            <img src="src/components/ui/icons/instagram.png" alt="Instagram" className="h-10 w-10" />
-          </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-            <img src="src/components/ui/icons/facebook.png" alt="Facebook" className="h-10 w-10" />
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-            <img src="src/components/ui/icons/twitter.jpeg" alt="Twitter" className="h-10 w-10" />
-          </a>
-        </div>
-      </motion.div>
+    <div className="fixed inset-0 z-0">
+      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
     </div>
   );
 }
 
-// HeroHighlightDemo Component
-function HeroHighlightDemo() {
+export default function ContactPage() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const router = useRouter()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Here you would typically send the form data to your server
+    console.log('Form submitted:', { name, email })
+    // Redirect to a thank you page
+    router.push('/thank-you')
+  }
+
   return (
-    <HeroHighlight>
-      <motion.h1
-        initial={{
-          opacity: 0,
-          y: 20,
-        }}
-        animate={{
-          opacity: 1,
-          y: [20, -5, 0],
-        }}
-        transition={{
-          duration: 0.5,
-          ease: [0.4, 0.0, 0.2, 1],
-        }}
-        className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
-      >
-        With insomnia, nothing&apos;s real. Everything is far away. Everything
-        is a{" "}
-        <Highlight className="text-black dark:text-white">
-          copy, of a copy, of a copy.
-        </Highlight>
-      </motion.h1>
-    </HeroHighlight>
-  );
+    <div className="relative min-h-screen bg-black flex items-center justify-center p-4 font-inter">
+      <GridDotBackground />
+      <div className="max-w-4xl w-full space-y-8 z-10">
+        <div className="text-center">
+          <h1 className="text-3xl font-extrabold text-white font-inter">Contact Us</h1>
+          <p className="mt-2 text-sm text-gray-400 font-inter">We'd love to hear from you!</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-white font-inter">Contact Information</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <Mail className="text-gray-400" size={20} />
+                <span className="text-gray-300">briefflyexample@gmail.com</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Phone className="text-gray-400" size={20} />
+                <span className="text-gray-300">+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <MapPin className="text-gray-400" size={20} />
+                <span className="text-gray-300">123 Main St, Anytown, India 12345</span>
+              </div>
+              <div className="flex justify-start space-x-4 mt-4">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
+                  <Facebook size={24} />
+                  <span className="sr-only">Facebook</span>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 transition-colors">
+                  <Twitter size={24} />
+                  <span className="sr-only">Twitter</span>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-800 transition-colors">
+                  <Instagram size={24} />
+                  <span className="sr-only">Instagram</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-800 hover:text-blue-900 transition-colors">
+                  <Linkedin size={24} />
+                  <span className="sr-only">LinkedIn</span>
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-white font-inter">Send us a message</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                <div>
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    placeholder="Your Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="text-gray-200 bg-gray-800 border-gray-700"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="Your Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="text-gray-200 bg-gray-800 border-gray-700"
+                  />
+                </div>
+                <Button type="submit" className="w-full bg-gray-600 hover:bg-gray-700 transition-colors">
+                  Send Message
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) {
+  return (
+    <label htmlFor={htmlFor} className="block text-sm font-medium text-gray-300 mb-1">
+      {children}
+    </label>
+  )
 }

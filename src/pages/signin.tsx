@@ -9,7 +9,15 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import "src/app/globals.css";
-import { BackgroundGradient } from "src/components/ui/background_gradient";
+
+// Grid background component
+function GridDotBackground() {
+  return (
+    <div className="fixed inset-0 z-0">
+      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
+    </div>
+  );
+}
 
 const SignupFormDemo = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,13 +26,12 @@ const SignupFormDemo = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
-      <BackgroundGradient className="rounded-[22px] max-w-lg w-full p-4 sm:p-10 bg-blue dark:bg-zinc-900 overflow-hidden"> {/* Removed fixed height for flexibility */}
-        <h2 className="text-2xl font-inter text-center text-white">
-          SignUp to Brieffly
-        </h2>
+    <div className="relative flex items-center justify-center min-h-screen bg-black font-inter">
+      <GridDotBackground />
+      <div className="relative z-10 rounded-[22px] max-w-lg w-full p-4 sm:p-10 bg-gray-900 bg-opacity-70 backdrop-blur-lg overflow-hidden">
+        <h2 className="text-2xl font-inter text-center text-white">SignUp to Brieffly</h2>
         <p className="text-neutral-300 text-center text-sm mt-2 text-white">
-          Login to Brieffly to get all access for your preparation
+          Sign Up to get all access for your preparation
         </p>
 
         <form className="my-8" onSubmit={handleSubmit}>
@@ -57,7 +64,7 @@ const SignupFormDemo = () => {
           </LabelInputContainer>
 
           <button
-            className="relative w-full bg-gradient-to-br from-blue-500 to-purple-600 text-white h-12 rounded-md"
+            className="relative w-full bg-gradient-to-br from-blue-500 to-purple-600 text-white h-12 rounded-md group"
             type="submit"
           >
             Sign up &rarr;
@@ -65,12 +72,12 @@ const SignupFormDemo = () => {
           </button>
         </form>
 
-        <div className="flex flex-col space-y-2 text-white mt-6 "> {/* Adjusted spacing */}
+        <div className="flex flex-col space-y-2 text-white mt-6">
           <OAuthButton icon={<IconBrandGithub />} text="GitHub" />
           <OAuthButton icon={<IconBrandGoogle />} text="Google" />
           <OAuthButton icon={<IconBrandOnlyfans />} text="OnlyFans" />
         </div>
-      </BackgroundGradient>
+      </div>
     </div>
   );
 };
