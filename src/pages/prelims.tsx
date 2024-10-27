@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
 import "src/app/globals.css"
-import { useState } from "react"
 
 function GridBackgroundDemo() {
   return (
@@ -18,34 +17,25 @@ function GridBackgroundDemo() {
   );
 }
 
+// UPSC Preliminary Exam GS-I Topics
 const chapters = [
-  // Class 11
-  { id: 1, title: "Physical World and Measurement", class: 11 },
-  { id: 2, title: "Kinematics", class: 11 },
-  { id: 3, title: "Laws of Motion", class: 11 },
-  { id: 4, title: "Work, Energy and Power", class: 11 },
-  { id: 5, title: "Motion of System of Particles and Rigid Body", class: 11 },
-  { id: 6, title: "Gravitation", class: 11 },
-  { id: 7, title: "Properties of Bulk Matter", class: 11 },
-  { id: 8, title: "Thermodynamics", class: 11 },
-  { id: 9, title: "Behaviour of Perfect Gas and Kinetic Theory", class: 11 },
-  { id: 10, title: "Oscillations and Waves", class: 11 },
-  // Class 12
-  { id: 11, title: "Electrostatics", class: 12 },
-  { id: 12, title: "Current Electricity", class: 12 },
-  { id: 13, title: "Magnetic Effects of Current and Magnetism", class: 12 },
-  { id: 14, title: "Electromagnetic Induction and Alternating Currents", class: 12 },
-  { id: 15, title: "Electromagnetic Waves", class: 12 },
-  { id: 16, title: "Optics", class: 12 },
-  { id: 17, title: "Dual Nature of Matter and Radiation", class: 12 },
-  { id: 18, title: "Atoms and Nuclei", class: 12 },
-  { id: 19, title: "Electronic Devices", class: 12 },
-  { id: 20, title: "Communication Systems", class: 12 },
+  { id: 1, title: "Current Events of National Importance" },
+  { id: 2, title: "History of India" },
+  { id: 3, title: "Indian National Movement" },
+  { id: 4, title: "Indian and World Geography" },
+  { id: 5, title: "Indian Polity and Governance" },
+  { id: 6, title: "Economic and Social Development" },
+  { id: 7, title: "General Science" },
+  { id: 8, title: "Environmental Ecology" },
+  { id: 9, title: "Biodiversity and Climate Change" },
+  { id: 10, title: "Technology in India" },
+  { id: 11, title: "Social Issues in India" },
+  { id: 12, title: "Disaster Management" },
 ]
 
 export default function Component() {
   const words = [
-    { text: "IIT JEE Physics", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
+    { text: "UPSC Preliminary Examination", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
     { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
   ]
 
@@ -68,32 +58,28 @@ export default function Component() {
             <TypewriterEffectSmooth words={words} />
           </div>
 
-          {[11, 12].map((classNum) => (
-            <div key={classNum} className="mb-12">
-              <h2 className="text-3xl font-inter mb-6  sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Class {classNum}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {chapters
-                  .filter((chapter) => chapter.class === classNum)
-                  .map((chapter, index) => (
-                    <motion.div
-                      key={chapter.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <ChapterCard chapter={chapter} />
-                    </motion.div>
-                  ))}
-              </div>
+          <div className="mb-12">
+            <h2 className="text-3xl font-inter mb-6  sm:text-4xl  bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Preliminary Examination Topics</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {chapters.map((chapter, index) => (
+                <motion.div
+                  key={chapter.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <ChapterCard chapter={chapter} />
+                </motion.div>
+              ))}
             </div>
-          ))}
+          </div>
         </main>
       </div>
     </div>
   )
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; class: number } }) {
+function ChapterCard({ chapter }: { chapter: { id: number; title: string } }) {
   return (
     <Card className="bg-black/50 border-gray-800 hover:bg-black/70 transition-colors duration-300">
       <CardHeader className="pb-3">
@@ -104,7 +90,7 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
       </CardHeader>
       <CardContent>
         <Badge variant="secondary" className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200">
-          Class {chapter.class}
+          UPSC Chapter
         </Badge>
       </CardContent>
       <CardFooter className="pt-3 text-white">

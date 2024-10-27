@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
@@ -36,50 +35,13 @@ export default function ContactPage() {
       <GridDotBackground />
       <div className="max-w-4xl w-full space-y-8 z-10">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold text-white font-inter">Contact Us</h1>
-          <p className="mt-2 text-sm text-gray-400 font-inter">We'd love to hear from you!</p>
+          <h1 className="text-3xl font-extrabold text-white ">Contact Us</h1>
+          <p className="mt-2 text-sm text-gray-400 ">We'd love to hear from you!</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-white font-inter">Contact Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <Mail className="text-gray-400" size={20} />
-                <span className="text-gray-300">briefflyexample@gmail.com</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="text-gray-400" size={20} />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="text-gray-400" size={20} />
-                <span className="text-gray-300">123 Main St, Anytown, India 12345</span>
-              </div>
-              <div className="flex justify-start space-x-4 mt-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
-                  <Facebook size={24} />
-                  <span className="sr-only">Facebook</span>
-                </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 transition-colors">
-                  <Twitter size={24} />
-                  <span className="sr-only">Twitter</span>
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-800 transition-colors">
-                  <Instagram size={24} />
-                  <span className="sr-only">Instagram</span>
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-800 hover:text-blue-900 transition-colors">
-                  <Linkedin size={24} />
-                  <span className="sr-only">LinkedIn</span>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          {/* Send us a message Card first */}
+          <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-6">
             <CardHeader>
               <CardTitle className="text-white font-inter">Send us a message</CardTitle>
             </CardHeader>
@@ -115,6 +77,45 @@ export default function ContactPage() {
                   Send Message
                 </Button>
               </form>
+            </CardContent>
+          </Card>
+
+          {/* Contact Information Card second */}
+          <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-6">
+            <CardHeader>
+              <CardTitle className="text-white font-inter">Contact Information</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <Mail className="text-gray-400" size={20} />
+                <span className="text-gray-300">briefflyexample@gmail.com</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Phone className="text-gray-400" size={20} />
+                <span className="text-gray-300">+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <MapPin className="text-gray-400" size={20} />
+                <span className="text-gray-300">123 Main St, Anytown, India 12345</span>
+              </div>
+              <div className="flex justify-start space-x-4 mt-4">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
+                  <Facebook size={24} />
+                  <span className="sr-only">Facebook</span>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 transition-colors">
+                  <Twitter size={24} />
+                  <span className="sr-only">Twitter</span>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-800 transition-colors">
+                  <Instagram size={24} />
+                  <span className="sr-only">Instagram</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-800 hover:text-blue-900 transition-colors">
+                  <Linkedin size={24} />
+                  <span className="sr-only">LinkedIn</span>
+                </a>
+              </div>
             </CardContent>
           </Card>
         </div>

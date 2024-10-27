@@ -30,7 +30,7 @@ const SignupFormDemo = () => {
       <GridDotBackground />
       <div className="relative z-10 rounded-[22px] max-w-lg w-full p-4 sm:p-10 bg-gray-900 bg-opacity-70 backdrop-blur-lg overflow-hidden">
         <h2 className="text-2xl font-inter text-center text-white">SignUp to Brieffly</h2>
-        <p className="text-neutral-300 text-center text-sm mt-2 text-white">
+        <p className=" text-center text-sm mt-2 text-white">
           Sign Up to get all access for your preparation
         </p>
 

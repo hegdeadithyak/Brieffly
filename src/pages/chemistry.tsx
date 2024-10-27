@@ -81,7 +81,7 @@ export default function Component() {
 
           {[11, 12].map((classNum) => (
             <div key={classNum} className="mb-12">
-              <h2 className="text-3xl font-bold mb-6 text-xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Class {classNum}</h2>
+              <h2 className="text-3xl font-inter mb-6 sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Class {classNum}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {chapters
                   .filter((chapter) => chapter.class === classNum)
@@ -108,7 +108,7 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
   return (
     <Card className="bg-black/50 border-gray-800 hover:bg-black/70 transition-colors duration-300">
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500 font-inter flex items-center">
+        <CardTitle className=" text-xl sm:text-2xl font-inter bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500 font-inter flex items-center">
           <Book className="mr-2 h-5 w-5" color="white" />
           {chapter.title}
         </CardTitle>

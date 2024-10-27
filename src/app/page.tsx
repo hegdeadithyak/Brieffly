@@ -37,7 +37,7 @@ export default function Home() {
   const isSignedIn = false;
 
   const handleGetStarted = () => {
-    window.location.href = "/chapters";
+    window.location.href = "/courses";
   };
 
   return (
