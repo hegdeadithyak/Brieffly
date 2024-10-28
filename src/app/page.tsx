@@ -9,7 +9,7 @@ import React, { useState } from "react";
 function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (event:any) => {
+  const handleMouseMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setMousePosition({
       x: event.clientX - rect.left,
@@ -50,6 +50,7 @@ export default function Home() {
 
       <main className="flex-grow flex items-center justify-center relative z-10">
         <div className="text-center space-y-8 px-4">
+          {/* Animated Heading */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -61,6 +62,7 @@ export default function Home() {
             </h1>
           </motion.div>
 
+          {/* Animated Subheading */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -70,6 +72,7 @@ export default function Home() {
             Get genius-level smarts in snack-sized cards—because who has time for long notes?
           </motion.p>
 
+          {/* Get Started Button */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -92,17 +95,20 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
           >
-            <HoverBorderGradient
-              containerClassName="rounded-full mt-4"
-              as="a"
+            <a
               href="https://github.com/hegdeadithyak/Brieffly"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-6 py-3"
+              className="rounded-full mt-4 inline-block"
             >
-              <span>Star on GitHub</span>
-              <Star className="ml-2 h-5 w-5 text-white" />
-            </HoverBorderGradient>
+              <HoverBorderGradient
+                containerClassName="rounded-full"
+                className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-6 py-3"
+              >
+                <span>Star on GitHub</span>
+                <Star className="ml-2 h-5 w-5 text-white" />
+              </HoverBorderGradient>
+            </a>
           </motion.div>
         </div>
       </main>
