@@ -9,7 +9,7 @@ import React, { useState } from "react"
 function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  const handleMouseMove = (event:any) => {
+  const handleMouseMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect()
     setMousePosition({
       x: event.clientX - rect.left,
@@ -44,7 +44,7 @@ export default function Home() {
           <Navbar />
         </motion.div>
 
-        {/* Updated Star on GitHub Button - Top Right */}
+        {/* Updated Star on GitHub Button - Top Right with Pulsing Effect */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,11 +54,11 @@ export default function Home() {
           <Button
             variant="outline"
             size="sm"
-            className="bg-black/50 backdrop-blur-sm text-white border-white/20 hover:bg-white/10 hover:text-white transition-colors duration-300"
+            className="bg-black/50 backdrop-blur-sm text-white border-white/20 hover:bg-white/10 hover:text-white transition-colors duration-300 animate-pulse"
             onClick={() => window.open("https://github.com/hegdeadithyak/Brieffly", "_blank")}
           >
-            <Star className="mr-2 h-4 w-4" />
-            Star on GitHub
+            <Star className="mr-2 h-4 w-4 text-yellow-400" />
+            <span className="text-white font-semibold">Star on GitHub</span>
           </Button>
         </motion.div>
       </nav>
