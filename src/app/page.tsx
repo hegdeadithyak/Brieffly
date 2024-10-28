@@ -54,7 +54,7 @@ export default function Home() {
           <Button
             variant="outline"
             size="sm"
-            className="bg-black/50 backdrop-blur-sm text-white border-white/20 hover:bg-white/10 hover:text-white transition-colors duration-300 animate-pulse"
+            className="bg-black/50 backdrop-blur-sm text-white mx-10 border-white/20 hover:bg-white/10 hover:text-white transition-colors duration-300 animate-pulse"
             onClick={() => window.open("https://github.com/hegdeadithyak/Brieffly", "_blank")}
           >
             <Star className="mr-2 h-4 w-4 text-yellow-400" />
