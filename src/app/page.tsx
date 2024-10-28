@@ -8,7 +8,6 @@ import { HoverBorderGradient } from "@/components/ui/hover_border_gradient";
 import { Navbar } from "@/components/ui/navbar-menu"; // Make sure the path is correct
 import React, { useState } from "react";
 
-
 function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -33,6 +32,10 @@ function GridBackgroundDemo() {
 export default function Home() {
   const handleGetStarted = () => {
     window.location.href = "/courses";
+  };
+
+  const handleStarOnGit = () => {
+    window.location.href = "https://github.com/hegdeadithyak/Brieffly";
   };
 
   return (
@@ -78,13 +81,14 @@ export default function Home() {
               Get genius-level smarts in snack-sized cards—because who has time for long notes?
             </motion.p>
 
-            {/* Get Started Button */}
+            {/* Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
-              className="flex justify-center"
+              className="flex justify-between w-full max-w-sm mx-auto"
             >
+              {/* Get Started Button on Left */}
               <HoverBorderGradient
                 containerClassName="rounded-full"
                 as="button"
@@ -93,6 +97,16 @@ export default function Home() {
               >
                 <span>Get Started</span>
                 <ArrowRight className="ml-2 h-5 w-5 text-white" />
+              </HoverBorderGradient>
+
+              {/* Star on GitHub Button on Right */}
+              <HoverBorderGradient
+                containerClassName="rounded-full"
+                as="button"
+                className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-6 py-2"
+                onClick={handleStarOnGit}
+              >
+                <span>Star on GitHub</span>
               </HoverBorderGradient>
             </motion.div>
           </div>
