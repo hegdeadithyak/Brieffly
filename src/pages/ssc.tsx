@@ -94,7 +94,7 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string } }) {
         </Badge>
       </CardContent>
       <CardFooter className="pt-3 text-white">
-        <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref className="w-full">
+        <Link href={`/home_ssc?subject=${encodeURIComponent(chapter.title)}`} passHref className="w-full">
           <Button
             variant="secondary"
             className="w-full bg-primary/10 hover:bg-primary/20 text-primary-foreground"
