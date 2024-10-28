@@ -9,7 +9,7 @@ import React, { useState } from "react"
 function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event:any) => {
     const rect = event.currentTarget.getBoundingClientRect()
     setMousePosition({
       x: event.clientX - rect.left,
