@@ -1,24 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Star } from "lucide-react"
-import { HoverBorderGradient } from "@/components/ui/hover_border_gradient"
-import { Navbar } from "@/components/ui/navbar-menu"
-import React, { useState } from "react"
+import { Star } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import React from "react"
 
 function GridBackgroundDemo() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  const handleMouseMove = (event:any) => {
-    const rect = event.currentTarget.getBoundingClientRect()
-    setMousePosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    })
-  }
-
   return (
-    <div onMouseMove={handleMouseMove} className="absolute inset-0 z-0">
+    <div className="absolute inset-0 z-0">
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
@@ -31,62 +20,32 @@ export default function Home() {
     window.location.href = "/courses"
   }
 
+  const handleStarOnGitHub = () => {
+    window.open("https://github.com/hegdeadithyak/Brieffly", "_blank", "noopener,noreferrer")
+  }
+
   return (
     <div className="min-h-screen bg-black flex flex-col relative overflow-hidden font-inter">
       {/* Navigation Bar with Star on GitHub Button */}
       <nav className="flex justify-between items-center p-4">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative inline-block"
-        >
-          <Navbar />
-        </motion.div>
+        <div className="text-white text-2xl font-bold">Brieffly</div>
 
-        {/* Animated Star on GitHub Button - Top Right */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative"
+        {/* Updated Star on GitHub Button */}
+        <motion.button
+          onClick={handleStarOnGitHub}
+          className="group relative inline-flex items-center justify-center px-4 py-2 overflow-hidden font-medium text-white bg-gray-800 rounded-lg shadow-2xl"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          <motion.a
-            href="https://github.com/hegdeadithyak/Brieffly"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full inline-block"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <HoverBorderGradient
-              containerClassName="rounded-full"
-              className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-4 py-2 overflow-hidden"
-            >
-              <motion.span
-                initial={{ backgroundPosition: "0 0" }}
-                animate={{ backgroundPosition: ["0 0", "100% 0", "0 0"] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                className="bg-clip-text text-transparent bg-[linear-gradient(to_right,#fff,#fff,#9ca3af,#fff,#fff)] bg-[length:200%_100%]"
-              >
-                Star on GitHub
-              </motion.span>
-              <motion.div
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 15, -15, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              >
-                <Star className="ml-2 h-5 w-5 text-yellow-400" />
-              </motion.div>
-            </HoverBorderGradient>
-          </motion.a>
-        </motion.div>
+          <span className="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
+          <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>
+          <span className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent opacity-5"></span>
+          <span className="relative flex items-center">
+            <Star className="w-5 h-5 mr-2" />
+            Star on GitHub
+          </span>
+        </motion.button>
       </nav>
 
       <GridBackgroundDemo />
@@ -94,44 +53,32 @@ export default function Home() {
       {/* Main Content */}
       <main className="flex-grow flex items-center justify-center relative z-10">
         <div className="text-center space-y-8 px-4">
-          {/* Animated Heading */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut", type: "spring", stiffness: 120 }}
-            className="relative inline-block"
-          >
-            <h1 className="text-4xl sm:text-7xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
-              Brieffly: where formulas go on a diet!
-            </h1>
-          </motion.div>
+          {/* Heading */}
+          <h1 className="text-4xl sm:text-7xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
+            Brieffly: where formulas go on a diet!
+          </h1>
 
-          {/* Animated Subheading */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="text-3xl sm:text-3xl relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8"
-          >
+          {/* Subheading */}
+          <p className="text-3xl sm:text-3xl relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
             Get genius-level smarts in snack-sized cards—because who has time for long notes?
-          </motion.p>
+          </p>
 
           {/* Get Started Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
+          <motion.button
+            onClick={handleGetStarted}
+            className="group relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium text-white bg-gray-800 rounded-full shadow-2xl"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <HoverBorderGradient
-              containerClassName="rounded-full"
-              as="button"
-              className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-6 py-3"
-              onClick={handleGetStarted}
-            >
-              <span>Get Started</span>
-              <ArrowRight className="ml-2 h-5 w-5 text-white" />
-            </HoverBorderGradient>
-          </motion.div>
+            <span className="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"></span>
+            <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>
+            <span className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent opacity-5"></span>
+            <span className="relative flex items-center">
+              Get Started
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </span>
+          </motion.button>
         </div>
       </main>
     </div>
