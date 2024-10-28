@@ -9,7 +9,7 @@ import React, { useState } from "react";
 function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (event:any) => {
+  const handleMouseMove = (event: any) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setMousePosition({
       x: event.clientX - rect.left,
@@ -47,27 +47,29 @@ export default function Home() {
           <Navbar />
         </motion.div>
 
-        {/* Star on GitHub Button - Top Right */}
+        {/* Animated Star on GitHub Button - Top Right */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative"
         >
-          <a
+          <motion.a
             href="https://github.com/hegdeadithyak/Brieffly"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full inline-block"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             <HoverBorderGradient
               containerClassName="rounded-full"
               className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-4 py-2"
             >
               <span>Star on GitHub</span>
-              <Star className="ml-2 h-5 w-5 text-white" />
+              <Star className="ml-2 h-5 w-5 text-neutral-400" />
             </HoverBorderGradient>
-          </a>
+          </motion.a>
         </motion.div>
       </nav>
 
