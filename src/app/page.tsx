@@ -44,7 +44,7 @@ export default function Home() {
           <Navbar />
         </motion.div>
 
-        {/* Updated Star on GitHub Button - Top Right with Pulsing Effect */}
+        {/* Star on GitHub Button - Top Right */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,11 +54,11 @@ export default function Home() {
           <Button
             variant="outline"
             size="sm"
-            className="bg-black/50 backdrop-blur-sm text-white mx-10 border-white/20 hover:bg-white/10 hover:text-white transition-colors duration-300 animate-pulse"
+            className="bg-black/70 backdrop-blur-md text-white border border-white/30 shadow-lg hover:bg-white/20 hover:text-white transition-colors duration-300 flex items-center"
             onClick={() => window.open("https://github.com/hegdeadithyak/Brieffly", "_blank")}
           >
-            <Star className="mr-2 h-4 w-4 text-yellow-400" />
-            <span className="text-white font-semibold">Star on GitHub</span>
+            <Star className="mr-2 h-4 w-4 text-yellow-500" />
+            <span className="text-sm font-semibold">Star on GitHub</span>
           </Button>
         </motion.div>
       </nav>
