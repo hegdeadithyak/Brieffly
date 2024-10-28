@@ -1,38 +1,35 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react"; // Import Star icon
-import { HoverBorderGradient } from "@/components/ui/hover_border_gradient";
-import { Navbar } from "@/components/ui/navbar-menu";
-import React, { useState } from "react";
+import { motion } from "framer-motion"
+import { ArrowRight, Star } from "lucide-react"
+import { HoverBorderGradient } from "@/components/ui/hover_border_gradient"
+import { Navbar } from "@/components/ui/navbar-menu"
+import React, { useState } from "react"
 
 function GridBackgroundDemo() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  const handleMouseMove = (event: any) => {
-    const rect = event.currentTarget.getBoundingClientRect();
+  const handleMouseMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect()
     setMousePosition({
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
-    });
-  };
+    })
+  }
 
   return (
-    <div 
-      onMouseMove={handleMouseMove}
-      className="absolute inset-0 z-0"
-    >
+    <div onMouseMove={handleMouseMove} className="absolute inset-0 z-0">
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
     </div>
-  );
+  )
 }
 
 export default function Home() {
   const handleGetStarted = () => {
-    window.location.href = "/courses";
-  };
+    window.location.href = "/courses"
+  }
 
   return (
     <div className="min-h-screen bg-black flex flex-col relative overflow-hidden font-inter">
@@ -59,15 +56,34 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full inline-block"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             <HoverBorderGradient
               containerClassName="rounded-full"
-              className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-4 py-2"
+              className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-4 py-2 overflow-hidden"
             >
-              <span>Star on GitHub</span>
-              <Star className="ml-2 h-5 w-5 text-neutral-400" />
+              <motion.span
+                initial={{ backgroundPosition: "0 0" }}
+                animate={{ backgroundPosition: ["0 0", "100% 0", "0 0"] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                className="bg-clip-text text-transparent bg-[linear-gradient(to_right,#fff,#fff,#9ca3af,#fff,#fff)] bg-[length:200%_100%]"
+              >
+                Star on GitHub
+              </motion.span>
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 15, -15, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              >
+                <Star className="ml-2 h-5 w-5 text-yellow-400" />
+              </motion.div>
             </HoverBorderGradient>
           </motion.a>
         </motion.div>
@@ -95,7 +111,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="text-3xl sm:text-3xl  relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8"
+            className="text-3xl sm:text-3xl relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8"
           >
             Get genius-level smarts in snack-sized cards—because who has time for long notes?
           </motion.p>
@@ -119,5 +135,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  );
+  )
 }
