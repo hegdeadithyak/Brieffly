@@ -34,8 +34,8 @@ export default function ExamsPage() {
 
   async function handleLogout() {
     try {
-      router.push("/")
       const session = await account.getSession();
+      router.push("/")
       await account.deleteSession(session.$id);
       setUser('')
     } catch (error) {
