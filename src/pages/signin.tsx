@@ -76,7 +76,7 @@ export default function Home() {
       setLoading(true);
       const session = await account.createEmailPasswordSession(email, password);
       const loggedInUser = await account.get();
-      sessionId = loggedInUser;
+      // sessionId = loggedInUser;
       router.push("/courses");
       setUser(loggedInUser);
       setEmail("");
