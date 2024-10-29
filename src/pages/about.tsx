@@ -1,98 +1,116 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
-import "src/app/globals.css"
+import { ArrowRight, BookOpen, Clock, Brain } from 'lucide-react'
+import "src/app/globals.css";
+import { HoverBorderGradient } from "@/components/ui/hover_border_gradient"; // Ensure this path is correct
 
-export default function Component() {
+function GridBackgroundDemo() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-br from-black via-black to-white text-white relative overflow-hidden">
-      {/* Background shapes */}
-      <div className="absolute inset-0 overflow-hidden">
-        <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="small-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#small-grid)" />
-        </svg>
+    <div className="absolute inset-0 z-0">
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
+    </div>
+  );
+}
 
-      {/* Content */}
-      <motion.div
-        className="z-10 max-w-4xl mx-auto"
+export default function AboutUs() {
+  return (
+    <div className="min-h-screen bg-black text-white flex flex-col relative overflow-hidden font-inter">
+      <GridBackgroundDemo />
+      <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
+        className="container mx-auto px-4 py-16 relative z-10"
       >
-        <motion.h1
-          className="text-5xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-200"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+        <motion.h1 
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="text-4xl md:text-5xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 mb-8"
         >
-          Welcome to Brieffly
+          About Brieffly
         </motion.h1>
-
-        <motion.p
-          className="text-xl text-gray-300 mb-8 text-center"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+        
+        <motion.p 
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-xl text-center text-neutral-400 mb-12 max-w-3xl mx-auto"
         >
-          Where formulas go on a diet! In a world overflowing with complex calculations
-          and overwhelming data, we believe in simplifying things.
+          Empowering students with real-time test experiences to boost confidence and performance.
         </motion.p>
 
-        <motion.div
-          className="bg-white/10 backdrop-blur-lg rounded-lg p-8 mb-8"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          <h2 className="text-3xl font-semibold mb-4 text-center text-gray-300">Our Mission</h2>
-          <p className="text-lg text-gray-300 mb-6 text-center">
-            At Brieffly, we aim to make mathematics accessible to everyone. We cut the
-            clutter and present formulas in a way that's easy to understand and apply.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <motion.div 
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className="bg-black/50 backdrop-blur-lg rounded-lg shadow-lg p-8"
+          >
+            <h2 className="text-2xl font-semibold text-neutral-200 mb-4">Our Mission</h2>
+            <p className="text-neutral-400">
+              At Brieffly, we're dedicated to revolutionizing the way students prepare for exams. 
+              By providing an authentic test environment, we aim to reduce exam anxiety and improve 
+              overall performance.
+            </p>
+          </motion.div>
 
-          <h3 className="text-2xl font-semibold mb-4 text-center text-gray-200">Why Choose Us?</h3>
-          <ul className="text-lg text-gray-300 mb-6 space-y-2">
-            <li className="flex items-center">
-              <span className="mr-2 text-gray-500">•</span> Simplicity: We believe in the power of simplicity.
-            </li>
-            <li className="flex items-center">
-              <span className="mr-2 text-gray-500">•</span> Interactive Learning: Engage with our dynamic visualizations.
-            </li>
-            <li className="flex items-center">
-              <span className="mr-2 text-gray-500">•</span> Community Support: Join our growing community.
-            </li>
-          </ul>
-        </motion.div>
+          <motion.div 
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+            className="bg-black/50 backdrop-blur-lg rounded-lg shadow-lg p-8"
+          >
+            <h2 className="text-2xl font-semibold text-neutral-200 mb-4">How We Help</h2>
+            <p className="text-neutral-400">
+              Our platform simulates real exam conditions, allowing students to practice under 
+              time pressure, adapt to various question types, and receive instant feedback on 
+              their performance.
+            </p>
+          </motion.div>
+        </div>
+
+        <h2 className="text-3xl font-bold text-center text-neutral-200 mb-8">Key Features</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { icon: Clock, title: "Real-Time Simulations", description: "Experience the pressure of timed exams to improve your time management skills." },
+            { icon: BookOpen, title: "Diverse Question Banks", description: "Access a wide range of questions across various subjects and difficulty levels." },
+            { icon: Brain, title: "Adaptive Learning", description: "Our system adapts to your performance, focusing on areas that need improvement." }
+          ].map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1 + index * 0.2, duration: 0.5 }}
+              className="bg-black/50 backdrop-blur-lg rounded-lg shadow-lg p-6 flex flex-col items-center text-center"
+            >
+              <feature.icon className="w-12 h-12 text-blue-500 mb-4" />
+              <h3 className="text-xl font-semibold text-neutral-200 mb-2">{feature.title}</h3>
+              <p className="text-neutral-400">{feature.description}</p>
+            </motion.div>
+          ))}
+        </div>
 
         <motion.div
-          className="flex justify-center"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          transition={{ duration: 0.7, delay: 1.6, ease: "easeOut" }}
+          className="mt-16 flex justify-center" // Center the button
         >
-          <button className="bg-gradient-to-r from-white to-black hover:from-black hover:to-white text-black hover:text-white font-semibold py-3 px-6 rounded-full transition duration-300 transform hover:scale-105">
-            Get Started!
-          </button>
-        </motion.div>
-
-        <motion.div
-          className="mt-8 text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1 }}
-        >
-          <Link href="/" className="inline-flex items-center text-gray-500 hover:text-gray-400 transition duration-300">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Link>
+          <HoverBorderGradient
+            containerClassName="rounded-full"
+            as="button"
+            className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-6 py-2"
+            onClick={() => (window.location.href = "/signin")}
+          >
+            <span>Get Started</span>
+            <ArrowRight className="ml-2 h-5 w-5 text-white" />
+          </HoverBorderGradient>
         </motion.div>
       </motion.div>
     </div>

@@ -127,21 +127,21 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg bg-black text-white relative z-10"
+        className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg bg-black text-white relative z-10 justify-center"
       >
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="font-bold text-2xl mb-2"
+          className="font-bold text-2xl mb-2 justify-center"
         >
-          Welcome to Aceternity
+          Welcome to Brieffly
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-gray-400 text-lg mb-6"
+          className="text-gray-400 text-lg mb-6 justify-center"
         >
           Log in to continue
         </motion.p>

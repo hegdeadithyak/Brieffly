@@ -66,7 +66,7 @@ export default function SignUp() {
           transition={{ delay: 0.3 }}
           className="text-gray-400 text-lg mb-6"
         >
-          Sign up to get started with Aceternity
+          Sign up to get started with Brieffly
         </motion.p>
 
         <motion.form 
