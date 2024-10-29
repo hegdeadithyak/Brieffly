@@ -1,4 +1,3 @@
-// components/Card.tsx
 import React, { useState } from "react";
 import { Check, X } from "lucide-react";
 import Latex from "react-latex-next";
@@ -36,12 +35,10 @@ const Card: React.FC<CardProps> = ({ question }) => {
   };
 
   const isCorrect = (option: string) => {
-    // console.log(option.trim().toLowerCase()[0], question.answer.trim().toLowerCase());
     return option.trim().toLowerCase()[0] === question.answer.trim().toLowerCase();
   };
 
   const isIncorrect = (option: string) => {
-    // console.log(option.trim().toLowerCase()[0], question.answer.trim().toLowerCase());
     return selectedAnswer === option && !isCorrect(option);
   };
 
@@ -65,25 +62,28 @@ const Card: React.FC<CardProps> = ({ question }) => {
       </div>
 
       <div className="space-y-2 mt-4">
-        {question.options.map((option, index) => (
-          <button
-            key={index}
-            onClick={() => setSelectedAnswer(option)}
-            className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center justify-between
-              ${selectedAnswer === option ? "border-2" : "border border-gray-200"}
-              ${isCorrect(option) && selectedAnswer === option ? "bg-green-50 border-green-500 text-green-700" : ""}
-              ${isIncorrect(option) ? "bg-red-50 border-red-500 text-red-700" : ""}
-              ${!selectedAnswer ? "hover:bg-gray-50 hover:border-gray-300" : ""}
-              ${selectedAnswer && selectedAnswer !== option ? "opacity-70" : ""}`}
-            disabled={selectedAnswer !== null}
-          >
-            <span className="flex-1">
-              <Latex>{option}</Latex>
-            </span>
-            {isCorrect(option) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
-            {isIncorrect(option) && <X className="w-5 h-5 text-red-600" />}
-          </button>
-        ))}
+        {question.options.map((option, index) => {
+          const optionLetter = String.fromCharCode(65 + index); // Generate option letters A, B, C, D, etc.
+          return (
+            <button
+              key={index}
+              onClick={() => setSelectedAnswer(option)}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center justify-between
+                ${selectedAnswer === option ? "border-2" : "border border-gray-200"}
+                ${isCorrect(option) && selectedAnswer === option ? "bg-green-50 border-green-500 text-green-700" : ""}
+                ${isIncorrect(option) ? "bg-red-50 border-red-500 text-red-700" : ""}
+                ${!selectedAnswer ? "hover:bg-gray-50 hover:border-gray-300" : ""}
+                ${selectedAnswer && selectedAnswer !== option ? "opacity-70" : ""}`}
+              disabled={selectedAnswer !== null}
+            >
+              <span className="flex-1">
+                <Latex>{`${optionLetter}) ${option}`}</Latex> {/* Display option with letter */}
+              </span>
+              {isCorrect(option) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
+              {isIncorrect(option) && <X className="w-5 h-5 text-red-600" />}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
