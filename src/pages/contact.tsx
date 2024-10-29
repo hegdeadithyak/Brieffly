@@ -1,11 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import "src/app/globals.css"
 
 // Grid background component
@@ -18,104 +14,49 @@ function GridDotBackground() {
 }
 
 export default function ContactPage() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const router = useRouter()
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Here you would typically send the form data to your server
-    console.log('Form submitted:', { name, email })
-    // Redirect to a thank you page
-    router.push('/thank-you')
-  }
-
   return (
     <div className="relative min-h-screen bg-black flex items-center justify-center p-4 font-inter">
       <GridDotBackground />
       <div className="max-w-4xl w-full space-y-8 z-10">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold text-white ">Contact Us</h1>
-          <p className="mt-2 text-sm text-gray-400 ">We'd love to hear from you!</p>
+          <h1 className="text-3xl font-extrabold text-white">Contact Us</h1>
+          <p className="mt-2 text-sm text-gray-400">We'd love to hear from you!</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Send us a message Card first */}
+          {/* First Contact Information Card */}
           <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-6">
             <CardHeader>
-              <CardTitle className="text-white font-inter">Send us a message</CardTitle>
+              <CardTitle className="text-white font-inter">Customer Support</CardTitle>
             </CardHeader>
-            <CardContent>
-              <form className="space-y-4" onSubmit={handleSubmit}>
-                <div>
-                  <Label htmlFor="name">Name</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    placeholder="Your Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="text-gray-200 bg-gray-800 border-gray-700"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="Your Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="text-gray-200 bg-gray-800 border-gray-700"
-                  />
-                </div>
-                <Button type="submit" className="w-full bg-gray-600 hover:bg-gray-700 transition-colors">
-                  Send Message
-                </Button>
-              </form>
+            <CardContent className="space-y-4">
+              <ContactInfo icon={<Mail size={20} />} text="adithyahegdek@gmail.com" />
+              <ContactInfo icon={<Phone size={20} />} text="+91-8555085536" />
+              <ContactInfo icon={<MapPin size={20} />} text="Amrita Vishwa Vidyapeetham,Amritapuri,kollam,Kerala" />
+              <SocialLinks
+                facebook="https://facebook.com/support"
+                twitter="https://twitter.com/support"
+                instagram="https://instagram.com/support"
+                linkedin="https://linkedin.com/company/support"
+              />
             </CardContent>
           </Card>
 
-          {/* Contact Information Card second */}
+          {/* Second Contact Information Card */}
           <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-6">
             <CardHeader>
-              <CardTitle className="text-white font-inter">Contact Information</CardTitle>
+              <CardTitle className="text-white font-inter">Business Inquiries</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <Mail className="text-gray-400" size={20} />
-                <span className="text-gray-300">briefflyexample@gmail.com</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="text-gray-400" size={20} />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="text-gray-400" size={20} />
-                <span className="text-gray-300">123 Main St, Anytown, India 12345</span>
-              </div>
-              <div className="flex justify-start space-x-4 mt-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
-                  <Facebook size={24} />
-                  <span className="sr-only">Facebook</span>
-                </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 transition-colors">
-                  <Twitter size={24} />
-                  <span className="sr-only">Twitter</span>
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-800 transition-colors">
-                  <Instagram size={24} />
-                  <span className="sr-only">Instagram</span>
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-800 hover:text-blue-900 transition-colors">
-                  <Linkedin size={24} />
-                  <span className="sr-only">LinkedIn</span>
-                </a>
-              </div>
+              <ContactInfo icon={<Mail size={20} />} text="honeygyani2004@gmail.com" />
+              <ContactInfo icon={<Phone size={20} />} text="+91-7857095950" />
+              <ContactInfo icon={<MapPin size={20} />} text="Amrita Vishwa Vidyapeetham,Amritapuri,kollam,Kerala" />
+              <SocialLinks
+                facebook="https://facebook.com/business"
+                twitter="https://twitter.com/business"
+                instagram="https://instagram.com/business"
+                linkedin="https://linkedin.com/company/business"
+              />
             </CardContent>
           </Card>
         </div>
@@ -124,10 +65,34 @@ export default function ContactPage() {
   )
 }
 
-function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) {
+// Contact Information Item
+function ContactInfo({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <label htmlFor={htmlFor} className="block text-sm font-medium text-gray-300 mb-1">
-      {children}
-    </label>
+    <div className="flex items-center space-x-2">
+      {icon}
+      <span className="text-gray-300">{text}</span>
+    </div>
+  )
+}
+
+// Social Links Component with customizable links
+function SocialLinks({ facebook, twitter, instagram, linkedin }: { facebook: string; twitter: string; instagram: string; linkedin: string }) {
+  return (
+    <div className="flex justify-start space-x-4 mt-4">
+      <SocialLink href={facebook} icon={<Facebook size={24} />} colorClass="text-blue-600 hover:text-blue-800" />
+      <SocialLink href={twitter} icon={<Twitter size={24} />} colorClass="text-blue-400 hover:text-blue-600" />
+      <SocialLink href={instagram} icon={<Instagram size={24} />} colorClass="text-pink-600 hover:text-pink-800" />
+      <SocialLink href={linkedin} icon={<Linkedin size={24} />} colorClass="text-blue-800 hover:text-blue-900" />
+    </div>
+  )
+}
+
+// SocialLink Component
+function SocialLink({ href, icon, colorClass }: { href: string; icon: React.ReactNode; colorClass: string }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={`${colorClass} transition-colors`}>
+      {icon}
+      <span className="sr-only">Social Link</span>
+    </a>
   )
 }
