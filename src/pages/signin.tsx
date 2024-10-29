@@ -126,28 +126,61 @@ export default function Home() {
     <div className="flex items-center justify-center min-h-screen bg-gray-900 relative overflow-hidden font-inter">
       <GridBackgroundDemo />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg bg-black text-white relative z-10"
-      >
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
+      {user ? (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="font-bold text-2xl mb-2"
+          exit={{ opacity: 0, y: -20 }}
+          className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg bg-black text-white relative z-10 text-center"
         >
-          Welcome to Brieffly
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: -20 }}
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="font-bold text-2xl mb-2"
+          >
+            Welcome, {user.name}!
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-gray-400 text-lg mb-6"
+          >
+            You are already signed in.
+          </motion.p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleLogout}
+            className="w-full bg-red-600 hover:bg-red-700 text-white rounded-md py-3 font-medium focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50 text-lg"
+          >
+            Logout
+          </motion.button>
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-gray-400 text-lg mb-6"
+          exit={{ opacity: 0, y: -20 }}
+          className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg bg-black text-white relative z-10"
         >
-          Log in to continue
-        </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="font-bold text-2xl mb-2"
+          >
+            Welcome to Brieffly
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-gray-400 text-lg mb-6"
+          >
+            Log in to continue
+          </motion.p>
 
           <motion.form
             initial={{ opacity: 0 }}
