@@ -21,7 +21,7 @@ async function run(chapterName:string) {
         });
 
         const result = await model.generateContent(
-            `Generate some Test cards for IIT JEE chapter All Mathematical formulas and Descriptive and write four formulas as options as A,B,C,D, part in latex of ${chapterName} in JSON format so it is useful for JEE Advance even cover all ADVANCED formulas. Include "level", "title", "Options","answer" Only return json nothing else`
+            `Generate some Test cards for IIT JEE chapter All Mathematical formulas and Descriptive and write four formulas as options as a,b,c,d, part in latex of ${chapterName} in JSON format so it is useful for JEE Advance even cover all ADVANCED formulas. Include "level", "title", "Options","answer" Only return json nothing else`
         );
 
         const responseText = await result.response.text();

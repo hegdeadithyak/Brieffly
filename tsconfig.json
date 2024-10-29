@@ -24,6 +24,6 @@
       "@/lib/*": ["./src/lib/*"]            // Fix for lib import alias
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/components/Card/CourseTag.jsx","src/pages/components/CourseSection.jsx", "next.config.mjs", "tailwind.config.js", "src/appwrite.mjs", "src/pages/signin.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/components/Card/CourseTag.jsx","src/pages/components/CourseSection.jsx", "next.config.mjs", "tailwind.config.js", "src/appwrite.js", "src/pages/signin.tsx"],
   "exclude": ["node_modules"]
 }

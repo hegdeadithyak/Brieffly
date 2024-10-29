@@ -12,5 +12,5 @@ export const account = new Account(client);
 //     'hegdaeadithyakq' // name (optional)
 // );
 
-export {ID} from "appwrite";
+export {ID,getUserData} from "appwrite";
 // console.log(result);
