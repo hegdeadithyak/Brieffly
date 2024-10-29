@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import "src/app/globals.css"
 import { useState } from "react"
+//@ts-ignore
+import { account, ID } from 'src/appwrite'
+import {useRouter} from "next/router";
 
 // Define your exams array
 const exams = [
@@ -16,6 +19,8 @@ const exams = [
   { id: 5, title: "SSC",  path: "/ssc" },
 ]
 
+
+
 function GridDotBackground() {
   return (
     <div className="fixed inset-0 z-0">
@@ -25,6 +30,18 @@ function GridDotBackground() {
 }
 
 export default function ExamsPage() {
+  const [user,setUser] = useState("");
+  const router = useRouter();
+  async function handleLogout() {
+    try { 
+      router.push("/");
+      await account.deleteSession(await account.getSession());
+      
+      setUser('');
+    } catch (error) {
+      console.error('Logout failed:', error)
+    }
+  }
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
       <GridDotBackground />
@@ -33,7 +50,7 @@ export default function ExamsPage() {
           <Link href="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
             Brieffly
           </Link>
-          <Button variant="outline" className="text-white border-white hover:bg-gray-800 transition-colors">
+          <Button variant="outline" className="text-white border-white hover:bg-gray-800 transition-colors" onClick={handleLogout}>
             Sign Out
             <LogOut className="ml-2 h-4 w-4" />
           </Button>

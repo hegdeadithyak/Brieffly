@@ -31,7 +31,7 @@ function GridBackgroundDemo() {
 
 export default function Home() {
   const handleGetStarted = () => {
-    window.location.href = "/courses";
+    window.location.href = "/signin";
   };
 
   const handleStarOnGit = () => {
