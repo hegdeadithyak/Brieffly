@@ -8,6 +8,8 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 //@ts-ignore
 import {account} from "src/appwrite"
+import "src/app/globals.css";
+
 
 // Define your exams array
 const exams = [
