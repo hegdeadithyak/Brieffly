@@ -210,7 +210,7 @@ export default function Home() {
 }
 
 //@ts-ignore
-const LabelInputContainer = ({ children, className }) => {
+const LabelInputContainer = ({ children, className = "" }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
