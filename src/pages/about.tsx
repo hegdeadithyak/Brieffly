@@ -100,7 +100,7 @@ export default function AboutUs() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.6, ease: "easeOut" }}
-          className="mt-16 flex justify-center" // Center the button
+          className="mt-16 text-center"
         >
           <HoverBorderGradient
             containerClassName="rounded-full"
