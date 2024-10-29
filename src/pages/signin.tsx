@@ -135,7 +135,7 @@ export default function Home() {
           transition={{ delay: 0.2 }}
           className="font-bold text-2xl mb-2"
         >
-          Welcome to Aceternity
+          Welcome to Brieffly
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: -20 }}
@@ -210,7 +210,7 @@ export default function Home() {
 }
 
 //@ts-ignore
-const LabelInputContainer = ({ children, className }) => {
+const LabelInputContainer = ({ children, className = "" }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

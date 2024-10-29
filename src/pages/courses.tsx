@@ -4,44 +4,43 @@ import { motion } from "framer-motion"
 import { Book, LogOut, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import "src/app/globals.css"
 import { useState } from "react"
+import { useRouter } from "next/router"
 //@ts-ignore
-import { account, ID } from 'src/appwrite'
-import {useRouter} from "next/router";
+import {account} from "src/appwrite"
 
 // Define your exams array
 const exams = [
-  { id: 1, title: "IIT JEE",  path: "/iitjee" },
-  { id: 2, title: "UPSC",  path: "/upsc" },
-  { id: 3, title: "NEET",  path: "/neet" },
-  { id: 4, title: "BANKING",  path: "/banking11" },
-  { id: 5, title: "SSC",  path: "/ssc" },
+  { id: 1, title: "IIT JEE", path: "/iitjee" },
+  { id: 2, title: "UPSC", path: "/upsc" },
+  { id: 3, title: "NEET", path: "/neet" },
+  { id: 4, title: "BANKING", path: "/banking11" },
+  { id: 5, title: "SSC", path: "/ssc" },
 ]
-
-
 
 function GridDotBackground() {
   return (
     <div className="fixed inset-0 z-0">
       <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
     </div>
-  );
+  )
 }
 
 export default function ExamsPage() {
-  const [user,setUser] = useState("");
-  const router = useRouter();
+  const [user, setUser] = useState("")
+  const router = useRouter()
+
   async function handleLogout() {
-    try { 
-      router.push("/");
-      await account.deleteSession(await account.getSession());
-      
-      setUser('');
+    try {
+      router.push("/")
+      const session = await account.getSession();
+      await account.deleteSession(session.$id);
+      setUser('')
     } catch (error) {
       console.error('Logout failed:', error)
     }
   }
+
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
       <GridDotBackground />
@@ -84,7 +83,7 @@ export default function ExamsPage() {
 }
 
 function ExamCard({ exam }: { exam: { id: number; title: string; path: string } }) {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <motion.div
@@ -104,6 +103,11 @@ function ExamCard({ exam }: { exam: { id: number; title: string; path: string } 
             <Book className="text-gray-400 mr-3 h-6 w-6" />
             <h2 className="text-xl font-semibold text-white">{exam.title}</h2>
           </div>
+          {exam.title !== "IIT JEE" && (
+            <div className="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-bl-lg">
+              Under Development
+            </div>
+          )}
         </div>
         <div className="flex justify-between items-center relative z-10">
           <Link href={exam.path}>
