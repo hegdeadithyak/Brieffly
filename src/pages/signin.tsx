@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 
 function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-//@ts-ignore
+  //@ts-ignore
 
   const handleMouseMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -68,13 +68,25 @@ export default function Home() {
   async function handleLogin() {
     try {
       setLoading(true);
+
+      // Check for existing sessions and delete them if found
+      const sessions = await account.getSessions();
+      if (sessions.total > 0) {
+        await Promise.all(
+          sessions.sessions.map((session) => account.deleteSession(session.$id))
+        );
+      }
+
+      // Create a new session
       await account.createEmailPasswordSession(email, password);
       const loggedInUser = await account.get();
-      router.push("/courses");
-      const sessionid1 = await account.getSession();
-      setSessionid(sessionid1);
+      const sessionInfo = await account.getSession("current");
+
+      setSessionid(sessionInfo.$id);
       console.log(loggedInUser);
       setUser(loggedInUser);
+      router.push("/courses");
+
       setEmail("");
       setPassword("");
     } catch (e) {
@@ -93,7 +105,6 @@ export default function Home() {
         className="flex items-center justify-center min-h-screen bg-gray-900 bg-grid-small-white/[0.2]"
       >
         <GridBackgroundDemo />
-        
         <div className="bg-black p-8 max-w-sm mx-auto rounded-lg shadow-md">
           <div className="flex items-center space-x-4">
             <motion.svg
@@ -113,14 +124,13 @@ export default function Home() {
             </motion.svg>
             <p className="text-white font-semibold text-xl">Loading user...</p>
           </div>
-          </div>
+        </div>
       </motion.div>
     );
   }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 relative overflow-hidden font-inter">
-      {/* Grid Background */}
       <GridBackgroundDemo />
 
       <motion.div
@@ -153,9 +163,7 @@ export default function Home() {
           className="space-y-6"
           onSubmit={(e) => e.preventDefault()}
         >
-
-          
-          <LabelInputContainer >
+          <LabelInputContainer>
             <Label htmlFor="email" className="text-lg text-gray-300">
               Email Address
             </Label>
@@ -168,7 +176,7 @@ export default function Home() {
               className="bg-gray-800 text-white border-gray-700 focus:border-blue-500 text-lg"
             />
           </LabelInputContainer>
-          <LabelInputContainer >
+          <LabelInputContainer>
             <Label htmlFor="password" className="text-lg text-gray-300">
               Password
             </Label>
