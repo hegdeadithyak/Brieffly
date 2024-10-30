@@ -1,6 +1,6 @@
 'use client'
 
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import { Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Github } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import "src/app/globals.css"
 
@@ -34,10 +34,10 @@ export default function ContactPage() {
               <ContactInfo icon={<Phone size={20} />} text="+91-8555085536" />
               <ContactInfo icon={<MapPin size={20} />} text="Amrita Vishwa Vidyapeetham,Amritapuri,kollam,Kerala" />
               <SocialLinks
-                facebook="https://facebook.com/support"
-                twitter="https://twitter.com/support"
-                instagram="https://instagram.com/support"
-                linkedin="https://linkedin.com/company/support"
+                twitter="https://x.com/HegdeKota92488"
+                instagram="https://www.instagram.com/adithyahegdekota"
+                linkedin="https://linkedin.com/in/hegdeadithyak"
+                github="https://github.com/hegdeadithyak"
               />
             </CardContent>
           </Card>
@@ -52,10 +52,10 @@ export default function ContactPage() {
               <ContactInfo icon={<Phone size={20} />} text="+91-7857095950" />
               <ContactInfo icon={<MapPin size={20} />} text="Amrita Vishwa Vidyapeetham,Amritapuri,kollam,Kerala" />
               <SocialLinks
-                facebook="https://facebook.com/business"
-                twitter="https://twitter.com/business"
-                instagram="https://instagram.com/business"
-                linkedin="https://linkedin.com/company/business"
+                twitter="https://x.com/honeygyani"
+                instagram="https://www.instagram.com/gyanihoney/"
+                linkedin="https://linkedin.com/in/honey-gyani-58920b2a1"
+                github="https://github.com/honeygyani"
               />
             </CardContent>
           </Card>
@@ -76,13 +76,13 @@ function ContactInfo({ icon, text }: { icon: React.ReactNode; text: string }) {
 }
 
 // Social Links Component with customizable links
-function SocialLinks({ facebook, twitter, instagram, linkedin }: { facebook: string; twitter: string; instagram: string; linkedin: string }) {
+function SocialLinks({ twitter, instagram, linkedin, github }: { twitter: string; instagram: string; linkedin: string; github: string }) {
   return (
     <div className="flex justify-start space-x-4 mt-4">
-      <SocialLink href={facebook} icon={<Facebook size={24} />} colorClass="text-blue-600 hover:text-blue-800" />
       <SocialLink href={twitter} icon={<Twitter size={24} />} colorClass="text-blue-400 hover:text-blue-600" />
       <SocialLink href={instagram} icon={<Instagram size={24} />} colorClass="text-pink-600 hover:text-pink-800" />
       <SocialLink href={linkedin} icon={<Linkedin size={24} />} colorClass="text-blue-800 hover:text-blue-900" />
+      <SocialLink href={github} icon={<Github size={24} />} colorClass="text-gray-400 hover:text-gray-600" />
     </div>
   )
 }
