@@ -13,9 +13,7 @@ import { motion } from "framer-motion";
 
 function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  //@ts-ignore
-
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event:any) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setMousePosition({
       x: event.clientX - rect.left,
@@ -32,11 +30,18 @@ function GridBackgroundDemo() {
   );
 }
 
+export var sessionId = "";
+
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  interface User {
+    name: string;
+    // Add other properties as needed
+  }
+
+  const [user, setUser] = useState<User | null>(null);
   const [sessionid, setSessionid] = useState("");
-  const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -55,11 +60,12 @@ export default function Home() {
     }
     getUser();
   }, []);
-
+  
   async function handleLogout() {
     try {
       await account.deleteSession(sessionid);
       setUser(null);
+      router.push("/"); // Optional: redirect after logout
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -68,25 +74,11 @@ export default function Home() {
   async function handleLogin() {
     try {
       setLoading(true);
-
-      // Check for existing sessions and delete them if found
-      const sessions = await account.getSessions();
-      if (sessions.total > 0) {
-        await Promise.all(
-          sessions.sessions.map((session) => account.deleteSession(session.$id))
-        );
-      }
-
-      // Create a new session
-      await account.createEmailPasswordSession(email, password);
+      const session = await account.createEmailPasswordSession(email, password);
       const loggedInUser = await account.get();
-      const sessionInfo = await account.getSession("current");
-
-      setSessionid(sessionInfo.$id);
-      console.log(loggedInUser);
-      setUser(loggedInUser);
+      // sessionId = loggedInUser;
       router.push("/courses");
-
+      setUser(loggedInUser);
       setEmail("");
       setPassword("");
     } catch (e) {
@@ -105,6 +97,7 @@ export default function Home() {
         className="flex items-center justify-center min-h-screen bg-gray-900 bg-grid-small-white/[0.2]"
       >
         <GridBackgroundDemo />
+        
         <div className="bg-black p-8 max-w-sm mx-auto rounded-lg shadow-md">
           <div className="flex items-center space-x-4">
             <motion.svg
@@ -133,100 +126,127 @@ export default function Home() {
     <div className="flex items-center justify-center min-h-screen bg-gray-900 relative overflow-hidden font-inter">
       <GridBackgroundDemo />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg bg-black text-white relative z-10 justify-center"
-      >
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
+      {user ? (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="font-bold text-2xl mb-2 justify-center"
+          exit={{ opacity: 0, y: -20 }}
+          className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg bg-black text-white relative z-10 text-center"
         >
-          Welcome to Brieffly
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-gray-400 text-lg mb-6 justify-center"
-        >
-          Log in to continue
-        </motion.p>
-
-        <motion.form
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="space-y-6"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <LabelInputContainer>
-            <Label htmlFor="email" className="text-lg text-gray-300">
-              Email Address
-            </Label>
-            <Input
-              id="email"
-              placeholder="projectmayhem@fc.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              className="bg-gray-800 text-white border-gray-700 focus:border-blue-500 text-lg"
-            />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="password" className="text-lg text-gray-300">
-              Password
-            </Label>
-            <Input
-              id="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              className="bg-gray-800 text-white border-gray-700 focus:border-blue-500 text-lg"
-            />
-          </LabelInputContainer>
-
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="font-bold text-2xl mb-2"
+          >
+            Welcome, {user.name}!
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-gray-400 text-lg mb-6"
+          >
+            You are already signed in.
+          </motion.p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            type="button"
-            onClick={handleLogin}
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-3 font-medium focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 text-lg"
+            onClick={handleLogout}
+            className="w-full bg-red-600 hover:bg-red-700 text-white rounded-md py-3 font-medium focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50 text-lg"
           >
-            {loading ? "Logging in..." : "Login"}
+            Logout
           </motion.button>
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg bg-black text-white relative z-10"
+        >
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="font-bold text-2xl mb-2"
+          >
+            Welcome to Brieffly
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-gray-400 text-lg mb-6"
+          >
+            Log in to continue
+          </motion.p>
 
-          <motion.div
+          <motion.form
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="text-center mt-4"
+            transition={{ delay: 0.4 }}
+            className="space-y-6"
+            onSubmit={(e) => e.preventDefault()}
           >
-            <Link href="/signup" className="text-blue-400 hover:text-blue-300 text-lg">
-              Create an Account? Sign up
-            </Link>
-          </motion.div>
-        </motion.form>
-      </motion.div>
+            <LabelInputContainer>
+              <Label htmlFor="email" className="text-lg text-gray-300">
+                Email Address
+              </Label>
+              <Input
+                id="email"
+                placeholder="projectmayhem@fc.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                className="bg-gray-800 text-white border-gray-700 focus:border-blue-500 text-lg"
+              />
+            </LabelInputContainer>
+            <LabelInputContainer>
+              <Label htmlFor="password" className="text-lg text-gray-300">
+                Password
+              </Label>
+              <Input
+                id="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                className="bg-gray-800 text-white border-gray-700 focus:border-blue-500 text-lg"
+              />
+            </LabelInputContainer>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="button"
+              onClick={handleLogin}
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-3 font-medium focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 text-lg"
+            >
+              {loading ? "Logging in..." : "Login"}
+            </motion.button>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="text-center mt-4"
+            >
+              <Link href="/signup" className="text-blue-400 hover:text-blue-300 text-lg">
+                Create an Account? Sign up
+              </Link>
+            </motion.div>
+          </motion.form>
+        </motion.div>
+      )}
     </div>
   );
 }
 
 //@ts-ignore
-const LabelInputContainer = ({ children, className = "" }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5 }}
-      className={cn("flex flex-col space-y-2 w-full", className)}
-    >
-      {children}
-    </motion.div>
-  );
-};
+const LabelInputContainer = ({ children }) => (
+  <div className="space-y-2">
+    {children}
+  </div>
+);
