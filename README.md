@@ -1,6 +1,6 @@
 # Brieffly
 
-**Brieffly** is a dynamic platform designed to help students memorize and test their understanding of complex formulas and concepts. Instead of simply summarizing formulas, Brieffly turns learning into an interactive experience by providing small, customizable quizzes that challenge users to recall and write down formulas accurately. It is built specifically for students preparing for competitive exams like IIT JEE, offering personalized and engaging tests that aid in effective memorization.
+**Brieffly** is an interactive platform designed to help students memorize and test their understanding of complex formulas and concepts in a dynamic way. Rather than simply summarizing formulas, Brieffly transforms learning into an engaging experience with customizable quizzes that prompt users to recall and apply formulas accurately. Built especially for competitive exams like IIT JEE, Brieffly generates questions using AI, ensuring that each quiz is unique and prevents students from memorizing fixed answers. This adaptive approach helps students truly understand and retain knowledge, as they can’t rely on rote memorization.
 
 ## Overview
 
@@ -10,7 +10,7 @@
 
 #### **Frontend**:
 - A user-friendly interface where users can take quizzes, test their memory, and check their understanding of formulas.
-- A quiz feature where users are tested to recall and fill in formulas.
+- A quiz feature where users are tested to recall and fill in formulas in **latex for ease of user**.
 - Personalized testing experience based on the user’s progress and formula history.
   
 #### **Backend**:
@@ -23,11 +23,6 @@
 #### **Appwrite Database**:
 - Stores user-related data, including test progress, past formula requests, and quiz history.
 - Tracks user performance to customize future tests based on their strengths and weaknesses.
-
-#### **Automatic DB Clearance**:
-- Clears inactive user data after 60 minutes of inactivity to maintain database efficiency. Users can regenerate data and resume their quizzes at any time.
-
-### System Flow
 
 #### **Client Interaction**:
 - Users start by selecting chapters or topics for their quizzes.
@@ -85,6 +80,13 @@ Contributions are welcome! Whether it’s feature suggestions, bug reports, or c
 GitHub Repo: [Brieffly](https://github.com/hegdeadithyak/Brieffly)
 
 ---
+
+# Video
+
+https://github.com/user-attachments/assets/174f521f-fb64-4964-a96a-840d277f2077
+
+
+
 
 ## Contributors
 
