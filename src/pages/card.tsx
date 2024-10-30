@@ -77,7 +77,7 @@ const Card: React.FC<CardProps> = ({ question }) => {
               disabled={selectedAnswer !== null}
             >
               <span className="flex-1">
-                <Latex>{`${optionLetter}) ${option}`}</Latex> {/* Display option with letter */}
+                <Latex> {option}</Latex> {/* Display option with letter */}
               </span>
               {isCorrect(option) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
               {isIncorrect(option) && <X className="w-5 h-5 text-red-600" />}

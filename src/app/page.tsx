@@ -84,7 +84,7 @@ export default function Home() {
               className="relative inline-block"
             >
               <h1 className="text-4xl sm:text-7xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
-                Brieffly: where formulas go on a diet!
+              Brieffly: Formulas, Simplified!
               </h1>
             </motion.div>
 
@@ -94,8 +94,8 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               className="text-3xl sm:text-3xl relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8"
             >
-              Get genius-level smarts in snack-sized cards—because who has time for long notes?
-            </motion.p>
+              Ace exams with quick, bite-sized cards that make complex formulas easy to digest—goodbye long notes, hello smart studying!
+              </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
