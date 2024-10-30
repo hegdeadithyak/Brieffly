@@ -36,9 +36,10 @@ const Card: React.FC<CardProps> = ({ question }) => {
     }
   };
 
+  const arr: string[] = ["a", "b", "c", "d"];
   const isCorrect = (option: string, index: number) => {
-    const answerLower = question.answer.trim().toLowerCase();
-    return option.trim().toLowerCase()[0] === answerLower || index.toString() === answerLower;
+    console.log(index);
+    return  arr[index] === question.answer.trim().toLowerCase();
   };
 
   const isIncorrect = (option: string, index: number) => {
@@ -80,7 +81,6 @@ const Card: React.FC<CardProps> = ({ question }) => {
               disabled={selectedAnswer !== null}
             >
               <span className="flex-1">
-                <span className="font-semibold mr-2">{optionLetter}.</span>
                 <Latex>{option}</Latex>
               </span>
               {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
