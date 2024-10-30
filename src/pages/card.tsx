@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from "react";
 import { Check, X } from "lucide-react";
 import Latex from "react-latex-next";
@@ -11,7 +13,7 @@ interface Question {
   level: string;
   title: string;
   options: string[];
-  answer: string; // This should be the first character of the correct option
+  answer: string; // This can be either the first character of the correct option or the index (0-based)
 }
 
 interface CardProps {
@@ -34,12 +36,13 @@ const Card: React.FC<CardProps> = ({ question }) => {
     }
   };
 
-  const isCorrect = (option: string) => {
-    return option.trim().toLowerCase()[0] === question.answer.trim().toLowerCase();
+  const isCorrect = (option: string, index: number) => {
+    const answerLower = question.answer.trim().toLowerCase();
+    return option.trim().toLowerCase()[0] === answerLower || index.toString() === answerLower;
   };
 
-  const isIncorrect = (option: string) => {
-    return selectedAnswer === option && !isCorrect(option);
+  const isIncorrect = (option: string, index: number) => {
+    return selectedAnswer === option && !isCorrect(option, index);
   };
 
   if (!question) {
@@ -70,17 +73,18 @@ const Card: React.FC<CardProps> = ({ question }) => {
               onClick={() => setSelectedAnswer(option)}
               className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center justify-between
                 ${selectedAnswer === option ? "border-2" : "border border-gray-200"}
-                ${isCorrect(option) && selectedAnswer === option ? "bg-green-50 border-green-500 text-green-700" : ""}
-                ${isIncorrect(option) ? "bg-red-50 border-red-500 text-red-700" : ""}
+                ${isCorrect(option, index) && selectedAnswer === option ? "bg-green-50 border-green-500 text-green-700" : ""}
+                ${isIncorrect(option, index) ? "bg-red-50 border-red-500 text-red-700" : ""}
                 ${!selectedAnswer ? "hover:bg-gray-50 hover:border-gray-300" : ""}
                 ${selectedAnswer && selectedAnswer !== option ? "opacity-70" : ""}`}
               disabled={selectedAnswer !== null}
             >
               <span className="flex-1">
-                <Latex> {option}</Latex> {/* Display option with letter */}
+                <span className="font-semibold mr-2">{optionLetter}.</span>
+                <Latex>{option}</Latex>
               </span>
-              {isCorrect(option) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
-              {isIncorrect(option) && <X className="w-5 h-5 text-red-600" />}
+              {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
+              {isIncorrect(option, index) && <X className="w-5 h-5 text-red-600" />}
             </button>
           );
         })}
