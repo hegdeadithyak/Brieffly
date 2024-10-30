@@ -18,7 +18,7 @@ function GridBackgroundDemo() {
 
 export default function AboutUs() {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col relative overflow-hidden font-inter">
+    <div className="min-h-screen bg-black text-white flex flex-col relative overflow-hidden font-inter ">
       <GridBackgroundDemo />
       <motion.div 
         initial={{ opacity: 0 }}
@@ -100,7 +100,7 @@ export default function AboutUs() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.6, ease: "easeOut" }}
-          className="mt-16 text-center"
+          className="mt-16 text-center flex justify-center"
         >
           <HoverBorderGradient
             containerClassName="rounded-full"
