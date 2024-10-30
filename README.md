@@ -83,6 +83,7 @@ GitHub Repo: [Brieffly](https://github.com/hegdeadithyak/Brieffly)
 
 # Video
 
+
 https://github.com/user-attachments/assets/174f521f-fb64-4964-a96a-840d277f2077
 
 
@@ -91,4 +92,7 @@ https://github.com/user-attachments/assets/174f521f-fb64-4964-a96a-840d277f2077
 ## Contributors
 
 - **Adithya Hegde Kota** ([@hegdeadithyak](https://github.com/hegdeadithyak))
-- **Honey Gyani** ([@honeygyani](https://github.com/honeygyani))
+  ![hegdeadithyak's Commits](https://github.com/user-attachments/assets/ec9bae78-1e78-4ec8-8703-59475a13f96b)
+- **Honey Gyani** ([@honeygyani](https://github.com/honeygyani)![honeygyani's Commits](https://github.com/user-attachments/assets/c8884f30-2c48-4aea-b892-03951d11470b)
+
+  
