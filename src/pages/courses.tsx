@@ -8,7 +8,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"  // Corrected import for app-based routing
 import { account } from "../appwrite"
 import "src/app/globals.css"
-import { sessionId } from "./signin"
+
 
 // Define your exams array
 const exams = [
@@ -43,7 +43,7 @@ export default function ExamsPage() {
       }
     }
     fetchUser()
-  }, [router])
+  }, [router, user])
 
   async function handleLogout() {
     try {

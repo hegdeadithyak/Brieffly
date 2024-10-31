@@ -117,7 +117,7 @@ export default function AboutUs() {
             containerClassName="rounded-full"
             as="button"
             className="bg-black/50 backdrop-blur-sm text-white flex items-center space-x-2 px-6 py-2"
-            onClick={() => (window.location.href = "/signin")}
+            onClick={() => (window.location.href = "/courses")}
           >
             <span>Get Started</span>
             <ArrowRight className="ml-2 h-5 w-5 text-white" />
