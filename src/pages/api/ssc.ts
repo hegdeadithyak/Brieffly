@@ -21,7 +21,7 @@ async function run(chapterName:string) {
         });
 
         const result = await model.generateContent(
-            `Generate some Test cards for Staff Selection Committee Exam both theoretical and numerical(if applicable) for chapter  ${chapterName}  which include, theoretical questions & neumarical questions(if applicable) and answers as options as A,B,C,D, part in latex of ${chapterName} in JSON format so it is useful to write SSC Exam. Include "level", "title", "Options","answer" Only return json nothing else.`
+            `Generate some Test cards for Competitive Exams on topic ${chapterName} All Theroretical and  Mathematical formulas and Descriptive and write four formulas as options as A,B,C,D, part in latex in JSON format so it is useful to revise concepts. Include "level", "title", "Options","answer" Only return json nothing else`
         );
 
         const responseText = await result.response.text();
@@ -81,7 +81,7 @@ function extractAndJsonify(inputString: string) {
             return jsonData;
         } catch (error: any) {
             console.error("JSON Parsing Error:", error.message);
-            return extractedString;
+            return { error: `Error decoding JSON: ${error.message}` };
         }
     } else {
         return { error: "Brackets not found" };
