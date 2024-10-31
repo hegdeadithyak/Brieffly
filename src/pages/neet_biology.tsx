@@ -54,9 +54,11 @@ export default function BiologyComponent() {
             <Link href="/" className="text-2xl font-bold text-white">
               Brieffly
             </Link>
+            <Link href="/" passHref>
             <Button variant="outline" className="border-white text-white hover:bg-white/20">
               Back to Home
             </Button>
+            </Link>
           </div>
         </nav>
         <main className="container mx-auto px-4 py-8">

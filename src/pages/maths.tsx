@@ -65,9 +65,15 @@ export default function Component() {
             <Link href="/" className="text-2xl font-bold text-white">
               Brieffly
             </Link>
-            <Button variant="outline" className="border-white text-white hover:bg-white/20">
-              Back to Home
-            </Button>
+
+             <Link href="/" passHref>
+            <Button 
+            variant="outline" 
+            className="border-white text-white hover:bg-white/20 hover:text-white transition-colors duration-300"
+              >
+            Back to Home
+          </Button>
+        </Link>
           </div>
         </nav>
         <main className="container mx-auto px-4 py-8">
