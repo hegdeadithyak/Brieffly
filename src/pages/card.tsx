@@ -1,8 +1,9 @@
-'use client'
+'use client';
 
 import React, { useState } from "react";
 import { Check, X } from "lucide-react";
 import Latex from "react-latex-next";
+import confetti from "canvas-confetti";
 import "katex/dist/katex.min.css";
 
 interface Option {
@@ -13,7 +14,7 @@ interface Question {
   level: string;
   title: string;
   options: string[];
-  answer: string; // This can be either the first character of the correct option or the index (0-based)
+  answer: string;
 }
 
 interface CardProps {
@@ -38,12 +39,22 @@ const Card: React.FC<CardProps> = ({ question }) => {
 
   const arr: string[] = ["a", "b", "c", "d"];
   const isCorrect = (option: string, index: number) => {
-    console.log(index);
-    return  arr[index] === question.answer.trim().toLowerCase();
+    return arr[index] === question.answer.trim().toLowerCase();
   };
 
   const isIncorrect = (option: string, index: number) => {
     return selectedAnswer === option && !isCorrect(option, index);
+  };
+
+  const handleAnswerSelection = (option: string, index: number) => {
+    setSelectedAnswer(option);
+    if (isCorrect(option, index)) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    }
   };
 
   if (!question) {
@@ -66,28 +77,25 @@ const Card: React.FC<CardProps> = ({ question }) => {
       </div>
 
       <div className="space-y-2 mt-4">
-        {question.options.map((option, index) => {
-          const optionLetter = String.fromCharCode(65 + index); // Generate option letters A, B, C, D, etc.
-          return (
-            <button
-              key={index}
-              onClick={() => setSelectedAnswer(option)}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center justify-between
+        {question.options.map((option, index) => (
+          <button
+            key={index}
+            onClick={() => handleAnswerSelection(option, index)}
+            className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center justify-between
                 ${selectedAnswer === option ? "border-2" : "border border-gray-200"}
                 ${isCorrect(option, index) && selectedAnswer === option ? "bg-green-50 border-green-500 text-green-700" : ""}
                 ${isIncorrect(option, index) ? "bg-red-50 border-red-500 text-red-700" : ""}
                 ${!selectedAnswer ? "hover:bg-gray-50 hover:border-gray-300" : ""}
                 ${selectedAnswer && selectedAnswer !== option ? "opacity-70" : ""}`}
-              disabled={selectedAnswer !== null}
-            >
-              <span className="flex-1">
-                <Latex>{option}</Latex>
-              </span>
-              {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
-              {isIncorrect(option, index) && <X className="w-5 h-5 text-red-600" />}
-            </button>
-          );
-        })}
+            disabled={selectedAnswer !== null}
+          >
+            <span className="flex-1">
+              <Latex>{option}</Latex>
+            </span>
+            {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
+            {isIncorrect(option, index) && <X className="w-5 h-5 text-red-600" />}
+          </button>
+        ))}
       </div>
     </div>
   );
