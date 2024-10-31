@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Search } from 'lucide-react'
 import { gsap } from 'gsap'
 import { useRouter } from 'next/navigation'
+import "src/app/globals.css"
 
 export default function AnimatedSearchPage() {
     const [query, setQuery] = useState('')
