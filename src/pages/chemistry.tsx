@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
 import "src/app/globals.css"
-import { useState } from "react"
+import { useRouter } from "next/navigation" // Import useRouter for navigation
 
 function GridBackgroundDemo() {
   return (
@@ -17,7 +17,6 @@ function GridBackgroundDemo() {
     </div>
   );
 }
-
 
 const chapters = [
   // Class 11
@@ -55,6 +54,7 @@ const chapters = [
 ]
 
 export default function Component() {
+  const router = useRouter();
   const words = [
     { text: "IIT JEE Chemistry", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
     { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
@@ -69,7 +69,11 @@ export default function Component() {
             <Link href="/" className="text-2xl font-bold text-white">
               Brieffly
             </Link>
-            <Button variant="outline" className="border-white text-white hover:bg-white/20">
+            <Button
+              variant="outline"
+              className="border-white text-white hover:bg-white/20"
+              onClick={() => router.push("/")}
+            >
               Back to Home
             </Button>
           </div>

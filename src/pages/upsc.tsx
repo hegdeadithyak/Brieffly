@@ -1,15 +1,17 @@
 'use client'
 
-import { motion } from "framer-motion"
-import { Book, LogOut, ChevronRight } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Book, LogOut, ChevronRight, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import "src/app/globals.css"
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"  // Corrected import for app-based routing
+import { account } from "../appwrite"
 
 const chapters = [
-  { id: 1, title: "Prelims",  path: "/prelims" },
-  { id: 2, title: "Mains",  path: "/mains" },
+  { id: 1, title: "Prelims", path: "/prelims" },
+  { id: 2, title: "Mains", path: "/mains" },
 ]
 
 function GridDotBackground() {
@@ -21,17 +23,79 @@ function GridDotBackground() {
 }
 
 export default function ChaptersPage() {
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        await account.get()
+      } catch {
+        router.push("/signin")
+      }
+    }
+    fetchUser()
+  }, [router])
+
+  async function handleLogout() {
+    try {
+      setIsLoggingOut(true)
+      await account.deleteSession("")
+      router.push("/")
+    } catch (error) {
+      console.error("Logout failed:", error)
+    } finally {
+      setIsLoggingOut(false)
+    }
+  }
+
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
       <GridDotBackground />
+      <AnimatePresence>
+        {isLoggingOut && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="bg-gray-900 p-8 rounded-lg shadow-lg text-white text-center"
+            >
+              <Loader2 className="w-12 h-12 mb-4 mx-auto animate-spin text-blue-500" />
+              <h2 className="text-2xl font-bold mb-2">Logging Out</h2>
+              <p className="text-gray-400">Please wait while we securely log you out...</p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
       <nav className="relative w-full p-4 from-black to-white backdrop-blur-sm top-0 z-10">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
             Brieffly
           </Link>
-          <Button variant="outline" className="text-white border-white hover:bg-gray-800 transition-colors">
-            Sign Out
-            <LogOut className="ml-2 h-4 w-4" />
+          <Button
+            variant="outline"
+            className="text-white border-white hover:bg-gray-800 transition-colors"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+          >
+            {isLoggingOut ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Signing Out
+              </>
+            ) : (
+              <>
+                Sign Out
+                <LogOut className="ml-2 h-4 w-4" />
+              </>
+            )}
           </Button>
         </div>
       </nav>
@@ -62,8 +126,8 @@ export default function ChaptersPage() {
   )
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string;  path: string } }) {
-  const [isHovered, setIsHovered] = useState(false);
+function ChapterCard({ chapter }: { chapter: { id: number; title: string; path: string } }) {
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <motion.div
