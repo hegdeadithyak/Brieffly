@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
-import "src/app/globals.css";
-import { Search } from 'lucide-react';
-import { gsap } from 'gsap';
-import { useRouter } from 'next/router';
+"use client"
 
+import React, { useState, useEffect, useRef } from 'react'
+import { Search } from 'lucide-react'
+import { gsap } from 'gsap'
+import { useRouter } from 'next/navigation'
 
-const AnimatedSearchPage: React.FC = () => {
-    const [query, setQuery] = useState('');
-    const titleRef = useRef(null);
-    const formRef = useRef(null);
+export default function AnimatedSearchPage() {
+    const [query, setQuery] = useState('')
+    const titleRef = useRef(null)
+    const formRef = useRef(null)
+    const messageRef = useRef(null)
     
-    const router = useRouter();
+    const router = useRouter()
     
-
     useEffect(() => {
         gsap.from(titleRef.current, {
             duration: 1.5,
             y: -100,
             opacity: 0,
             ease: "power4.out"
-        });
+        })
 
         gsap.from(formRef.current, {
             duration: 1.5,
@@ -27,22 +27,32 @@ const AnimatedSearchPage: React.FC = () => {
             opacity: 0,
             ease: "power4.inOut",
             delay: 0.5
-        });
-    }, []);
-
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-        router.push("/card",{
-            query : query
         })
+
+        gsap.from(messageRef.current, {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            ease: "power4.out",
+            delay: 1
+        })
+    }, [])
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        
         gsap.to(formRef.current, {
             duration: 0.3,
             scale: 1.1,
             yoyo: true,
             repeat: 1,
             ease: "power2.inOut"
-        });
-    };
+        })
+
+        if (query.trim()) {
+            router.push(`/search_card?subject=${encodeURIComponent(query.trim())}`)
+        }
+    }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-black">
@@ -66,14 +76,16 @@ const AnimatedSearchPage: React.FC = () => {
                     </div>
                     <button
                         className="mt-8 w-full p-4 text-xl text-white bg-blue-500 rounded-full hover:bg-blue-600 transition-colors duration-300"
-                        onClick={handleSubmit}
+                        type="submit"
                     >
                         Search
                     </button>
                 </form>
+                <p ref={messageRef} className="mt-6 text-center text-white text-lg">
+                    This feature is currently in beta. Please search for topic names only.<br />
+                    <span className="font-bold">Example: Verilog</span>
+                </p>
             </div>
         </div>
-    );
-};
-
-export default AnimatedSearchPage;
+    )
+}

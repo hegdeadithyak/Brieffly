@@ -13,10 +13,11 @@ import { sessionId } from "./signin"
 // Define your exams array
 const exams = [
   { id: 1, title: "IIT JEE", path: "/iitjee" },
-  { id: 2, title: "UPSC", path: "/upsc" },
+  { id: 2, title: "SEARCH", path: "/search" },
   { id: 3, title: "NEET", path: "/neet" },
   { id: 4, title: "BANKING", path: "/banking11" },
   { id: 5, title: "SSC", path: "/ssc" },
+  { id: 6, title: "UPSC", path: "/upsc" },
 ]
 
 function GridDotBackground() {
@@ -157,7 +158,7 @@ function ExamCard({ exam }: { exam: { id: number; title: string; path: string } 
             <Book className="text-gray-400 mr-3 h-6 w-6" />
             <h2 className="text-xl font-semibold text-white">{exam.title}</h2>
           </div>
-          {exam.title !== "IIT JEE" && (
+          {((exam.title !== "IIT JEE") && (exam.title !== "SEARCH")) && (
             <div className="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-bl-lg">
               Under Development
             </div>
