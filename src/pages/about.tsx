@@ -77,10 +77,21 @@ export default function AboutUs() {
         <h2 className="text-3xl font-bold text-center text-neutral-200 mb-8">Key Features</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { icon: Clock, title: "Real-Time Simulations", description: "Experience the pressure of timed exams to improve your time management skills." },
-            { icon: BookOpen, title: "Diverse Question Banks", description: "Access a wide range of questions across various subjects and difficulty levels." },
-            { icon: Brain, title: "Adaptive Learning", description: "Our system adapts to your performance, focusing on areas that need improvement." }
+          {[{
+              icon: Clock, 
+              title: "Real-Time Simulations", 
+              description: "Experience the pressure of timed exams to improve your time management skills." 
+            },
+            {
+              icon: BookOpen, 
+              title: "Diverse Question Banks", 
+              description: "Access a wide range of questions across various subjects and difficulty levels." 
+            },
+            {
+              icon: Brain, 
+              title: "Adaptive Learning", 
+              description: "Our system adapts to your performance, focusing on areas that need improvement."
+            }
           ].map((feature, index) => (
             <motion.div
               key={index}
@@ -100,7 +111,7 @@ export default function AboutUs() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.6, ease: "easeOut" }}
-          className="mt-16 text-center flex justify-center"
+          className="mt-16 flex justify-center items-center"
         >
           <HoverBorderGradient
             containerClassName="rounded-full"
