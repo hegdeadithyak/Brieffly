@@ -2,7 +2,7 @@
 import { Client, Account, ID } from "appwrite";
 
 const client = new Client().setEndpoint("https://cloud.appwrite.io/v1/")
-    .setProject('670b8c280000919250b8'); // Your project ID
+    .setProject(process.env.APPWRITE_ID); // Your project ID
 
 export const account = new Account(client);
 // const result = await account.create(
