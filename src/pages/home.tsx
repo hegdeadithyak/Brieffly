@@ -95,6 +95,7 @@ export default function Home() {
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin text-blue-400 mx-auto" />
           <p className="mt-4 text-gray-300 font-medium">Loading questions...</p>
+          <p className="mt-4 text-gray-300 font-small">Kindly refresh the page, if you cannot see formulas in Latex.</p>
         </div>
       )
     }
