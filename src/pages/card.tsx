@@ -97,7 +97,7 @@ const Card: React.FC<CardProps> = ({ question }) => {
               disabled={!!selectedAnswer}
             >
               <span className="flex-1">
-                <MathJax inline dynamic>{`\(${option}\)`}</MathJax>
+                <MathJax inline dynamic>{`\\(${option}\\)`}</MathJax>
               </span>
               {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
               {isIncorrect(option, index) && <X className="w-5 h-5 text-red-600" />}
