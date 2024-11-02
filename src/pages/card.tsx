@@ -1,71 +1,67 @@
-'use client';
+'use client'
 
-import React, { useState } from "react";
-import { Check, X } from "lucide-react";
-import confetti from "canvas-confetti";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import React, { useState } from "react"
+import { Check, X, RotateCcw } from "lucide-react"
+import confetti from "canvas-confetti"
+import { MathJax, MathJaxContext } from "better-react-mathjax"
+import "src/app/globals.css"
 
 interface Option {
-  option: string;
+  option: string
 }
 
 interface Question {
-  level: string;
-  title: string;
-  options: string[];
-  answer: string;
+  level: string
+  title: string
+  options: string[]
+  answer: string
 }
 
 interface CardProps {
-  question: Question;
+  question: Question
 }
 
 const Card: React.FC<CardProps> = ({ question }) => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [isIncorrectAttempt, setIsIncorrectAttempt] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
+  const [showTryAgain, setShowTryAgain] = useState(false)
 
   const getLevelColor = (level: string) => {
     const colors = {
       easy: "bg-green-100 text-green-800",
       medium: "bg-yellow-100 text-yellow-800",
       hard: "bg-red-100 text-red-800",
-    };
-    return colors[level.toLowerCase() as keyof typeof colors] || "bg-gray-100 text-gray-800";
-  };
+    }
+    return colors[level.toLowerCase() as keyof typeof colors] || "bg-gray-100 text-gray-800"
+  }
 
-  const answerLabels = ["a", "b", "c", "d"];
+  const answerLabels = ["a", "b", "c", "d"]
 
   const isCorrect = (option: string, index: number) =>
-    answerLabels[index] === question.answer.trim().toLowerCase();
+    answerLabels[index] === question.answer.trim().toLowerCase()
 
   const isIncorrect = (option: string, index: number) =>
-    selectedAnswer === option && !isCorrect(option, index);
+    selectedAnswer === option && !isCorrect(option, index)
 
   const handleAnswerSelection = (option: string, index: number) => {
-    setSelectedAnswer(option);
+    setSelectedAnswer(option)
     if (isCorrect(option, index)) {
       confetti({
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 },
-      });
-      setIsIncorrectAttempt(false); 
+      })
+      setShowTryAgain(false)
     } else {
-      setIsIncorrectAttempt(true); 
+      setShowTryAgain(true)
     }
-  };
-
-  const resetSelection = () => {
-    setSelectedAnswer(null);
-    setIsIncorrectAttempt(false);
-  };
-
-  if (!question) {
-    return <div>Loading...</div>;
   }
 
-  if (!question) return <div>Loading...</div>;
+  const handleTryAgain = () => {
+    setSelectedAnswer(null)
+    setShowTryAgain(false)
+  }
 
+  if (!question) return <div>Loading...</div>
 
   return (
     <MathJaxContext>
@@ -97,28 +93,27 @@ const Card: React.FC<CardProps> = ({ question }) => {
               disabled={!!selectedAnswer}
             >
               <span className="flex-1">
-                <MathJax inline dynamic>{`\\(${option}\\)`}</MathJax>
+                <MathJax inline dynamic>{`\$$${option}\$$`}</MathJax>
               </span>
               {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
               {isIncorrect(option, index) && <X className="w-5 h-5 text-red-600" />}
             </button>
           ))}
         </div>
-
-
-      {isIncorrectAttempt && (
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={resetSelection}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
-          >
-            Wrong Option Try Again
-          </button>
-        </div>
-      )}
-    </div>
+        {showTryAgain && (
+          <div className="mt-4 flex justify-center">
+            <button
+              onClick={handleTryAgain}
+              className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
+            >
+              <RotateCcw className="w-5 h-5 mr-2" />
+              Try Again
+            </button>
+          </div>
+        )}
+      </div>
     </MathJaxContext>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card
