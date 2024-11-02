@@ -22,6 +22,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ question }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [isIncorrectAttempt, setIsIncorrectAttempt] = useState(false);
 
   const getLevelColor = (level: string) => {
     const colors = {
@@ -48,10 +49,23 @@ const Card: React.FC<CardProps> = ({ question }) => {
         spread: 70,
         origin: { y: 0.6 },
       });
+      setIsIncorrectAttempt(false); 
+    } else {
+      setIsIncorrectAttempt(true); 
     }
   };
 
+  const resetSelection = () => {
+    setSelectedAnswer(null);
+    setIsIncorrectAttempt(false);
+  };
+
+  if (!question) {
+    return <div>Loading...</div>;
+  }
+
   if (!question) return <div>Loading...</div>;
+
 
   return (
     <MathJaxContext>
@@ -90,7 +104,19 @@ const Card: React.FC<CardProps> = ({ question }) => {
             </button>
           ))}
         </div>
-      </div>
+
+
+      {isIncorrectAttempt && (
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={resetSelection}
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
+          >
+            Wrong Option Try Again
+          </button>
+        </div>
+      )}
+    </div>
     </MathJaxContext>
   );
 };
