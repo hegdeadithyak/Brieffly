@@ -27,12 +27,12 @@ export default function ContactPage() {
           {/* First Contact Information Card */}
           <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-6">
             <CardHeader>
-              <CardTitle className="text-white font-inter">Customer Support</CardTitle>
+              <CardTitle className="text-white font-inter">Team Lead</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <ContactInfo icon={<Mail size={20} />} text="adithyahegdek@gmail.com" />
               <ContactInfo icon={<Phone size={20} />} text="+91-8555085536" />
-              <ContactInfo icon={<MapPin size={20} />} text="Amrita Vishwa Vidyapeetham,Amritapuri,kollam,Kerala" />
+              <ContactInfo icon={<MapPin size={20} />} text="Amrita Vishwa Vidyapeetham,Amritapuri,Kollam,Kerala" />
               <SocialLinks
                 twitter="https://x.com/HegdeKota92488"
                 instagram="https://www.instagram.com/adithyahegdekota"
@@ -45,12 +45,12 @@ export default function ContactPage() {
           {/* Second Contact Information Card */}
           <Card className="bg-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-6">
             <CardHeader>
-              <CardTitle className="text-white font-inter">Business Inquiries</CardTitle>
+              <CardTitle className="text-white font-inter">Co Lead</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <ContactInfo icon={<Mail size={20} />} text="honeygyani2004@gmail.com" />
               <ContactInfo icon={<Phone size={20} />} text="+91-7857095950" />
-              <ContactInfo icon={<MapPin size={20} />} text="Amrita Vishwa Vidyapeetham,Amritapuri,kollam,Kerala" />
+              <ContactInfo icon={<MapPin size={20} />} text="Amrita Vishwa Vidyapeetham,Amritapuri,Kollam,Kerala" />
               <SocialLinks
                 twitter="https://x.com/honeygyani"
                 instagram="https://www.instagram.com/gyanihoney/"
