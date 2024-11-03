@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 //@ts-ignore
 import { account, ID } from "src/appwrite";
 import "src/app/globals.css";
@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 
 function GridBackgroundDemo() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const handleMouseMove = (event:any) => {
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setMousePosition({
       x: event.clientX - rect.left,
@@ -35,9 +35,10 @@ export var sessionId = "";
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // State to store error message
+
   interface User {
     name: string;
-    // Add other properties as needed
   }
 
   const [user, setUser] = useState<User | null>(null);
@@ -45,7 +46,6 @@ export default function Home() {
   const [loadingUser, setLoadingUser] = useState(true);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  console.log({ user });
 
   useEffect(() => {
     async function getUser() {
@@ -60,7 +60,7 @@ export default function Home() {
     }
     getUser();
   }, []);
-  
+
   async function handleLogout() {
     try {
       await account.deleteSession(sessionid);
@@ -74,15 +74,16 @@ export default function Home() {
   async function handleLogin() {
     try {
       setLoading(true);
+      setError(""); // Clear any previous error message
       const session = await account.createEmailPasswordSession(email, password);
       const loggedInUser = await account.get();
-      // sessionId = loggedInUser;
-      router.push("/courses");
       setUser(loggedInUser);
+      router.push("/courses");
       setEmail("");
       setPassword("");
     } catch (e) {
       console.error("Login failed:", e);
+      setError("Invalid email or password"); // Set error message if login fails
     } finally {
       setLoading(false);
     }
@@ -97,7 +98,6 @@ export default function Home() {
         className="flex items-center justify-center min-h-screen bg-gray-900 bg-grid-small-white/[0.2]"
       >
         <GridBackgroundDemo />
-        
         <div className="bg-black p-8 max-w-sm mx-auto rounded-lg shadow-md">
           <div className="flex items-center space-x-4">
             <motion.svg
@@ -189,6 +189,7 @@ export default function Home() {
             className="space-y-6"
             onSubmit={(e) => e.preventDefault()}
           >
+            {error && <p className="text-red-500 text-lg">{error}</p>} {/* Error message */}
             <LabelInputContainer>
               <Label htmlFor="email" className="text-lg text-gray-300">
                 Email Address
@@ -224,18 +225,21 @@ export default function Home() {
               disabled={loading}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-3 font-medium focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 text-lg"
             >
-              {loading ? "Logging in..." : "Login"}
+              {loading ? "Signing in..." : "Sign in"}
             </motion.button>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-center mt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-center text-gray-400 mt-4"
             >
-              <Link href="/signup" className="text-blue-400 hover:text-blue-300 text-lg">
-                Create an Account? Sign up
-              </Link>
+              <p>
+                New to Brieffly?{" "}
+                <Link href="/signup" className="text-blue-500 hover:underline">
+                  Create an account
+                </Link>
+              </p>
             </motion.div>
           </motion.form>
         </motion.div>
@@ -244,9 +248,11 @@ export default function Home() {
   );
 }
 
-//@ts-ignore
-const LabelInputContainer = ({ children }) => (
-  <div className="space-y-2">
-    {children}
-  </div>
-);
+type LabelInputContainerProps = {
+  children: ReactNode;
+  className?: string;
+};
+
+function LabelInputContainer({ children, className }: LabelInputContainerProps) {
+  return <div className={cn("space-y-2", className)}>{children}</div>;
+}
