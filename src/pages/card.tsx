@@ -4,6 +4,11 @@ import React, { useState } from "react"
 import { Check, X, RotateCcw } from "lucide-react"
 import confetti from "canvas-confetti"
 import { MathJax, MathJaxContext } from "better-react-mathjax"
+import "src/app/globals.css"
+
+interface Option {
+  option: string
+}
 
 interface Question {
   level: string
@@ -16,7 +21,7 @@ interface CardProps {
   question: Question
 }
 
-export default function Component({ question }: CardProps) {
+const Card: React.FC<CardProps> = ({ question }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [showTryAgain, setShowTryAgain] = useState(false)
 
@@ -56,17 +61,18 @@ export default function Component({ question }: CardProps) {
     setShowTryAgain(false)
   }
 
+  // Helper function to add spaces as `\ ` for inline math mode
   const formatMathText = (text: string) =>
-    text.replace(/\s+/g, '\ ')
+    text.replace(/\s+/g, '\\ ')
 
   if (!question) return <div>Loading...</div>
 
   return (
     <MathJaxContext>
-      <div className="w-full max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-6 space-y-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
-        <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
-          <h3 className="text-xl font-bold text-gray-800 flex-1">
-            <MathJax inline dynamic>{`${formatMathText(question.title)}`}</MathJax>
+      <div className="w-full max-w-full bg-white rounded-xl shadow-lg p-6 space-y-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+        <div className="flex justify-between items-start">
+          <h3 className="text-xl font-bold text-gray-800 flex-1 break-words leading-relaxed text-justify">
+            <MathJax inline dynamic>{`\\(${formatMathText(question.title)}\\)`}</MathJax>
           </h3>
           <span
             className={`px-3 py-1 rounded-full text-sm font-medium ${getLevelColor(question.level || "Easy")}`}
@@ -88,11 +94,11 @@ export default function Component({ question }: CardProps) {
                 ${selectedAnswer && selectedAnswer !== option ? "opacity-70" : ""}`}
               disabled={!!selectedAnswer}
             >
-              <span className="flex-1 flex items-center min-h-[2.5rem]">
-                <MathJax inline dynamic>{`${formatMathText(option)}`}</MathJax>
+              <span className="flex-1 flex">
+                <MathJax inline dynamic>{`\\(${formatMathText(option)}\\)`}</MathJax>
               </span>
-              {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600 flex-shrink-0 ml-2" />}
-              {isIncorrect(option, index) && <X className="w-5 h-5 text-red-600 flex-shrink-0 ml-2" />}
+              {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}
+              {isIncorrect(option, index) && <X className="w-5 h-5 text-red-600" />}
             </button>
           ))}
         </div>
@@ -111,3 +117,5 @@ export default function Component({ question }: CardProps) {
     </MathJaxContext>
   )
 }
+
+export default Card
