@@ -6,33 +6,13 @@ import { Button } from "@/components/ui/button";
 import Card from "./card";
 import Link from "next/link";
 import "src/app/globals.css";
-import Latex from "react-latex-next"; // Import the Latex component
+import { GridBackgroundDemo } from "@/components/ui/grid";
 
 interface Question {
   level: string;
   title: string;
   options: string[];
   answer: string;
-}
-
-function GridBackgroundDemo() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
-  };
-
-  return (
-    <div onMouseMove={handleMouseMove} className="absolute inset-0 z-0">
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-      </div>
-    </div>
-  );
 }
 
 export default function Home() {
@@ -54,12 +34,14 @@ export default function Home() {
           chapterName: chaptername,
         });
         if (response.data && Array.isArray(response.data.formulas)) {
-          const formattedQuestions = response.data.formulas.map((item: any) => ({
-            level: item.level,
-            title: item.title,
-            options: item.Options,
-            answer: item.answer,
-          }));
+          const formattedQuestions = response.data.formulas.map(
+            (item: any) => ({
+              level: item.level,
+              title: item.title,
+              options: item.Options,
+              answer: item.answer,
+            })
+          );
           console.log(formattedQuestions);
           setQuestions(formattedQuestions);
         } else {
@@ -67,7 +49,9 @@ export default function Home() {
         }
       } catch (err: any) {
         setError(
-          err.response?.data?.message || err.message || "Something went wrong on our side"
+          err.response?.data?.message ||
+            err.message ||
+            "Something went wrong on our side"
         );
         setTimeout(() => {
           window.location.reload();
@@ -81,7 +65,9 @@ export default function Home() {
   }, []);
 
   const handleNext = () => {
-    setCurrentCardIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1));
+    setCurrentCardIndex((prevIndex) =>
+      Math.min(prevIndex + 1, questions.length - 1)
+    );
   };
 
   const handlePrev = () => {
@@ -95,7 +81,7 @@ export default function Home() {
           <Loader2 className="w-12 h-12 animate-spin text-blue-400 mx-auto" />
           <p className="mt-4 text-gray-300 font-medium">Loading questions...</p>
         </div>
-      )
+      );
     }
 
     if (error) {
@@ -115,7 +101,9 @@ export default function Home() {
             >
               <RefreshCcw className="w-12 h-12 text-gray-800" />
             </motion.div>
-            <h3 className="text-gray-800 font-semibold text-xl mb-4">Oops! Something went wrong</h3>
+            <h3 className="text-gray-800 font-semibold text-xl mb-4">
+              Oops! Something went wrong
+            </h3>
             <p className="text-gray-600 mb-4">
               Hold on, we're working on it. The page will refresh shortly...
             </p>
@@ -181,14 +169,17 @@ export default function Home() {
 
         <div className="text-center mt-8">
           <Link href="/" passHref>
-            <Button variant="ghost" className="text-blue-400 hover:text-blue-300">
+            <Button
+              variant="ghost"
+              className="text-blue-400 hover:text-blue-300"
+            >
               Back to Home
             </Button>
           </Link>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -197,5 +188,5 @@ export default function Home() {
         {renderContent()}
       </div>
     </div>
-  )
+  );
 }

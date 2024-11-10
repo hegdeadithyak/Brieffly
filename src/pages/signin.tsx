@@ -10,25 +10,7 @@ import { Label } from "src/components/ui/label";
 import { Input } from "src/components/ui/input";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-
-function GridBackgroundDemo() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
-  };
-
-  return (
-    <div onMouseMove={handleMouseMove} className="absolute inset-0 z-0">
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-      </div>
-    </div>
-  );
-}
+import { GridBackgroundDemo } from "@/components/ui/grid";
 
 export var sessionId = "";
 
@@ -108,7 +90,14 @@ export default function Home() {
               fill="none"
               viewBox="0 0 24 24"
             >
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
               <path
                 className="opacity-75"
                 fill="currentColor"
@@ -189,7 +178,8 @@ export default function Home() {
             className="space-y-6"
             onSubmit={(e) => e.preventDefault()}
           >
-            {error && <p className="text-red-500 text-lg">{error}</p>} {/* Error message */}
+            {error && <p className="text-red-500 text-lg">{error}</p>}{" "}
+            {/* Error message */}
             <LabelInputContainer>
               <Label htmlFor="email" className="text-lg text-gray-300">
                 Email Address
@@ -216,7 +206,6 @@ export default function Home() {
                 className="bg-gray-800 text-white border-gray-700 focus:border-blue-500 text-lg"
               />
             </LabelInputContainer>
-
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -227,7 +216,6 @@ export default function Home() {
             >
               {loading ? "Signing in..." : "Sign in"}
             </motion.button>
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -253,6 +241,9 @@ type LabelInputContainerProps = {
   className?: string;
 };
 
-function LabelInputContainer({ children, className }: LabelInputContainerProps) {
+function LabelInputContainer({
+  children,
+  className,
+}: LabelInputContainerProps) {
   return <div className={cn("space-y-2", className)}>{children}</div>;
 }

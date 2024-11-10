@@ -7,87 +7,74 @@ import { Loader2, ChevronLeft, ChevronRight, RefreshCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Card from "./card";
 import Link from "next/link";
+import { GridBackgroundDemo } from "@/components/ui/grid";
 import "src/app/globals.css";
 
 interface Question {
-  level: string
-  title: string
-  options: string[]
-  answer: string
-}
-
-function GridBackgroundDemo() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
-  };
-
-  return (
-    <div onMouseMove={handleMouseMove} className="absolute inset-0 z-0">
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-      </div>
-    </div>
-  );
+  level: string;
+  title: string;
+  options: string[];
+  answer: string;
 }
 
 export default function Home() {
-  const [questions, setQuestions] = useState<Question[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [currentCardIndex, setCurrentCardIndex] = useState<number>(0)
-  const [chapterName, setChapterName] = useState<string>("")
-  const [refreshing, setRefreshing] = useState(false)
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
+  const [chapterName, setChapterName] = useState<string>("");
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const urlParams = new URLSearchParams(window.location.search)
-      const chaptername = urlParams.get("subject") || "demo"
+      const urlParams = new URLSearchParams(window.location.search);
+      const chaptername = urlParams.get("subject") || "demo";
 
-      setChapterName(chaptername)
+      setChapterName(chaptername);
       try {
         const response = await axios.post("/api/ssc", {
           chapterName: chaptername,
-        })
+        });
         if (response.data && Array.isArray(response.data.formulas)) {
-          const formattedQuestions = response.data.formulas.map((item: any) => ({
-            level: item.level,
-            title: item.title,
-            options: item.Options,
-            answer: item.answer,
-          }))
-          console.log(formattedQuestions)
-          setQuestions(formattedQuestions)
+          const formattedQuestions = response.data.formulas.map(
+            (item: any) => ({
+              level: item.level,
+              title: item.title,
+              options: item.Options,
+              answer: item.answer,
+            })
+          );
+          console.log(formattedQuestions);
+          setQuestions(formattedQuestions);
         } else {
-          throw new Error("Invalid data format received from API")
+          throw new Error("Invalid data format received from API");
         }
       } catch (err: any) {
         setError(
-          err.response?.data?.message || err.message || "Something went wrong on our side"
-        )
+          err.response?.data?.message ||
+            err.message ||
+            "Something went wrong on our side"
+        );
         setTimeout(() => {
-          window.location.reload()
-        }, 3000)
+          window.location.reload();
+        }, 3000);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchQuestions()
-  }, [])
+    fetchQuestions();
+  }, []);
 
   const handleNext = () => {
-    setCurrentCardIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1))
-  }
+    setCurrentCardIndex((prevIndex) =>
+      Math.min(prevIndex + 1, questions.length - 1)
+    );
+  };
 
   const handlePrev = () => {
-    setCurrentCardIndex((prevIndex) => Math.max(prevIndex - 1, 0))
-  }
+    setCurrentCardIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
 
   const renderContent = () => {
     if (loading) {
@@ -96,7 +83,7 @@ export default function Home() {
           <Loader2 className="w-12 h-12 animate-spin text-blue-400 mx-auto" />
           <p className="mt-4 text-gray-300 font-medium">Loading questions...</p>
         </div>
-      )
+      );
     }
 
     if (error) {
@@ -116,7 +103,9 @@ export default function Home() {
             >
               <RefreshCcw className="w-12 h-12 text-gray-800" />
             </motion.div>
-            <h3 className="text-gray-800 font-semibold text-xl mb-4">Oops! Something went wrong</h3>
+            <h3 className="text-gray-800 font-semibold text-xl mb-4">
+              Oops! Something went wrong
+            </h3>
             <p className="text-gray-600 mb-4">
               Hold on, we're working on it. The page will refresh shortly...
             </p>
@@ -182,14 +171,17 @@ export default function Home() {
 
         <div className="text-center mt-8">
           <Link href="/" passHref>
-            <Button variant="ghost" className="text-blue-400 hover:text-blue-300">
+            <Button
+              variant="ghost"
+              className="text-blue-400 hover:text-blue-300"
+            >
               Back to Home
             </Button>
           </Link>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -198,5 +190,5 @@ export default function Home() {
         {renderContent()}
       </div>
     </div>
-  )
+  );
 }

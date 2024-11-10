@@ -1,20 +1,13 @@
-"use client"
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import { ArrowRight, Search, X } from "lucide-react"
-import { HoverBorderGradient } from "@/components/ui/hover_border_gradient"
-import { Navbar } from "@/components/ui/navbar-menu"
-import React, { useState, useEffect } from "react"
-import { account } from "src/appwrite"
-import { useRouter } from "next/navigation"
-
-function GridBackground() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  )
-}
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Search, X } from "lucide-react";
+import { HoverBorderGradient } from "@/components/ui/hover_border_gradient";
+import { Navbar } from "@/components/ui/navbar-menu";
+import React, { useState, useEffect } from "react";
+import { account } from "src/appwrite";
+import { useRouter } from "next/navigation";
+import { GridBackgroundDemo } from "@/components/ui/grid";
 
 //@ts-ignore
 function GradientButton({ children, onClick, icon: Icon }) {
@@ -28,17 +21,17 @@ function GradientButton({ children, onClick, icon: Icon }) {
       <span>{children}</span>
       <Icon className="ml-2 h-5 w-5 text-white" />
     </HoverBorderGradient>
-  )
+  );
 }
 
 //@ts-ignore
 function AnimatedSearchBar({ isOpen, setIsOpen, onSearch }) {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSubmit = (e:any) => {
-    e.preventDefault()
-    onSearch(searchTerm)
-  }
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    onSearch(searchTerm);
+  };
 
   return (
     <AnimatePresence>
@@ -69,62 +62,68 @@ function AnimatedSearchBar({ isOpen, setIsOpen, onSearch }) {
         </motion.form>
       )}
     </AnimatePresence>
-  )
+  );
 }
 
 export default function Home() {
-  const router = useRouter()
-  const [isUserSignedIn, setIsUserSignedIn] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const router = useRouter();
+  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     async function checkUser() {
       try {
-        const user = await account.get()
-        console.log("User:", user)
-        setIsUserSignedIn(true)
+        const user = await account.get();
+        console.log("User:", user);
+        setIsUserSignedIn(true);
       } catch (error) {
-        console.error("User not signed in:", error)
-        setIsUserSignedIn(false)
+        console.error("User not signed in:", error);
+        setIsUserSignedIn(false);
       }
     }
-    checkUser()
-  }, [])
+    checkUser();
+  }, []);
 
   const handleGetStarted = () => {
     if (isUserSignedIn) {
-      router.push("/courses")
+      router.push("/courses");
     } else {
-      router.push("/signin")
+      router.push("/signin");
     }
-  }
-//@ts-ignore
+  };
+  //@ts-ignore
 
   const handleSearch = (searchTerm) => {
     if (isUserSignedIn) {
-      router.push(`/search_card?subject=${encodeURIComponent(searchTerm.trim())}`)
+      router.push(
+        `/search_card?subject=${encodeURIComponent(searchTerm.trim())}`
+      );
     } else {
-      router.push("/signin")
+      router.push("/signin");
     }
-  }
+  };
 
   const handleStarOnGit = () => {
-    window.open("https://github.com/hegdeadithyak/Brieffly", "_blank")
-  }
+    window.open("https://github.com/hegdeadithyak/Brieffly", "_blank");
+  };
 
   return (
     <div className="min-h-screen bg-black flex flex-col relative overflow-hidden font-inter">
-     
       <Navbar />
 
-      <GridBackground />
+      <GridBackgroundDemo />
 
       <main className="flex-grow flex items-center justify-center relative z-10">
         <div className="text-center space-y-8 px-4 max-w-4xl">
           <motion.h1
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut", type: "spring", stiffness: 120 }}
+            transition={{
+              duration: 1,
+              ease: "easeOut",
+              type: "spring",
+              stiffness: 120,
+            }}
             className="text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8"
           >
             Brieffly: Formulas, Simplified!
@@ -136,7 +135,8 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="text-xl sm:text-3xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8"
           >
-            Ace exams with quick, bite-sized cards that make complex formulas easy to digest—goodbye long notes, hello smart studying!
+            Ace exams with quick, bite-sized cards that make complex formulas
+            easy to digest—goodbye long notes, hello smart studying!
           </motion.p>
 
           <motion.div
@@ -149,17 +149,24 @@ export default function Home() {
               <GradientButton onClick={handleGetStarted} icon={ArrowRight}>
                 Get Started
               </GradientButton>
-              <GradientButton onClick={() => setIsSearchOpen(!isSearchOpen)} icon={isSearchOpen ? X : Search}>
+              <GradientButton
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                icon={isSearchOpen ? X : Search}
+              >
                 {isSearchOpen ? "Close Search" : "Search Formulas"}
               </GradientButton>
               <GradientButton onClick={handleStarOnGit} icon={ArrowRight}>
                 Star on GitHub
               </GradientButton>
             </div>
-            <AnimatedSearchBar isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} onSearch={handleSearch} />
+            <AnimatedSearchBar
+              isOpen={isSearchOpen}
+              setIsOpen={setIsSearchOpen}
+              onSearch={handleSearch}
+            />
           </motion.div>
         </div>
       </main>
     </div>
-  )
+  );
 }

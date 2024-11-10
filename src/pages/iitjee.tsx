@@ -1,52 +1,44 @@
-'use client'
+"use client";
 
-import { motion } from "framer-motion"
-import { Book, LogOut, ChevronRight, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import "src/app/globals.css"
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation" // Corrected import for app-based routing
-import { account } from "../appwrite"
-import { sessionId } from "./signin"
+import { motion } from "framer-motion";
+import { Book, LogOut, ChevronRight, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import "src/app/globals.css";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Corrected import for app-based routing
+import { account } from "../appwrite";
+import { GridBackgroundDemo } from "@/components/ui/grid";
 
 // Define your chapters array
 const chapters = [
   { id: 2, title: "Mathematics", progress: 25, path: "/maths" },
   { id: 3, title: "Physics", progress: 50, path: "/physics" },
   { id: 4, title: "Chemistry", progress: 75, path: "/chemistry" },
-]
-
-function GridDotBackground() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  )
-}
+];
 
 export default function ChaptersPage() {
-  const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const router = useRouter()
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
-      setIsLoggingOut(true)
-      const accout_user = await account.get()
+      setIsLoggingOut(true);
+      const accout_user = await account.get();
       if (accout_user) {
-        await account.deleteSession("")
-        router.push("/")
+        await account.deleteSession("");
+        router.push("/");
       }
     } catch (error) {
-      console.error("Logout failed:", error)
+      console.error("Logout failed:", error);
     } finally {
-      setIsLoggingOut(false)
+      setIsLoggingOut(false);
     }
-  }
+  };
 
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
-      <GridDotBackground />
+      <GridBackgroundDemo />
       {isLoggingOut && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -62,13 +54,18 @@ export default function ChaptersPage() {
           >
             <Loader2 className="w-12 h-12 mb-4 mx-auto animate-spin text-blue-500" />
             <h2 className="text-2xl font-bold mb-2">Logging Out</h2>
-            <p className="text-gray-400">Please wait while we securely log you out...</p>
+            <p className="text-gray-400">
+              Please wait while we securely log you out...
+            </p>
           </motion.div>
         </motion.div>
       )}
       <nav className="relative w-full p-4 from-black to-white backdrop-blur-sm top-0 z-10">
         <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
+          <Link
+            href="/"
+            className="text-2xl font-bold text-white hover:text-gray-300 transition-colors"
+          >
             Brieffly
           </Link>
           <Button
@@ -115,16 +112,23 @@ export default function ChaptersPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; progress: number; path: string } }) {
-  const [isHovered, setIsHovered] = useState(false)
+function ChapterCard({
+  chapter,
+}: {
+  chapter: { id: number; title: string; progress: number; path: string };
+}) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
       className="bg-black rounded-lg overflow-hidden shadow-lg transition-all duration-300 ease-in-out border border-gray-800"
-      whileHover={{ scale: 1.05, boxShadow: "0 10px 30px -15px rgba(255, 255, 255, 0.1)" }}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "0 10px 30px -15px rgba(255, 255, 255, 0.1)",
+      }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
@@ -137,12 +141,17 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; progre
         <div className="relative z-10">
           <div className="flex items-center mb-4">
             <Book className="text-gray-400 mr-3 h-6 w-6" />
-            <h2 className="text-xl font-semibold text-white">{chapter.title}</h2>
+            <h2 className="text-xl font-semibold text-white">
+              {chapter.title}
+            </h2>
           </div>
         </div>
         <div className="flex justify-between items-center relative z-10">
           <Link href={chapter.path}>
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
+            <Button
+              variant="ghost"
+              className="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+            >
               Continue
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
@@ -150,5 +159,5 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; progre
         </div>
       </div>
     </motion.div>
-  )
+  );
 }

@@ -1,21 +1,20 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Book, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
-import "src/app/globals.css"
-
-function GridBackgroundDemo() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  );
-}
+import { motion } from "framer-motion";
+import { Book, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { GridBackgroundDemo } from "@/components/ui/grid";
+import "src/app/globals.css";
 
 // UPSC Preliminary Exam GS-I Topics
 const chapters = [
@@ -31,13 +30,21 @@ const chapters = [
   { id: 10, title: "Technology in India" },
   { id: 11, title: "Social Issues in India" },
   { id: 12, title: "Disaster Management" },
-]
+];
 
 export default function Component() {
   const words = [
-    { text: "UPSC Preliminary Examination", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
-    { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
-  ]
+    {
+      text: "UPSC Preliminary Examination",
+      className:
+        "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
+    {
+      text: "Chapters",
+      className:
+        "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
+  ];
 
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
@@ -49,9 +56,12 @@ export default function Component() {
               Brieffly
             </Link>
             <Link href="/" passHref>
-            <Button variant="outline" className="border-white text-white hover:bg-white/20">
-              Back to Home
-            </Button>
+              <Button
+                variant="outline"
+                className="border-white text-white hover:bg-white/20"
+              >
+                Back to Home
+              </Button>
             </Link>
           </div>
         </nav>
@@ -61,7 +71,9 @@ export default function Component() {
           </div>
 
           <div className="mb-12">
-            <h2 className="text-3xl font-inter mb-6  sm:text-4xl  bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Preliminary Examination Topics</h2>
+            <h2 className="text-3xl font-inter mb-6  sm:text-4xl  bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">
+              Preliminary Examination Topics
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {chapters.map((chapter, index) => (
                 <motion.div
@@ -78,7 +90,7 @@ export default function Component() {
         </main>
       </div>
     </div>
-  )
+  );
 }
 
 function ChapterCard({ chapter }: { chapter: { id: number; title: string } }) {
@@ -91,12 +103,19 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string } }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Badge variant="secondary" className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200">
+        <Badge
+          variant="secondary"
+          className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200"
+        >
           UPSC Chapter
         </Badge>
       </CardContent>
       <CardFooter className="pt-3 text-white">
-        <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref className="w-full">
+        <Link
+          href={`/home?subject=${encodeURIComponent(chapter.title)}`}
+          passHref
+          className="w-full"
+        >
           <Button
             variant="secondary"
             className="w-full bg-primary/10 hover:bg-primary/20 text-primary-foreground"
@@ -107,5 +126,5 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string } }) {
         </Link>
       </CardFooter>
     </Card>
-  )
+  );
 }
