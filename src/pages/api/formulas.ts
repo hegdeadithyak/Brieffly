@@ -51,36 +51,36 @@ export default async function handler(req:any, res:any) {
     }
 }
 
-function extractAndJsonify(inputString: string) {
+function extractAndJsonify(inputString:string) {
     const start = inputString.indexOf('[');
     const end = inputString.lastIndexOf(']');
+    
     if (start !== -1 && end !== -1) {
         const extractedString = inputString.slice(start, end + 1);
-        // console.log("Extracted String:", extractedString);
 
         try {
-            const formattedString = extractedString
-                .replace(/"Options":\s*{([^}]*)}/g, (_, p1) => {
-                    const optionsArray = p1
-                        .split(',')
-                        .map((option: string) => `"${option.trim().replace(/.*?:\s*/, '').trim()}"`);
-                    return `"Options": [${optionsArray.join(', ')}]`;
-                });
+            const formattedString = extractedString.replace(/"Options":\s*{([^}]*)}/g, (_, p1) => {
+                const optionsArray = p1
+                    .split(',')
+                    .map((option:any) => `"${option.trim().replace(/.*?:\s*/, '').trim()}"`);
+                return `"Options": [${optionsArray.join(', ')}]`;
+            });
 
-            const jsonData = JSON.parse(formattedString);
+            const items = JSON.parse(formattedString);
+            const parsedItems = [];
 
-            if (!Array.isArray(jsonData)) {
-                throw new Error("Parsed data is not an array");
+            for (let i = 0; i < items.length; i++) {
+                try {
+                    parsedItems.push(items[i]);
+                } catch (itemError:any) {
+                    console.error(`Parsing Error in item ${i}:`, itemError.message);
+                    break;
+                }
             }
 
-            jsonData.forEach((item: any, index: number) => {
-                if (!item.level || !item.title || !item.Options || !item.answer) {
-                    throw new Error(`Item at index ${index} is missing required fields`);
-                }
-            });
-            return jsonData;
-        } catch (error: any) {
-            console.error("JSON Parsing Error:", error.message);
+            return parsedItems;
+        } catch (error:any) {
+            console.error("Error processing string:", error.message);
             return { error: `Error decoding JSON: ${error.message}` };
         }
     } else {

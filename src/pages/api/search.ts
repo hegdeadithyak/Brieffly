@@ -13,7 +13,7 @@ const generationConfig = {
     responseMimeType: "text/plain",
 };
 
-async function run(chapterName:string) {
+async function run(chapterName: string) {
     try {
         const chatSession = model.startChat({
             generationConfig,
@@ -32,7 +32,7 @@ async function run(chapterName:string) {
     }
 }
 
-export default async function handler(req:any, res:any) {
+export default async function handler(req: any, res: any) {
     if (req.method === 'POST') {
         const { chapterName } = req.body;
 
@@ -41,7 +41,7 @@ export default async function handler(req:any, res:any) {
         try {
             const formulas = await run(chapterName);
             return res.status(200).json({ formulas });
-        } catch (error:any) {
+        } catch (error: any) {
             console.error("API Error:", error.message);
             return res.status(500).json({ error: error.message });
         }
