@@ -83,11 +83,7 @@ GitHub Repo: [Brieffly](https://github.com/hegdeadithyak/Brieffly)
 
 # Video
 
-
-https://github.com/user-attachments/assets/174f521f-fb64-4964-a96a-840d277f2077
-
-
-
+https://github.com/user-attachments/assets/cb502b5f-fcec-4b9f-98da-007869b75122
 
 ## Contributors
 
