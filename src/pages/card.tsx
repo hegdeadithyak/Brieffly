@@ -71,9 +71,9 @@ const Card: React.FC<CardProps> = ({ question }) => {
   }
 
   return (
-    <div className="max-w-xl bg-white rounded-xl shadow-lg p-6 space-y-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+    <div className="max-w-xl w-full sm:px-6 px-4 py-6 bg-white rounded-xl shadow-lg space-y-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 overflow-hidden">
       <div className="flex justify-between items-start">
-        <h3 className="text-xl font-bold text-gray-800">
+        <h3 className="text-xl font-bold text-gray-800 break-words sm:text-xl ">
           <Latex>{question.title}</Latex>
         </h3>
         <span
@@ -91,14 +91,14 @@ const Card: React.FC<CardProps> = ({ question }) => {
             key={index}
             onClick={() => handleAnswerSelection(option, index)}
             className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center justify-between
-                ${selectedAnswer === option ? "border-2" : "border border-gray-200"}
-                ${isCorrect(option, index) && selectedAnswer === option ? "bg-green-50 border-green-500 text-green-700" : ""}
-                ${isIncorrect(option, index) ? "bg-red-50 border-red-500 text-red-700" : ""}
-                ${!selectedAnswer ? "hover:bg-gray-50 hover:border-gray-300" : ""}
-                ${selectedAnswer && selectedAnswer !== option ? "opacity-70" : ""}`}
+              ${selectedAnswer === option ? "border-2" : "border border-gray-200"}
+              ${isCorrect(option, index) && selectedAnswer === option ? "bg-green-50 border-green-500 text-green-700" : ""}
+              ${isIncorrect(option, index) ? "bg-red-50 border-red-500 text-red-700" : ""}
+              ${!selectedAnswer ? "hover:bg-gray-50 hover:border-gray-300" : ""}
+              ${selectedAnswer && selectedAnswer !== option ? "opacity-70" : ""}`}
             disabled={selectedAnswer !== null}
           >
-            <span className="flex-1">
+            <span className="flex-1 break-words">
               <Latex>{option}</Latex>
             </span>
             {isCorrect(option, index) && selectedAnswer === option && <Check className="w-5 h-5 text-green-600" />}

@@ -1,16 +1,14 @@
 'use client'
 
 import { motion, AnimatePresence } from "framer-motion"
-import { Book, LogOut, ChevronRight, Loader2 } from "lucide-react"
+import { Book, LogOut, ChevronRight, Loader2, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"  // Corrected import for app-based routing
+import { useRouter } from "next/navigation"
 import { account } from "../appwrite"
 import "src/app/globals.css"
-import { sessionId } from "./signin"
 
-// Define your exams array
 const exams = [
   { id: 1, title: "IIT JEE", path: "/iitjee" },
   { id: 2, title: "SEARCH", path: "/search" },
@@ -36,8 +34,8 @@ export default function ExamsPage() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const accout_user = await account.get()
-        setUser(accout_user.$id)
+        const accountUser = await account.get()
+        setUser(accountUser.$id) // Replace `$id` with `$name` if a name is available.
       } catch {
         router.push("/signin")
       }
@@ -48,14 +46,11 @@ export default function ExamsPage() {
   async function handleLogout() {
     try {
       setIsLoggingOut(true)
-      const accout_user = await account.get()
-      if (accout_user) {
-        await account.deleteSession("")
-        router.push("/")
-      }
-      setUser('')
+      await account.deleteSession("current")
+      router.push("/")
+      setUser("")
     } catch (error) {
-      console.error('Logout failed:', error)
+      console.error("Logout failed:", error)
     } finally {
       setIsLoggingOut(false)
     }
@@ -90,29 +85,42 @@ export default function ExamsPage() {
           <Link href="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
             Brieffly
           </Link>
-          <Button
-            variant="outline"
-            className="text-white border-white hover:bg-gray-800 transition-colors"
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-          >
-            {isLoggingOut ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Signing Out
-              </>
+          <div className="flex items-center gap-4">
+            {user ? (
+              <div
+                className="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold text-lg cursor-pointer"
+                title={user} // Tooltip to show the full user ID/name
+                onClick={() => router.push('/profile')}
+              >
+                {user.charAt(0).toUpperCase()}
+              </div>
             ) : (
-              <>
-                Sign Out
-                <LogOut className="ml-2 h-4 w-4" />
-              </>
+              <User className="text-white h-8 w-8" />
             )}
-          </Button>
+            <Button
+              variant="outline"
+              className="text-white border-white hover:bg-gray-800 transition-colors"
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+            >
+              {isLoggingOut ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing Out
+                </>
+              ) : (
+                <>
+                  Sign Out
+                  <LogOut className="ml-2 h-4 w-4" />
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </nav>
 
       <main className="container mx-auto px-4 py-12 relative z-10">
-        <motion.h1 
+        <motion.h1
           className="text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-600"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
