@@ -87,7 +87,7 @@ export default function ExamsPage() {
             Brieffly
           </Link>
           <div className="flex items-center gap-4">
-            {user ? (
+            
               <div
                 className="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold text-lg cursor-pointer"
                 title={user} // Tooltip to show the full user ID/name
@@ -95,9 +95,7 @@ export default function ExamsPage() {
               >
                 {user.charAt(0).toUpperCase()}
               </div>
-            ) : (
-              // <User className="text-white h-8 w-8" />
-            )}
+            
             <Button
               variant="outline"
               className="text-white border-white hover:bg-gray-800 transition-colors"
