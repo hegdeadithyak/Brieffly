@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-'use client';
-
-import { motion } from "framer-motion";
-import { Book, ChevronRight, Loader2, LogOut } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import "src/app/globals.css";
-import { useState } from "react";
-import { useRouter } from "next/navigation"; // Corrected import for app-based routing
-import { account } from "../appwrite";
-=======
 "use client";
 
 import { motion } from "framer-motion";
@@ -21,29 +9,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Corrected import for app-based routing
 import { account } from "../appwrite";
 import { GridBackgroundDemo } from "@/components/ui/grid";
->>>>>>> 6b55381823591a1d6323f550688ba1d028679c43
 
 const chapters = [
   { id: 2, title: "Mathematics", progress: 25, path: "/maths" },
   { id: 3, title: "Physics", progress: 50, path: "/physics" },
   { id: 4, title: "Chemistry", progress: 75, path: "/chemistry" },
 ];
-<<<<<<< HEAD
-
-function GridDotBackground() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  );
-}
 
 export default function ChaptersPage() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-=======
-
-export default function ChaptersPage() {
->>>>>>> 6b55381823591a1d6323f550688ba1d028679c43
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
 
@@ -100,7 +73,6 @@ export default function ChaptersPage() {
             <button
               className="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold text-lg cursor-pointer"
               title="User Menu"
-              onClick={() => setIsSidebarOpen(true)}
             >
               U {/* Replace 'U' with dynamic user data when available */}
             </button>

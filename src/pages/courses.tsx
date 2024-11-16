@@ -96,7 +96,7 @@ export default function ExamsPage() {
                 {user.charAt(0).toUpperCase()}
               </div>
             ) : (
-              <User className="text-white h-8 w-8" />
+              // <User className="text-white h-8 w-8" />
             )}
             <Button
               variant="outline"
