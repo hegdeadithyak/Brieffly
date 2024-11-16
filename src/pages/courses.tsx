@@ -10,7 +10,6 @@ import { account } from "../appwrite";
 import "src/app/globals.css";
 import { GridBackgroundDemo } from "@/components/ui/grid";
 
-// Define your exams array
 const exams = [
   { id: 1, title: "IIT JEE", path: "/iitjee" },
   { id: 2, title: "SEARCH", path: "/search" },
@@ -87,24 +86,37 @@ export default function ExamsPage() {
           >
             Brieffly
           </Link>
-          <Button
-            variant="outline"
-            className="text-white border-white hover:bg-gray-800 transition-colors"
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-          >
-            {isLoggingOut ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Signing Out
-              </>
+          <div className="flex items-center gap-4">
+            {user ? (
+              <div
+                className="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold text-lg cursor-pointer"
+                title={user} // Tooltip to show the full user ID/name
+                onClick={() => router.push('/profile')}
+              >
+                {user.charAt(0).toUpperCase()}
+              </div>
             ) : (
-              <>
-                Sign Out
-                <LogOut className="ml-2 h-4 w-4" />
-              </>
+              <User className="text-white h-8 w-8" />
             )}
-          </Button>
+            <Button
+              variant="outline"
+              className="text-white border-white hover:bg-gray-800 transition-colors"
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+            >
+              {isLoggingOut ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing Out
+                </>
+              ) : (
+                <>
+                  Sign Out
+                  <LogOut className="ml-2 h-4 w-4" />
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </nav>
 

@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+'use client';
+
+import { motion } from "framer-motion";
+import { Book, ChevronRight, Loader2, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import "src/app/globals.css";
+import { useState } from "react";
+import { useRouter } from "next/navigation"; // Corrected import for app-based routing
+import { account } from "../appwrite";
+=======
 "use client";
 
 import { motion } from "framer-motion";
@@ -9,15 +21,29 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Corrected import for app-based routing
 import { account } from "../appwrite";
 import { GridBackgroundDemo } from "@/components/ui/grid";
+>>>>>>> 6b55381823591a1d6323f550688ba1d028679c43
 
-// Define your chapters array
 const chapters = [
   { id: 2, title: "Mathematics", progress: 25, path: "/maths" },
   { id: 3, title: "Physics", progress: 50, path: "/physics" },
   { id: 4, title: "Chemistry", progress: 75, path: "/chemistry" },
 ];
+<<<<<<< HEAD
+
+function GridDotBackground() {
+  return (
+    <div className="fixed inset-0 z-0">
+      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
+    </div>
+  );
+}
 
 export default function ChaptersPage() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+=======
+
+export default function ChaptersPage() {
+>>>>>>> 6b55381823591a1d6323f550688ba1d028679c43
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
 
@@ -60,6 +86,8 @@ export default function ChaptersPage() {
           </motion.div>
         </motion.div>
       )}
+
+      {/* Top Navigation */}
       <nav className="relative w-full p-4 from-black to-white backdrop-blur-sm top-0 z-10">
         <div className="container mx-auto flex justify-between items-center">
           <Link
@@ -68,27 +96,19 @@ export default function ChaptersPage() {
           >
             Brieffly
           </Link>
-          <Button
-            variant="outline"
-            className="text-white border-white hover:bg-gray-800 transition-colors"
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-          >
-            {isLoggingOut ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Signing Out
-              </>
-            ) : (
-              <>
-                Sign Out
-                <LogOut className="ml-2 h-4 w-4" />
-              </>
-            )}
-          </Button>
+          <div className="flex items-center gap-4">
+            <button
+              className="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold text-lg cursor-pointer"
+              title="User Menu"
+              onClick={() => setIsSidebarOpen(true)}
+            >
+              U {/* Replace 'U' with dynamic user data when available */}
+            </button>
+          </div>
         </div>
       </nav>
 
+      {/* Main Content */}
       <main className="container mx-auto px-4 py-12 relative z-10">
         <motion.h1
           className="text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-600"
@@ -133,11 +153,6 @@ function ChapterCard({
       onHoverEnd={() => setIsHovered(false)}
     >
       <div className="p-6 h-full flex flex-col justify-between relative overflow-hidden">
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 opacity-0"
-          animate={{ opacity: isHovered ? 0.5 : 0 }}
-          transition={{ duration: 0.3 }}
-        />
         <div className="relative z-10">
           <div className="flex items-center mb-4">
             <Book className="text-gray-400 mr-3 h-6 w-6" />

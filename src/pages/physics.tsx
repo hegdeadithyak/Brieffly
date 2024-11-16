@@ -78,6 +78,36 @@ export default function Component() {
             </Link>
           </div>
         </nav>
+      <nav className="w-full p-4 bg-black/50 backdrop-blur-sm">
+  <div className="container mx-auto flex justify-between items-center">
+    {/* Project Logo */}
+    <Link href="/" className="text-2xl font-bold text-white">
+      Brieffly
+    </Link>
+
+    {/* Navigation Controls */}
+    <div className="flex items-center gap-4">
+      {/* User Icon */}
+      <div
+        className="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold text-lg cursor-pointer"
+        title="User Profile"
+      >
+        U {/* Replace 'U' with dynamic user data when available */}
+      </div>
+
+      {/* Back to Home Button */}
+      <Link href="/" passHref>
+        <Button 
+          variant="outline" 
+          className="border-white text-white hover:bg-white/20 hover:text-white transition-colors duration-300"
+        >
+          Back to Home
+        </Button>
+      </Link>
+    </div>
+  </div>
+</nav>
+
         <main className="container mx-auto px-4 py-8">
           <div className="flex flex-col items-center mb-12">
             <TypewriterEffectSmooth words={words} />
