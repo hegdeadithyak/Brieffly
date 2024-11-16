@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client';
 
 import { motion } from "framer-motion";
@@ -8,12 +9,26 @@ import "src/app/globals.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // Corrected import for app-based routing
 import { account } from "../appwrite";
+=======
+"use client";
+
+import { motion } from "framer-motion";
+import { Book, LogOut, ChevronRight, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import "src/app/globals.css";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Corrected import for app-based routing
+import { account } from "../appwrite";
+import { GridBackgroundDemo } from "@/components/ui/grid";
+>>>>>>> 6b55381823591a1d6323f550688ba1d028679c43
 
 const chapters = [
   { id: 2, title: "Mathematics", progress: 25, path: "/maths" },
   { id: 3, title: "Physics", progress: 50, path: "/physics" },
   { id: 4, title: "Chemistry", progress: 75, path: "/chemistry" },
 ];
+<<<<<<< HEAD
 
 function GridDotBackground() {
   return (
@@ -25,6 +40,10 @@ function GridDotBackground() {
 
 export default function ChaptersPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+=======
+
+export default function ChaptersPage() {
+>>>>>>> 6b55381823591a1d6323f550688ba1d028679c43
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
 
@@ -45,37 +64,7 @@ export default function ChaptersPage() {
 
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
-      <GridDotBackground />
-
-      {/* Sidebar */}
-      <motion.div
-        initial={{ x: "-100%" }}
-        animate={{ x: isSidebarOpen ? 0 : "-100%" }}
-        transition={{ duration: 0.3 }}
-        className="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 shadow-lg p-6 text-white"
-      >
-        <button
-          className="absolute top-4 right-4 text-white hover:text-gray-400"
-          onClick={() => setIsSidebarOpen(false)}
-        >
-          Close
-        </button>
-        <nav className="mt-8 space-y-4">
-          <Link
-            href="/dashboard"
-            className="block text-lg hover:text-gray-300 transition-colors"
-          >
-            Dashboard
-          </Link>
-          <button
-            onClick={handleLogout}
-            className="block text-lg hover:text-gray-300 transition-colors"
-          >
-            Sign Out
-          </button>
-        </nav>
-      </motion.div>
-
+      <GridBackgroundDemo />
       {isLoggingOut && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -91,7 +80,9 @@ export default function ChaptersPage() {
           >
             <Loader2 className="w-12 h-12 mb-4 mx-auto animate-spin text-blue-500" />
             <h2 className="text-2xl font-bold mb-2">Logging Out</h2>
-            <p className="text-gray-400">Please wait while we securely log you out...</p>
+            <p className="text-gray-400">
+              Please wait while we securely log you out...
+            </p>
           </motion.div>
         </motion.div>
       )}
@@ -144,22 +135,38 @@ export default function ChaptersPage() {
   );
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; progress: number; path: string } }) {
+function ChapterCard({
+  chapter,
+}: {
+  chapter: { id: number; title: string; progress: number; path: string };
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <motion.div
       className="bg-black rounded-lg overflow-hidden shadow-lg transition-all duration-300 ease-in-out border border-gray-800"
-      whileHover={{ scale: 1.05, boxShadow: "0 10px 30px -15px rgba(255, 255, 255, 0.1)" }}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "0 10px 30px -15px rgba(255, 255, 255, 0.1)",
+      }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
       <div className="p-6 h-full flex flex-col justify-between relative overflow-hidden">
         <div className="relative z-10">
           <div className="flex items-center mb-4">
             <Book className="text-gray-400 mr-3 h-6 w-6" />
-            <h2 className="text-xl font-semibold text-white">{chapter.title}</h2>
+            <h2 className="text-xl font-semibold text-white">
+              {chapter.title}
+            </h2>
           </div>
         </div>
         <div className="flex justify-between items-center relative z-10">
           <Link href={chapter.path}>
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
+            <Button
+              variant="ghost"
+              className="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+            >
               Continue
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>

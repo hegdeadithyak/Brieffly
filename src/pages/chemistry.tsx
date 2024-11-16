@@ -1,28 +1,31 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Book, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
-import "src/app/globals.css"
-import { useRouter } from "next/navigation" // Import useRouter for navigation
-
-function GridBackgroundDemo() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  );
-}
+import { motion } from "framer-motion";
+import { Book, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import "src/app/globals.css";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import { GridBackgroundDemo } from "@/components/ui/grid";
 
 const chapters = [
   // Class 11
   { id: 1, title: "Some Basic Concepts of Chemistry", class: 11 },
   { id: 2, title: "Structure of Atom", class: 11 },
-  { id: 3, title: "Classification of Elements and Periodicity in Properties", class: 11 },
+  {
+    id: 3,
+    title: "Classification of Elements and Periodicity in Properties",
+    class: 11,
+  },
   { id: 4, title: "Chemical Bonding and Molecular Structure", class: 11 },
   { id: 5, title: "States of Matter", class: 11 },
   { id: 6, title: "Thermodynamics", class: 11 },
@@ -31,7 +34,11 @@ const chapters = [
   { id: 9, title: "Hydrogen", class: 11 },
   { id: 10, title: "s-Block Elements", class: 11 },
   { id: 11, title: "p-Block Elements", class: 11 },
-  { id: 12, title: "Organic Chemistry: Some Basic Principles and Techniques", class: 11 },
+  {
+    id: 12,
+    title: "Organic Chemistry: Some Basic Principles and Techniques",
+    class: 11,
+  },
   { id: 13, title: "Hydrocarbons", class: 11 },
   { id: 14, title: "Environmental Chemistry", class: 11 },
   // Class 12
@@ -40,7 +47,11 @@ const chapters = [
   { id: 17, title: "Electrochemistry", class: 12 },
   { id: 18, title: "Chemical Kinetics", class: 12 },
   { id: 19, title: "Surface Chemistry", class: 12 },
-  { id: 20, title: "General Principles and Processes of Isolation of Elements", class: 12 },
+  {
+    id: 20,
+    title: "General Principles and Processes of Isolation of Elements",
+    class: 12,
+  },
   { id: 21, title: "p-Block Elements", class: 12 },
   { id: 22, title: "d and f Block Elements", class: 12 },
   { id: 23, title: "Coordination Compounds", class: 12 },
@@ -51,14 +62,22 @@ const chapters = [
   { id: 28, title: "Biomolecules", class: 12 },
   { id: 29, title: "Polymers", class: 12 },
   { id: 30, title: "Chemistry in Everyday Life", class: 12 },
-]
+];
 
 export default function Component() {
   const router = useRouter();
   const words = [
-    { text: "IIT JEE Chemistry", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
-    { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
-  ]
+    {
+      text: "IIT JEE Chemistry",
+      className:
+        "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
+    {
+      text: "Chapters",
+      className:
+        "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
+  ];
 
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
@@ -101,7 +120,9 @@ export default function Component() {
 
           {[11, 12].map((classNum) => (
             <div key={classNum} className="mb-12">
-              <h2 className="text-3xl font-inter mb-6 sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Class {classNum}</h2>
+              <h2 className="text-3xl font-inter mb-6 sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">
+                Class {classNum}
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {chapters
                   .filter((chapter) => chapter.class === classNum)
@@ -121,10 +142,14 @@ export default function Component() {
         </main>
       </div>
     </div>
-  )
+  );
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; class: number } }) {
+function ChapterCard({
+  chapter,
+}: {
+  chapter: { id: number; title: string; class: number };
+}) {
   return (
     <Card className="bg-black/50 border-gray-800 hover:bg-black/70 transition-colors duration-300">
       <CardHeader className="pb-3">
@@ -134,12 +159,19 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Badge variant="secondary" className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200">
+        <Badge
+          variant="secondary"
+          className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200"
+        >
           Class {chapter.class}
         </Badge>
       </CardContent>
       <CardFooter className="pt-3 text-white">
-        <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref className="w-full">
+        <Link
+          href={`/home?subject=${encodeURIComponent(chapter.title)}`}
+          passHref
+          className="w-full"
+        >
           <Button
             variant="secondary"
             className="w-full bg-primary/10 hover:bg-primary/20 text-primary-foreground"
@@ -150,5 +182,5 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
         </Link>
       </CardFooter>
     </Card>
-  )
+  );
 }

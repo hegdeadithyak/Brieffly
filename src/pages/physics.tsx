@@ -1,22 +1,20 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Book, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
-import "src/app/globals.css"
-import { useState } from "react"
-
-function GridBackgroundDemo() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  );
-}
+import { motion } from "framer-motion";
+import { Book, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import "src/app/globals.css";
+import { GridBackgroundDemo } from "@/components/ui/grid";
 
 const chapters = [
   // Class 11
@@ -34,25 +32,52 @@ const chapters = [
   { id: 11, title: "Electrostatics", class: 12 },
   { id: 12, title: "Current Electricity", class: 12 },
   { id: 13, title: "Magnetic Effects of Current and Magnetism", class: 12 },
-  { id: 14, title: "Electromagnetic Induction and Alternating Currents", class: 12 },
+  {
+    id: 14,
+    title: "Electromagnetic Induction and Alternating Currents",
+    class: 12,
+  },
   { id: 15, title: "Electromagnetic Waves", class: 12 },
   { id: 16, title: "Optics", class: 12 },
   { id: 17, title: "Dual Nature of Matter and Radiation", class: 12 },
   { id: 18, title: "Atoms and Nuclei", class: 12 },
   { id: 19, title: "Electronic Devices", class: 12 },
   { id: 20, title: "Communication Systems", class: 12 },
-]
+];
 
 export default function Component() {
   const words = [
-    { text: "IIT JEE Physics", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
-    { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
-  ]
+    {
+      text: "IIT JEE Physics",
+      className:
+        "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
+    {
+      text: "Chapters",
+      className:
+        "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
+  ];
 
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
       <GridBackgroundDemo />
       <div className="relative z-10">
+        <nav className="w-full p-4 bg-black/50 backdrop-blur-sm">
+          <div className="container mx-auto flex justify-between items-center">
+            <Link href="/" className="text-2xl font-bold text-white">
+              Brieffly
+            </Link>
+            <Link href="/" passHref>
+              <Button
+                variant="outline"
+                className="border-white text-white hover:bg-white/20 hover:text-white transition-colors duration-300"
+              >
+                Back to Home
+              </Button>
+            </Link>
+          </div>
+        </nav>
       <nav className="w-full p-4 bg-black/50 backdrop-blur-sm">
   <div className="container mx-auto flex justify-between items-center">
     {/* Project Logo */}
@@ -90,7 +115,9 @@ export default function Component() {
 
           {[11, 12].map((classNum) => (
             <div key={classNum} className="mb-12">
-              <h2 className="text-3xl font-inter mb-6  sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Class {classNum}</h2>
+              <h2 className="text-3xl font-inter mb-6  sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">
+                Class {classNum}
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {chapters
                   .filter((chapter) => chapter.class === classNum)
@@ -110,10 +137,14 @@ export default function Component() {
         </main>
       </div>
     </div>
-  )
+  );
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; class: number } }) {
+function ChapterCard({
+  chapter,
+}: {
+  chapter: { id: number; title: string; class: number };
+}) {
   return (
     <Card className="bg-black/50 border-gray-800 hover:bg-black/70 transition-colors duration-300">
       <CardHeader className="pb-3">
@@ -123,12 +154,19 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Badge variant="secondary" className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200">
+        <Badge
+          variant="secondary"
+          className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200"
+        >
           Class {chapter.class}
         </Badge>
       </CardContent>
       <CardFooter className="pt-3 text-white">
-        <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref className="w-full">
+        <Link
+          href={`/home?subject=${encodeURIComponent(chapter.title)}`}
+          passHref
+          className="w-full"
+        >
           <Button
             variant="secondary"
             className="w-full bg-primary/10 hover:bg-primary/20 text-primary-foreground"
@@ -139,5 +177,5 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
         </Link>
       </CardFooter>
     </Card>
-  )
+  );
 }

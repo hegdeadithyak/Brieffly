@@ -1,13 +1,14 @@
-'use client'
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import { Book, LogOut, ChevronRight, Loader2, User } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { account } from "../appwrite"
-import "src/app/globals.css"
+import { motion, AnimatePresence } from "framer-motion";
+import { Book, LogOut, ChevronRight, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Corrected import for app-based routing
+import { account } from "../appwrite";
+import "src/app/globals.css";
+import { GridBackgroundDemo } from "@/components/ui/grid";
 
 const exams = [
   { id: 1, title: "IIT JEE", path: "/iitjee" },
@@ -16,49 +17,44 @@ const exams = [
   { id: 4, title: "BANKING", path: "/banking11" },
   { id: 5, title: "SSC", path: "/ssc" },
   { id: 6, title: "UPSC", path: "/upsc" },
-]
-
-function GridDotBackground() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  )
-}
+];
 
 export default function ExamsPage() {
-  const [user, setUser] = useState("")
-  const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const router = useRouter()
+  const [user, setUser] = useState("");
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchUser() {
       try {
-        const accountUser = await account.get()
-        setUser(accountUser.$id) // Replace `$id` with `$name` if a name is available.
+        const accout_user = await account.get();
+        setUser(accout_user.$id);
       } catch {
-        router.push("/signin")
+        router.push("/signin");
       }
     }
-    fetchUser()
-  }, [router])
+    fetchUser();
+  }, [router, user]);
 
   async function handleLogout() {
     try {
-      setIsLoggingOut(true)
-      await account.deleteSession("current")
-      router.push("/")
-      setUser("")
+      setIsLoggingOut(true);
+      const accout_user = await account.get();
+      if (accout_user) {
+        await account.deleteSession("");
+        router.push("/");
+      }
+      setUser("");
     } catch (error) {
-      console.error("Logout failed:", error)
+      console.error("Logout failed:", error);
     } finally {
-      setIsLoggingOut(false)
+      setIsLoggingOut(false);
     }
   }
 
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
-      <GridDotBackground />
+      <GridBackgroundDemo />
       <AnimatePresence>
         {isLoggingOut && (
           <motion.div
@@ -75,14 +71,19 @@ export default function ExamsPage() {
             >
               <Loader2 className="w-12 h-12 mb-4 mx-auto animate-spin text-blue-500" />
               <h2 className="text-2xl font-bold mb-2">Logging Out</h2>
-              <p className="text-gray-400">Please wait while we securely log you out...</p>
+              <p className="text-gray-400">
+                Please wait while we securely log you out...
+              </p>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
       <nav className="relative w-full p-4 from-black to-white backdrop-blur-sm top-0 z-10">
         <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
+          <Link
+            href="/"
+            className="text-2xl font-bold text-white hover:text-gray-300 transition-colors"
+          >
             Brieffly
           </Link>
           <div className="flex items-center gap-4">
@@ -142,16 +143,23 @@ export default function ExamsPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
-function ExamCard({ exam }: { exam: { id: number; title: string; path: string } }) {
-  const [isHovered, setIsHovered] = useState(false)
+function ExamCard({
+  exam,
+}: {
+  exam: { id: number; title: string; path: string };
+}) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
       className="bg-black rounded-lg overflow-hidden shadow-lg transition-all duration-300 ease-in-out border border-gray-800"
-      whileHover={{ scale: 1.05, boxShadow: "0 10px 30px -15px rgba(255, 255, 255, 0.1)" }}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "0 10px 30px -15px rgba(255, 255, 255, 0.1)",
+      }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
@@ -166,7 +174,7 @@ function ExamCard({ exam }: { exam: { id: number; title: string; path: string } 
             <Book className="text-gray-400 mr-3 h-6 w-6" />
             <h2 className="text-xl font-semibold text-white">{exam.title}</h2>
           </div>
-          {((exam.title !== "IIT JEE") && (exam.title !== "SEARCH")) && (
+          {exam.title !== "IIT JEE" && exam.title !== "SEARCH" && (
             <div className="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-bl-lg">
               Under Development
             </div>
@@ -174,7 +182,10 @@ function ExamCard({ exam }: { exam: { id: number; title: string; path: string } 
         </div>
         <div className="flex justify-between items-center relative z-10">
           <Link href={exam.path}>
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
+            <Button
+              variant="ghost"
+              className="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+            >
               Continue
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
@@ -182,5 +193,5 @@ function ExamCard({ exam }: { exam: { id: number; title: string; path: string } 
         </div>
       </div>
     </motion.div>
-  )
+  );
 }

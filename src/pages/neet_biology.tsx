@@ -3,20 +3,18 @@
 import { motion } from "framer-motion";
 import { Book, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { GridBackgroundDemo } from "@/components/ui/grid";
 import "src/app/globals.css";
-
-// Background Component
-function GridBackgroundDemo() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  );
-}
 
 // NEET Biology Chapters
 const biologyChapters = [
@@ -41,8 +39,16 @@ const chapters = [
 
 export default function BiologyComponent() {
   const words = [
-    { text: "NEET Biology", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
-    { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
+    {
+      text: "NEET Biology",
+      className:
+        "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
+    {
+      text: "Chapters",
+      className:
+        "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
   ];
 
   return (
@@ -55,9 +61,12 @@ export default function BiologyComponent() {
               Brieffly
             </Link>
             <Link href="/" passHref>
-            <Button variant="outline" className="border-white text-white hover:bg-white/20">
-              Back to Home
-            </Button>
+              <Button
+                variant="outline"
+                className="border-white text-white hover:bg-white/20"
+              >
+                Back to Home
+              </Button>
             </Link>
           </div>
         </nav>
@@ -108,7 +117,11 @@ export default function BiologyComponent() {
   );
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; class: number } }) {
+function ChapterCard({
+  chapter,
+}: {
+  chapter: { id: number; title: string; class: number };
+}) {
   return (
     <Card className="bg-black/50 border-gray-800 hover:bg-black/70 transition-colors duration-300">
       <CardHeader className="pb-3">
@@ -118,12 +131,19 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Badge variant="secondary" className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-800 to-neutral-200">
+        <Badge
+          variant="secondary"
+          className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-800 to-neutral-200"
+        >
           Class {chapter.class}
         </Badge>
       </CardContent>
       <CardFooter className="pt-3 text-white">
-        <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref className="w-full">
+        <Link
+          href={`/home?subject=${encodeURIComponent(chapter.title)}`}
+          passHref
+          className="w-full"
+        >
           <Button
             variant="secondary"
             className="w-full bg-primary/10 hover:bg-primary/20 text-primary-foreground"
@@ -137,7 +157,11 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
   );
 }
 
-function SubjectCard({ subject }: { subject: { id: number; title: string; path: string } }) {
+function SubjectCard({
+  subject,
+}: {
+  subject: { id: number; title: string; path: string };
+}) {
   return (
     <Card className="bg-black/50 border-gray-800 hover:bg-black/70 transition-colors duration-300">
       <CardHeader className="pb-3">

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Head from "next/head";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/react"
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -15,8 +16,14 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Brieffly",
+  title: {
+    template: '%s | Brieffly',
+    default: 'Brieffly', // This ensures all pages have "Brieffly" in the title
+  },
   description: "Built with Love 💝",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -26,15 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <title>Brieffly</title>
-        <link rel="icon" href="/src/app/favicon.ico" />
-      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <Analytics/>
+        <Analytics />
       </body>
     </html>
   );

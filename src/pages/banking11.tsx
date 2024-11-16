@@ -3,19 +3,18 @@
 import { motion } from "framer-motion";
 import { Book, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { GridBackgroundDemo } from "@/components/ui/grid";
 import "src/app/globals.css";
-
-function GridBackgroundDemo() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  );
-}
 
 // Updated Banking Chapters
 const chapters = [
@@ -31,8 +30,16 @@ const chapters = [
 
 export default function Component() {
   const words = [
-    { text: "Banking Exam Subjects", className: "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
-    { text: "Chapters", className: "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500" },
+    {
+      text: "Banking Exam Subjects",
+      className:
+        "text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
+    {
+      text: "Chapters",
+      className:
+        "text-xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500",
+    },
   ];
 
   return (
@@ -45,9 +52,12 @@ export default function Component() {
               Brieffly
             </Link>
             <Link href="/" passHref>
-            <Button variant="outline" className="border-white text-white hover:bg-white/20">
-              Back to Home
-            </Button>
+              <Button
+                variant="outline"
+                className="border-white text-white hover:bg-white/20"
+              >
+                Back to Home
+              </Button>
             </Link>
           </div>
         </nav>
@@ -57,7 +67,9 @@ export default function Component() {
           </div>
 
           <div className="mb-12">
-            <h2 className="text-3xl font-inter mb-6 sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">Banking Subjects</h2>
+            <h2 className="text-3xl font-inter mb-6 sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">
+              Banking Subjects
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {chapters.map((chapter, index) => (
                 <motion.div
@@ -77,7 +89,11 @@ export default function Component() {
   );
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; class: string } }) {
+function ChapterCard({
+  chapter,
+}: {
+  chapter: { id: number; title: string; class: string };
+}) {
   return (
     <Card className="bg-black/50 border-gray-800 hover:bg-black/70 transition-colors duration-300">
       <CardHeader className="pb-3">
@@ -87,12 +103,19 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; class:
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Badge variant="secondary" className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200">
+        <Badge
+          variant="secondary"
+          className="bg-primary/20 text-l sm:text-l font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral800-200 to-neutral-200"
+        >
           Subject: {chapter.class}
         </Badge>
       </CardContent>
       <CardFooter className="pt-3 text-white">
-        <Link href={`/home?subject=${encodeURIComponent(chapter.title)}`} passHref className="w-full">
+        <Link
+          href={`/home?subject=${encodeURIComponent(chapter.title)}`}
+          passHref
+          className="w-full"
+        >
           <Button
             variant="secondary"
             className="w-full bg-primary/10 hover:bg-primary/20 text-primary-foreground"

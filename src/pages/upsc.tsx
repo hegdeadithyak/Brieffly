@@ -1,57 +1,49 @@
-'use client'
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import { Book, LogOut, ChevronRight, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import "src/app/globals.css"
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"  // Corrected import for app-based routing
-import { account } from "../appwrite"
+import { motion, AnimatePresence } from "framer-motion";
+import { Book, LogOut, ChevronRight, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import "src/app/globals.css";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Corrected import for app-based routing
+import { account } from "../appwrite";
+import { GridBackgroundDemo } from "@/components/ui/grid";
 
 const chapters = [
   { id: 1, title: "Prelims", path: "/prelims" },
   { id: 2, title: "Mains", path: "/mains" },
-]
-
-function GridDotBackground() {
-  return (
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-black bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]" />
-    </div>
-  );
-}
-
+];
 export default function ChaptersPage() {
-  const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const router = useRouter()
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchUser() {
       try {
-        await account.get()
+        await account.get();
       } catch {
-        router.push("/signin")
+        router.push("/signin");
       }
     }
-    fetchUser()
-  }, [router])
+    fetchUser();
+  }, [router]);
 
   async function handleLogout() {
     try {
-      setIsLoggingOut(true)
-      await account.deleteSession("")
-      router.push("/")
+      setIsLoggingOut(true);
+      await account.deleteSession("");
+      router.push("/");
     } catch (error) {
-      console.error("Logout failed:", error)
+      console.error("Logout failed:", error);
     } finally {
-      setIsLoggingOut(false)
+      setIsLoggingOut(false);
     }
   }
 
   return (
     <div className="relative min-h-screen bg-black font-inter overflow-hidden">
-      <GridDotBackground />
+      <GridBackgroundDemo />
       <AnimatePresence>
         {isLoggingOut && (
           <motion.div
@@ -68,15 +60,20 @@ export default function ChaptersPage() {
             >
               <Loader2 className="w-12 h-12 mb-4 mx-auto animate-spin text-blue-500" />
               <h2 className="text-2xl font-bold mb-2">Logging Out</h2>
-              <p className="text-gray-400">Please wait while we securely log you out...</p>
+              <p className="text-gray-400">
+                Please wait while we securely log you out...
+              </p>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-      
+
       <nav className="relative w-full p-4 from-black to-white backdrop-blur-sm top-0 z-10">
         <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
+          <Link
+            href="/"
+            className="text-2xl font-bold text-white hover:text-gray-300 transition-colors"
+          >
             Brieffly
           </Link>
           <Button
@@ -101,7 +98,7 @@ export default function ChaptersPage() {
       </nav>
 
       <main className="container mx-auto px-4 py-12 relative z-10">
-        <motion.h1 
+        <motion.h1
           className="text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-600"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -123,16 +120,23 @@ export default function ChaptersPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
-function ChapterCard({ chapter }: { chapter: { id: number; title: string; path: string } }) {
-  const [isHovered, setIsHovered] = useState(false)
+function ChapterCard({
+  chapter,
+}: {
+  chapter: { id: number; title: string; path: string };
+}) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
       className="bg-black rounded-lg overflow-hidden shadow-lg transition-all duration-300 ease-in-out border border-gray-800"
-      whileHover={{ scale: 1.05, boxShadow: "0 10px 30px -15px rgba(255, 255, 255, 0.1)" }}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "0 10px 30px -15px rgba(255, 255, 255, 0.1)",
+      }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
@@ -145,12 +149,17 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; path: 
         <div className="relative z-10">
           <div className="flex items-center mb-4">
             <Book className="text-gray-400 mr-3 h-6 w-6" />
-            <h2 className="text-xl font-semibold text-white">{chapter.title}</h2>
+            <h2 className="text-xl font-semibold text-white">
+              {chapter.title}
+            </h2>
           </div>
         </div>
         <div className="flex justify-between items-center relative z-10">
           <Link href={chapter.path}>
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
+            <Button
+              variant="ghost"
+              className="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+            >
               Continue
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
@@ -158,5 +167,5 @@ function ChapterCard({ chapter }: { chapter: { id: number; title: string; path: 
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
